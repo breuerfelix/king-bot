@@ -37,6 +37,13 @@ class client:
 
         self.setConfig()
 
+    def headless(self, path):
+        options = webdriver.ChromeOptions()
+        options.add_argument('headless')
+        options.add_argument('window-size=1200x600')
+        self.driver = webdriver.Chrome(path, chrome_options=options)
+        self.setConfig()
+
     def setConfig(self):
         # set timeout to find an element in seconds
         self.driver.implicitly_wait(5)

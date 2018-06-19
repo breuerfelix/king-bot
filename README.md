@@ -11,6 +11,8 @@ How to use the Bot:
 3.  clone this repository
 4.  download chromedriver
     1.  [http://chromedriver.chromium.org](http://chromedriver.chromium.org)
+    2.  edit chromedriver path in `start.py`
+        1.  `browser.chrome('./chromedriver')`
 5.  store your login credentials
     1.  create `credentials.txt` file
     2.  write your email and password like following

@@ -4,3 +4,4 @@ __pycache__
 test.html
 credentials.txt
 .DS_Store
+currentSession.txt

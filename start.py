@@ -19,6 +19,10 @@ browser = client()
 if len(sys.argv) > 1 and sys.argv[1] == "-r":
     filename = './currentSession.txt'
     browser.remote(filename)
+elif len(sys.argv) > 1 and sys.argv[1] == "-h":
+    browser.headless('./chromedriver')
+    acc = account(browser, email, password)
+    acc.login(world)
 else:
     browser.chrome('./chromedriver')
     acc = account(browser, email, password)
@@ -26,6 +30,7 @@ else:
 
 game = gameworld(browser, world)
 
-game.enableAdventures()
-#vil = village(browser)
-# vil.upgrade(2)
+# game.enableAdventures() #auto starting adventures if possible
+# first param = village index second param = building slot id
+game.upgradeSlot(0, 1)
+game.upgradeSlot(0, 2)
