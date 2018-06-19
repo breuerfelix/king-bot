@@ -1,0 +1,6 @@
+.vscode
+chromedriver
+__pycache__
+test.html
+credentials.txt
+.DS_Store

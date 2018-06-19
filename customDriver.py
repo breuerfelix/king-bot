@@ -1,0 +1,86 @@
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium import webdriver
+import time
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
+from threading import RLock
+
+"""
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+"""
+
+
+class client:
+    def __init__(self):
+        self.driver = None
+        self.delay = None
+        self.lock = RLock()
+        pass
+
+    def chrome(self, path):
+        self.driver = webdriver.Chrome(path)
+        self.setConfig()
+        self.saveSession()
+
+    def remote(self, path):
+        file = open(path, "r")
+        content = file.read()
+        lines = content.split(";")
+        url = lines[0]
+        session = lines[1]
+
+        self.driver = webdriver.Remote(
+            command_executor=url, desired_capabilities=DesiredCapabilities.CHROME)
+        self.driver.session_id = session
+
+        self.setConfig()
+
+    def setConfig(self):
+        # set timeout to find an element in seconds
+        self.driver.implicitly_wait(5)
+        # set page load timeout in seconds
+        self.driver.set_page_load_timeout(10)
+        # standart delay in seconds for a wait
+        self.delay = 10
+
+    def use(self):
+        self.lock.acquire()
+
+    def done(self):
+        self.lock.release()
+
+    def get(self, page):
+        self.driver.get(page)
+
+    def find(self, xpath):
+        return self.driver.find_element_by_xpath(xpath)
+
+    def sleep(self, seconds):
+        time.sleep(seconds)
+
+    def click(self, element):
+        ActionChains(self.driver).move_to_element(element).click().perform()
+        self.sleep(0.5)
+
+    def saveSession(self):
+        url = self.driver.command_executor._url
+        session = self.driver.session_id
+
+        filename = './currentSession.txt'
+        semi = ';'
+
+        content = url + semi + session
+
+        try:
+            file = open(filename, "w")
+            file.write(content)
+            file.close()
+        except:
+            print('Error saving Session')
+
+    def writeSource(self):
+        file = open("test.html", "w")
+        file.write(self.driver.page_source)
+        file.close()
