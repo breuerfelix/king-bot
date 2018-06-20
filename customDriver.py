@@ -1,6 +1,7 @@
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium import webdriver
 import time
+from utils import log
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 from threading import RLock
@@ -16,6 +17,7 @@ class client:
     def __init__(self):
         self.driver = None
         self.delay = None
+        self._headless = False
         self.lock = RLock()
         pass
 
@@ -43,14 +45,13 @@ class client:
         options.add_argument('window-size=1200x600')
         self.driver = webdriver.Chrome(path, chrome_options=options)
         self.setConfig()
+        self._headless = True
 
     def setConfig(self):
         # set timeout to find an element in seconds
         self.driver.implicitly_wait(5)
         # set page load timeout in seconds
         self.driver.set_page_load_timeout(10)
-        # standart delay in seconds for a wait
-        self.delay = 10
 
     def use(self):
         self.lock.acquire()
@@ -65,6 +66,10 @@ class client:
         return self.driver.find_element_by_xpath(xpath)
 
     def sleep(self, seconds):
+        # reduce sleep time if in headless mode
+        if self._headless:
+            seconds = seconds / 2
+
         time.sleep(seconds)
 
     def click(self, element):
@@ -85,7 +90,7 @@ class client:
             file.write(content)
             file.close()
         except:
-            print('Error saving Session')
+            log('Error saving Session')
 
     def writeSource(self):
         file = open("test.html", "w")

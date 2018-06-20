@@ -1,7 +1,8 @@
 from threading import Thread
 import time
-from utils import closeModal
+from utils import closeModal, log
 from threading import Lock
+from selenium.webdriver.common.keys import Keys
 
 
 class gameworld:
@@ -27,7 +28,7 @@ class gameworld:
 
             self.initVillages()
         except:
-            print("no welcome screen found")
+            log("no welcome screen found")
         finally:
             self.browser.done()
 
@@ -45,13 +46,13 @@ class gameworld:
                 ".//a").get_attribute("innerHTML")
 
             self.villages.append(village(self.browser, name))
-            print("village {} added".format(name))
+            log("village {} added".format(name))
 
         closeModal(self.browser)
 
     def closeWelcomeScreen(self):
         wc = self.browser.find("//div[contains(@class, 'welcomeScreen')]")
-        print("closing welcome-screen")
+        log("closing welcome-screen")
         el = wc.find_element_by_xpath(
             ".//a[@class='closeWindow clickable']")
         self.browser.click(el)
@@ -74,7 +75,7 @@ class gameworld:
         time.sleep(2)
 
         while True:
-            print("adventure thread waking up")
+            log("adventure thread waking up")
 
             self.browser.use()
 
@@ -98,23 +99,26 @@ class gameworld:
 
                 if available:
                     self.browser.click(el)
-                    print("adventure started")
+                    log("adventure started")
                     self.browser.sleep(2)
 
                 closeModal(self.browser)
             except:
-                print("error starting adventure - closing window")
+                log("error starting adventure - closing window")
                 try:
                     closeModal(self.browser)
                 except:
-                    print("error closing window - refreshing page")
+                    log("error closing window - refreshing page")
                     self.browser.get(
                         'https://{}.kingdoms.com'.format(self.world))
 
             self.browser.done()
 
-            print("adventure thread sleeping")
+            log("adventure thread sleeping")
             time.sleep(self.delayCheckAdventures)
+
+    def startFarming(self, village, farmlists, interval):
+        self.villages[village].startFarming(farmlists, interval)
 
 
 class village:
@@ -139,7 +143,7 @@ class village:
         try:
             self.initResourceFields()
         except:
-            print("error init village")
+            log("error init village")
         finally:
             self.browser.done()
 
@@ -156,6 +160,12 @@ class village:
     def openVillage(self):
         btn = self.browser.find("//a[@id='optimizly_mainnav_village']")
         self.browser.click(btn)
+
+    def openBuilding(self, building):
+        img = self.browser.find(
+            "//img[@id='buildingImage{}']".format(building))
+        self.browser.click(img)
+        self.browser.sleep(0.5)
 
     def upgrade(self, slotnumber):
         slot = None
@@ -204,7 +214,7 @@ class village:
         time.sleep(3)
 
         while True:
-            print("building queue village {} waking up".format(self.name))
+            log("building queue village {} waking up".format(self.name))
             delay = 60
 
             self.lock.acquire()
@@ -218,8 +228,8 @@ class village:
                     del self.upgradeList[0]
                     self.openResources()
             except:
-                print("error upgrading village slot " +
-                      str(self.upgradeList[0].id))
+                log("error upgrading village slot " +
+                    str(self.upgradeList[0].id))
             finally:
                 self.browser.done()
 
@@ -231,10 +241,61 @@ class village:
                 delay = self.getRemainingBuildingTime()
 
             self.lock.release()
-            print("building queue village {} sleeping".format(self.name))
+            log("building queue village {} sleeping".format(self.name))
 
             # todo modify
             time.sleep(delay)
+
+    def startFarming(self, farmlists, interval):
+        t = Thread(target=self.startFarming_thread, args=[farmlists, interval])
+        t.start()
+
+    def startFarming_thread(self, farmlists, interval):
+        # todo exit when in beginners protection
+        time.sleep(3)
+
+        while True:
+            log("farming thread in village {} waking up".format(self.name))
+
+            self.browser.use()
+
+            try:
+                self.openVillage()
+                self.openBuilding(32)
+                self.browser.sleep(1)
+                tab = self.browser.find(
+                    "//a[contains(@class, 'tab naviTabFarmList')]")
+                self.browser.click(tab)
+                self.browser.sleep(1)
+                table = self.browser.find(
+                    "//div[@class='farmList']")
+                table = self.browser.find(
+                    ".//table[contains(@class, 'farmListsOverviewTable')]")
+                lists = table.find_elements_by_xpath(
+                    ".//tbody")
+
+                for i in farmlists:
+                    cb = lists[i].find_element_by_xpath(
+                        ".//input[@type='checkbox']")
+                    # cb.send_keys(Keys.SPACE)
+                    self.browser.click(cb)
+
+                self.browser.sleep(0.5)
+                btn = self.browser.find(
+                    "//button[contains(@class, 'startRaid')]")
+                self.browser.click(btn)
+                log("farmlist sent")
+
+                self.browser.sleep(0.5)
+
+                closeModal(self.browser)
+            except:
+                log("error sending farm lists in village {}".format(self.name))
+            finally:
+                self.browser.done()
+
+            log("farming thread in village {} sleeping".format(self.name))
+            time.sleep(interval)
 
 
 class slot:
@@ -262,7 +323,7 @@ class slot:
         self.browser.click(el)
         self.browser.sleep(0.5)
 
-        print("added slot: {} to queue".format(self.id))
+        log("added slot: {} to queue".format(self.id))
 
     def findSlot(self):
         el_list = self.browser.driver.find_elements_by_xpath(

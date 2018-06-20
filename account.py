@@ -1,3 +1,6 @@
+from utils import log
+
+
 class account:
     def __init__(self, browser, email, password):
         self.email = email
@@ -35,7 +38,7 @@ class account:
                 "//span[contains(text(), '{}')]/following::button[@type='button']".format(self.world)).click()
             self.browser.sleep(8)
         except:
-            print("Failed to Login.")
+            log("Failed to Login.")
             pass
         finally:
             self.browser.done()
@@ -43,7 +46,7 @@ class account:
     def checkNotification(self):
         try:
             self.browser.find("//body[contains(@class, 'modal-open')]")
-            print('closing notification-modal')
+            log('closing notification-modal')
             self.browser.find("//button[@class='close']").click()
             self.browser.sleep(1)
         except:
