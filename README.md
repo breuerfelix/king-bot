@@ -2,7 +2,7 @@
 
 Check out the official site: [kingbot.scriptworld.net](https://kingbot.scriptworld.net)
 
-## installation
+# installation
 
 1.  install python3 for your system
     1.  [get python](https://www.python.org/downloads/)
@@ -28,13 +28,13 @@ Check out the official site: [kingbot.scriptworld.net](https://kingbot.scriptwor
     1.  `python3 start.py`
     2.  read documentation for options like remote browser or headless browsing
 
-## documentation
+# documentation
 
 the first code snippet in each section always shows some example implementation of the action you want to perform.
 
-### specify the bot
+## specify the bot
 
-#### farmlists
+### farmlists
 
 ```python
 # sends farmlist with index 1 (the one after the starter list) in your first village (index 0) in an interval of 60 seconds
@@ -49,7 +49,7 @@ index of village (0 is the first village)
 
 **second param:**  
 index of farmlist (0 is the starter list with only 10 farms)  
-must be an **array**! you can send multiple lists in this interval
+must be an _array_! you can send multiple lists in this interval
 
 **third param:**  
 interval of sending the list _in seconds_
@@ -57,7 +57,7 @@ interval of sending the list _in seconds_
 you can stack as many of them together if you want.  
 it's also possible to send different farmlist in the same village in different intervals.
 
-#### adventures
+### adventures
 
 ```python
 game.enableAdventures()
@@ -66,7 +66,7 @@ game.enableAdventures()
 this enables auto sending the hero on adventures.  
 be careful if the hero in low on health! there is no stopping mechanism for now.
 
-#### upgrade resource fields
+### upgrade resource fields
 
 ```python
 game.upgradeSlot(0, 5)
@@ -79,9 +79,9 @@ these stay the same no matter what kind of village you have (even in 15er crop v
 
 ![resource-fields](https://scriptworld.net/assets/king-bot/resourceFields.png)
 
-### start options
+## start options
 
-#### remote browser
+### remote browser
 
 ```bash
 $ python3 start.py -r
@@ -90,7 +90,7 @@ $ python3 start.py -r
 if the script exists because of an exception, it's possible to re-use the browser session so you don't have to go through the whole login process again.  
 just don't exit the browser window and make sure to remove the functions in the script, which the bot already completed in last session.
 
-#### headless browsing
+### headless browsing
 
 ```bash
 $ python3 start.py -h
