@@ -1,15 +1,13 @@
-from customDriver import client
-from account import account
-from gameworld import gameworld, village
+from src import client, account, gameworld
 import sys
 
 # settings
-chromedriverPath = './chromedriver'
+chromedriverPath = './assets/chromedriver'
 world = 'COM4'  # choose uppercase (exact world name)
 
 # settings path
-credentialsPath = "credentials.txt"
-currentSessionPath = './currentSession.txt'
+credentialsPath = "./assets/credentials.txt"
+currentSessionPath = './assets/currentSession.txt'
 
 # read login credentials
 file = open(credentialsPath, "r")
@@ -41,7 +39,7 @@ game = gameworld(browser, world)
 
 # game.enableAdventures() #auto starting adventures if possible
 # first param = village index second param = building slot id
-#game.upgradeSlot(0, 1)
+game.upgradeSlot(0, 1)
 
 # village, farmlist, interval in seconds
-#game.startFarming(0, [1], 60)
+game.startFarming(0, [1], 60)

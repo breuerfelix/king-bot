@@ -1,7 +1,7 @@
 .vscode
 chromedriver
 __pycache__
-test.html
+source.html
 credentials.txt
 .DS_Store
 currentSession.txt

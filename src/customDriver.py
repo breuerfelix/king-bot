@@ -1,7 +1,7 @@
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium import webdriver
 import time
-from utils import log
+from .utils import log
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 from threading import RLock
@@ -80,7 +80,7 @@ class client:
         url = self.driver.command_executor._url
         session = self.driver.session_id
 
-        filename = './currentSession.txt'
+        filename = './assets/currentSession.txt'
         semi = ';'
 
         content = url + semi + session
@@ -93,6 +93,6 @@ class client:
             log('Error saving Session')
 
     def writeSource(self):
-        file = open("test.html", "w")
+        file = open("./source.html", "w")
         file.write(self.driver.page_source)
         file.close()
