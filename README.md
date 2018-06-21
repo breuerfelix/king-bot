@@ -2,8 +2,7 @@
 
 check out the insights of this project: [kingbot.scriptworld.net](https://kingbot.scriptworld.net)
 
-feel free to join the project or contact me! (:  
-[email me](mailto:f.breuer@scriptworld.net)
+feel free to join the project or contact me! [email me (:](mailto:f.breuer@scriptworld.net)
 
 [![Build Status](https://travis-ci.org/scriptworld-git/king-bot.svg?branch=master)](https://travis-ci.org/scriptworld-git/king-bot)
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/scriptworld-git/king-bot/blob/master/LICENSE)
