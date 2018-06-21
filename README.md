@@ -109,4 +109,4 @@ the console window will inform you about important actions the bot will do.
 
 ---
 
-_i love lower case_
+_i love lowercase_
