@@ -5,4 +5,4 @@ python:
 install:
   - pip3 install selenium
 script:
-  - python3 start.py
+  - python3 start.py -t

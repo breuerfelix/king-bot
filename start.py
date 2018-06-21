@@ -27,6 +27,8 @@ elif len(sys.argv) > 1 and sys.argv[1] == "-h":
     browser.headless(chromedriverPath)
     acc = account(browser, email, password)
     acc.login(world)
+elif len(sys.argv) > 1 and sys.argv[1] == "-t":
+    exit
 else:
     browser.chrome(chromedriverPath)
     acc = account(browser, email, password)
