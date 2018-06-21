@@ -1,3 +1,8 @@
-language: python
-install: pip3 install selenium
-script: python3 start.py
+language:
+  - python
+rvm:
+  - 3.6
+install:
+  - pip3 install selenium
+script:
+  - python3 start.py
