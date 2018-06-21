@@ -3,6 +3,7 @@
 Check out the official site: [kingbot.scriptworld.net](https://kingbot.scriptworld.net)
 
 ![CocoaPods](https://img.shields.io/cocoapods/l/AFNetworking.svg)
+![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg)
 
 # installation
 
