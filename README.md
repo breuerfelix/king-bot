@@ -2,6 +2,8 @@
 
 Check out the official site: [kingbot.scriptworld.net](https://kingbot.scriptworld.net)
 
+![CocoaPods](https://img.shields.io/cocoapods/l/AFNetworking.svg)
+
 # installation
 
 1.  install python3 for your system
