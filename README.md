@@ -2,8 +2,10 @@
 
 Check out the official site: [kingbot.scriptworld.net](https://kingbot.scriptworld.net)
 
-![CocoaPods](https://img.shields.io/cocoapods/l/AFNetworking.svg)
-![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg)
+[![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/scriptworld-git/king-bot/blob/master/LICENSE)
+[![built with Selenium](https://img.shields.io/badge/built%20with-Selenium-yellow.svg)](https://github.com/SeleniumHQ/selenium)
+[![built with Python3](https://img.shields.io/badge/built%20with-Python3-red.svg)](https://www.python.org/)
+[![Build Status](https://travis-ci.org/scriptworld-git/king-bot.svg?branch=master)](https://travis-ci.org/scriptworld-git/king-bot)
 
 # installation
 
