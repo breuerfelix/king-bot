@@ -1,8 +1,8 @@
 # king-bot
 
-Check out the insights of this project: [kingbot.scriptworld.net](https://kingbot.scriptworld.net)
+check out the insights of this project: [kingbot.scriptworld.net](https://kingbot.scriptworld.net)
 
-Feel free to join the project or contact me! (:
+feel free to join the project or contact me! (:
 
 [![Build Status](https://travis-ci.org/scriptworld-git/king-bot.svg?branch=master)](https://travis-ci.org/scriptworld-git/king-bot)
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/scriptworld-git/king-bot/blob/master/LICENSE)
@@ -106,3 +106,7 @@ $ python3 start.py -h
 
 if you don't wont a browser window to pop up, or using the script on a dedicated server with no gui, it is possible to run the script in headless mode.  
 the console window will inform you about important actions the bot will do.
+
+---
+
+_i love lower case_
