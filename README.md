@@ -12,10 +12,11 @@ Check out the official site: [kingbot.scriptworld.net](https://kingbot.scriptwor
 3.  clone this repository
 4.  download chromedriver for your system
     1.  [get chromederiver](http://chromedriver.chromium.org)
-    2.  edit chromedriver path in `start.py` line 7
+    2.  move to `assets/` folder
+    3.  edit chromedriver path in `start.py` line 7
         1.  `chromedriverPath = 'enter path here'`
 5.  store your login credentials
-    1.  create `credentials.txt` file
+    1.  create file named `credentials.txt` in `assets/` folder
     2.  write your email and password like following
     3.  `test@gmail.com;my_password`
     4.  save the file
