@@ -1,5 +1,5 @@
 language:
-  - python
+  - python3
 rvm:
   - 3.6
 install:
