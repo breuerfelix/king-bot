@@ -45,7 +45,8 @@ the first code snippet in each section always shows some example implementation 
 ### farmlists
 
 ```python
-# sends farmlist with index 1 (the one after the starter list) in your first village (index 0) in an interval of 60 seconds
+# sends farmlist with index 1 (the one after the starter list)
+# in your first village (index 0) in an interval of 60 seconds
 game.startFarming(0, [1], 60)
 
 #sends farmlist 1 and 3 in your second village in an interval of 30 seconds
