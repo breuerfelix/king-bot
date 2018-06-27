@@ -1,12 +1,16 @@
 from src import client, account, gameworld
 import sys
+import platform
 
 if len(sys.argv) > 1 and sys.argv[1] == "-t":
     sys.exit()
 
 # settings
-chromedriverPath = './assets/chromedriver'
+chromedriverPath = './assets/chromedriver' #without extension
 world = 'COM4'  # choose uppercase (exact world name)
+
+if platform.system() == 'Windows':
+    chromedriverPath += '.exe'
 
 # settings path
 credentialsPath = "./assets/credentials.txt"

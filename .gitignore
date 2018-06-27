@@ -1,5 +1,6 @@
 .vscode
 chromedriver
+chromedriver.*
 __pycache__
 source.html
 .DS_Store
