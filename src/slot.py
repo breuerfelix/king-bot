@@ -6,12 +6,17 @@ class slot:
         self.browser = browser
         self.id = id
         self.upgradable = False
+        self.field = id < 19
+        self.lvl = -1
+
+        # building slot
+        self.free = False
         pass
 
     def update(self):
         el = self.findSlot()
         templvl = el.find_element_by_class_name("buildingLevel")
-        lvl = templvl.get_attribute("innerHTML")
+        self.lvl = templvl.get_attribute("innerHTML")
         temp_upgrade = el.find_element_by_xpath(
             ".//div[contains(@class, 'colorLayer')]").get_attribute("class")
 

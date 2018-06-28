@@ -1,4 +1,4 @@
-from .utils import closeModal, log
+from .utils import closeModal, log, openResources, openVillage
 from threading import Lock
 from .slot import slot
 from threading import Thread
@@ -10,7 +10,7 @@ class village:
         self.slots = []
         self.browser = browser
 
-        self.lock = Lock()
+        self.lock = Lock()  # lock for accessing the upgrade list
         self.upgradeList = []
 
         self.name = name
@@ -20,32 +20,39 @@ class village:
             f = slot(self.browser, i)
             self.slots.append(f)
 
+        # init village slots
+        for i in range(19, 41):
+            s = slot(self.browser, i)
+            self.slots.append(s)
+
     # todo implement if you need access to lvl of fields
     def load(self):
         self.browser.use()
 
         try:
             self.initResourceFields()
+            self.initVillageSlots()
         except:
             log("error init village")
         finally:
             self.browser.done()
 
     def initResourceFields(self):
-        self.openResources()
+        openResources(self.browser)
         self.browser.sleep(1)
         for slot in self.slots:
-            slot.update()
+            if slot.field:
+                slot.update()
 
-    def openResources(self):
-        btn = self.browser.find("//a[@id='optimizly_mainnav_resources']")
-        self.browser.click(btn)
-
-    def openVillage(self):
-        btn = self.browser.find("//a[@id='optimizly_mainnav_village']")
-        self.browser.click(btn)
+    def initVillageSlots(self):
+        openVillage(self.browser)
+        self.browser.sleep(1)
+        for slot in self.slots:
+            if slot.field == True:
+                slot.update()
 
     def openBuilding(self, building):
+        # todo open by slot id
         img = self.browser.find(
             "//img[@id='buildingImage{}']".format(building))
         self.browser.click(img)
@@ -107,10 +114,10 @@ class village:
             try:
                 freeSlots = self.checkBuildingSlot()
                 for _ in range(freeSlots):
-                    self.openResources()
+                    openResources(self.browser)
                     self.upgradeList[0].upgrade()
                     del self.upgradeList[0]
-                    self.openResources()
+                    openResources(self.browser)
             except:
                 log("error upgrading village slot " +
                     str(self.upgradeList[0].id))
@@ -144,7 +151,7 @@ class village:
             self.browser.use()
 
             try:
-                self.openVillage()
+                openVillage(self.browser)
                 self.openBuilding(32)
                 self.browser.sleep(1)
                 tab = self.browser.find(

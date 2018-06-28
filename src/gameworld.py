@@ -62,6 +62,7 @@ class gameworld:
         for _ in range(amount):
             self.villages[village].upgrade(slot)
 
+# region adventures
     def enableAdventures(self, delay=100):
         # todo if hero is above x% health
         # todo delay = hero back time
@@ -116,6 +117,9 @@ class gameworld:
 
             log("adventure thread sleeping")
             time.sleep(self.delayCheckAdventures)
+# endregion
 
+# region farming
     def startFarming(self, village, farmlists, interval):
         self.villages[village].startFarming(farmlists, interval)
+# endregion

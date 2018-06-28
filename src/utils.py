@@ -6,3 +6,13 @@ def closeModal(browser):
 
 def log(string):
     print(string)
+
+
+def openResources(browser):
+    btn = browser.find("//a[@id='optimizly_mainnav_resources']")
+    browser.click(btn)
+
+
+def openVillage(browser):
+    btn = browser.find("//a[@id='optimizly_mainnav_village']")
+    browser.click(btn)
