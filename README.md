@@ -1,6 +1,6 @@
 # king-bot
 
-check out the insights of this project: [kingbot.scriptworld.net](https://kingbot.scriptworld.net)
+check out the insights of this project: [scriptworld.net](https://scriptworld.net/projects/king-bot/)
 
 feel free to join the project or __[contact me! (:](mailto:f.breuer@scriptworld.net)__
 
