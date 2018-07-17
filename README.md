@@ -42,9 +42,7 @@ the first code snippet in each section always shows some example implementation 
 
 ## specify the bot
 
-### farming
-
-#### farmlists (travian plus)
+### farming (travian plus)
 
 ```python
 # sends farmlist with index 1 (the one after the starter list)
@@ -68,7 +66,7 @@ interval of sending the list _in seconds_
 you can stack as many of them together if you want.  
 it's also possible to send different farmlist in the same village in different intervals.
 
-#### farmlists as .txt file (no travian plus needed)
+### farmlists as .txt file (no travian plus needed)
 
 this technique is a little bit slower than then one with travian plus.  
 the bot will manually launch every attack at the rally point.  
