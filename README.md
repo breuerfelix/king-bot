@@ -2,7 +2,7 @@
 
 check out the insights of this project: [scriptworld.net](https://scriptworld.net/projects/king-bot/)
 
-feel free to join the project or __[contact me! (:](mailto:f.breuer@scriptworld.net)__
+feel free to join the project or **[contact me! (:](mailto:f.breuer@scriptworld.net)**
 
 [![Build Status](https://travis-ci.org/scriptworld-git/king-bot.svg?branch=master)](https://travis-ci.org/scriptworld-git/king-bot)
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/scriptworld-git/king-bot/blob/master/LICENSE)
@@ -42,7 +42,9 @@ the first code snippet in each section always shows some example implementation 
 
 ## specify the bot
 
-### farmlists
+### farming
+
+#### farmlists (travian plus)
 
 ```python
 # sends farmlist with index 1 (the one after the starter list)
@@ -65,6 +67,36 @@ interval of sending the list _in seconds_
 
 you can stack as many of them together if you want.  
 it's also possible to send different farmlist in the same village in different intervals.
+
+#### farmlists as .txt file (no travian plus needed)
+
+this technique is a little bit slower than then one with travian plus.  
+the bot will manually launch every attack at the rally point.  
+i only implemented this feature for people who doesn't want to pay for the game and still want to farm only around 200 villages.
+
+you have to create a file which looks like the following: (attention for separators)
+
+```csv
+-26;-34;120;0;1,2
+-28;-24;70;0;1,2
+-30;-57;300;0;1,2
+```
+
+pattern: x-coordinate;y-coordinate;time to wait till sending the troops again in seconds;index of village;index of unit in the horizontal bar,amount of units
+
+every line represents one farm. the first 2 values are the x- and y-coordinates.  
+the third value is the time (in seconds) the bot waits until it sends the farm again.  
+fourth value is the village from where the troops are going to be send off.  
+the last values (comma separated!) are the amount and index of the unit which is going to be send.  
+you can find out the index when trying to launch a new attack. you will be asked which village you want to attack and which troops you wanna use.  
+from left to right, starting at 0, these are the indexes of the units you want to use. for example (gauls): 0 = phalanx, 1 = swordsman.
+
+add the following line to your `start.py` script: (adjust the path to your .txt file if needed)
+
+```python
+# path to farmlist file - farms without travian plus
+game.startFarmlist("./assets/farmlist.txt")
+```
 
 ### adventures
 

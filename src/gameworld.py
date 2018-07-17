@@ -1,8 +1,10 @@
 from threading import Thread
 import time
+import schedule
 from .utils import closeModal, log
 from selenium.webdriver.common.keys import Keys
 from .village import village
+from .util_village import openVillage, openCity, openBuilding
 
 
 class gameworld:
@@ -62,7 +64,7 @@ class gameworld:
         for _ in range(amount):
             self.villages[village].upgrade(slot)
 
-# region adventures
+    # region adventures
     def enableAdventures(self, delay=100):
         # todo if hero is above x% health
         # todo delay = hero back time
@@ -117,9 +119,81 @@ class gameworld:
 
             log("adventure thread sleeping")
             time.sleep(self.delayCheckAdventures)
-# endregion
+    # endregion
 
-# region farming
+    # region farming
     def startFarming(self, village, farmlists, interval):
         self.villages[village].startFarming(farmlists, interval)
-# endregion
+
+    def startFarmlist(self, path):
+        t = Thread(target=self.startFarmlist_thread,
+                   args=(path,), daemon=False)
+        t.start()
+
+    def startFarmlist_thread(self, path):
+        with open(path, "r") as file:
+            lines = file.readlines()
+
+        for line in lines:
+            args = line.split(";")
+
+            # shedule task
+            schedule.every(int(args[2])).seconds.do(
+                self.sendFarm, x=args[0], y=args[1], village=args[3], units=args[4])
+
+        for line in lines:
+            args = line.split(" ")
+            # send one time at start
+            self.sendFarm(x=args[0], y=args[1], village=args[3], units=args[4])
+
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
+
+    def sendFarm(self, x, y, village, units):
+        browser = self.browser
+
+        browser.use()
+        log("Sending farm: ({}/{}) ...".format(x, y))
+        try:
+            openVillage(browser, village)
+            openCity(browser)
+            openBuilding(browser, 32)
+            btn = browser.find("//button[contains(@class, 'sendTroops')]")
+            browser.click(btn)
+            browser.sleep(3)
+
+            input = browser.find(
+                "//div[@class='modalContent']")
+            input = input.find_element_by_xpath(
+                ".//input[contains(@class, 'targetInput')]")
+            input.send_keys("({}|{})".format(x, y))
+            browser.sleep(1)
+
+            btn = browser.find(
+                "//div[contains(@class, 'clickableContainer missionType4')]")
+            browser.click(btn)
+
+            units = units.split(",")
+
+            input = browser.find("//tbody[contains(@class, 'inputTroops')]/tr")
+            input = input.find_elements_by_xpath(".//td")
+            input = input[int(units[0])]
+            input = input.find_element_by_xpath(".//input")
+
+            input.send_keys(units[1])
+
+            btn = browser.find("//button[contains(@class, 'next clickable')]")
+            browser.click(btn)
+            browser.sleep(0.5)
+            btn = browser.find(
+                "//button[contains(@class, 'sendTroops clickable')]")
+            browser.click(btn)
+            browser.sleep(0.5)
+
+            log("Farm sent: ({}/{}).".format(x, y))
+        except:
+            log("Error sending farm: ({}/{}).".format(x, y))
+
+        browser.done()
+    # endregion

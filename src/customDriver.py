@@ -53,12 +53,15 @@ class client:
         # set page load timeout in seconds
         self.driver.set_page_load_timeout(10)
 
+    # region locks
     def use(self):
         self.lock.acquire()
 
     def done(self):
         self.lock.release()
+    # endregion
 
+    # region browser function
     def get(self, page):
         self.driver.get(page)
 
@@ -75,7 +78,9 @@ class client:
     def click(self, element):
         ActionChains(self.driver).move_to_element(element).click().perform()
         self.sleep(0.5)
+    # endregion
 
+    # region session
     def saveSession(self):
         url = self.driver.command_executor._url
         session = self.driver.session_id
@@ -96,3 +101,4 @@ class client:
         file = open("./source.html", "w")
         file.write(self.driver.page_source)
         file.close()
+    # endregion

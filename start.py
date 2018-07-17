@@ -6,8 +6,8 @@ if len(sys.argv) > 1 and sys.argv[1] == "-t":
     sys.exit()
 
 # settings
-chromedriverPath = './assets/chromedriver' #without extension
-world = 'COM4'  # choose uppercase (exact world name)
+chromedriverPath = './assets/chromedriver'  # without extension
+world = 'COM5'  # choose uppercase (exact world name)
 
 if platform.system() == 'Windows':
     chromedriverPath += '.exe'
@@ -46,7 +46,10 @@ game = gameworld(browser, world)
 
 # game.enableAdventures() #auto starting adventures if possible
 # first param = village index second param = building slot id
-game.upgradeSlot(0, 1)
+#game.upgradeSlot(0, 1)
 
 # village, farmlist, interval in seconds
-game.startFarming(0, [1], 60)
+#game.startFarming(0, [1], 60)
+
+# path to farmlist file - farms without travian plus
+# game.startFarmlist("./assets/farmlist.txt")
