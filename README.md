@@ -13,11 +13,11 @@ feel free to join the project or **[contact me! (:](mailto:f.breuer@scriptworld.
 
 1.  install python3 for your system
     1.  [get python](https://www.python.org/downloads/)
-2.  install packages
+2.  clone this repository
+3.  install packages
     1.  open console as administrator
-    2.  `pip3 install selenium`
-    3.  `pip3 install schedule`
-3.  clone this repository
+    2.  goto this repository
+    3.  `python3 install.py`
 4.  download chromedriver for your system
     1.  [get chromederiver](http://chromedriver.chromium.org)
     2.  move to `assets/` folder
