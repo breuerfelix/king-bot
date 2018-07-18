@@ -43,6 +43,10 @@ class client:
         options = webdriver.ChromeOptions()
         options.add_argument('headless')
         options.add_argument('window-size=1200x600')
+        options.add_argument('no-sandbox')
+        options.add_argument('disable-dev-shm-usage')
+        options.add_argument('disable-gpu')
+
         self.driver = webdriver.Chrome(path, chrome_options=options)
         self.setConfig()
         self._headless = True
