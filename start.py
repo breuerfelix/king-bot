@@ -49,7 +49,7 @@ game = gameworld(browser, world)
 #game.upgradeSlot(0, 1)
 
 # village, farmlist, interval in seconds
-game.startFarming(0, [1], 60)
+game.startFarming(0, [0], 900)
 
 # path to farmlist file - farms without travian plus
 # game.startFarmlist("./assets/farmlist.txt")
