@@ -41,13 +41,15 @@ class gameworld:
         table = self.browser.find(
             "//table[contains(@class, 'villagesTable')]/tbody")
         villages = table.find_elements_by_xpath(".//tr")
+
         for vil in villages:
             tds = vil.find_elements_by_xpath(".//td")
 
             name = tds[0].find_element_by_xpath(
                 ".//a").get_attribute("innerHTML")
 
-            self.villages.append(village(self.browser, name))
+            self.villages.append(
+                village(self.browser, name, villages.index(vil)))
             log("village {} added".format(name))
 
         closeModal(self.browser)

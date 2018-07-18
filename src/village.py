@@ -3,10 +3,11 @@ from threading import Lock
 from .slot import slot
 from threading import Thread
 import time
+from .util_village import openVillage as openVil
 
 
 class village:
-    def __init__(self, browser, name):
+    def __init__(self, browser, name, index):
         self.slots = []
         self.browser = browser
 
@@ -14,6 +15,7 @@ class village:
         self.upgradeList = []
 
         self.name = name
+        self.index = index
 
         # init resource slots
         for i in range(1, 19):
@@ -151,6 +153,7 @@ class village:
             self.browser.use()
 
             try:
+                openVil(self.browser, self.index)
                 openVillage(self.browser)
                 self.openBuilding(32)
                 self.browser.sleep(1)
