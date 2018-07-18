@@ -4,6 +4,8 @@ check out the insights of this project: [scriptworld.net](https://scriptworld.ne
 
 feel free to join the project or **[contact me! (:](mailto:f.breuer@scriptworld.net)**
 
+you want to run the bot __24/7__ but don't want to use your computer?  **[contact me aswell! (:](mailto:f.breuer@scriptworld.net)**
+
 [![Build Status](https://travis-ci.org/scriptworld-git/king-bot.svg?branch=master)](https://travis-ci.org/scriptworld-git/king-bot)
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/scriptworld-git/king-bot/blob/master/LICENSE)
 [![built with Selenium](https://img.shields.io/badge/built%20with-Selenium-yellow.svg)](https://github.com/SeleniumHQ/selenium)
