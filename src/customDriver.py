@@ -19,10 +19,18 @@ class client:
         self.delay = None
         self._headless = False
         self.lock = RLock()
+        self.proxy = False
         pass
 
-    def chrome(self, path):
-        self.driver = webdriver.Chrome(path)
+    def chrome(self, path, proxy=""):
+        options = webdriver.ChromeOptions()
+        if proxy is not "":
+            self.proxy = True
+            options.add_argument('proxy-server={}'.format(proxy))
+
+        options.add_argument('window-size=1500,1200')
+
+        self.driver = webdriver.Chrome(path, chrome_options=options)
         self.setConfig()
         self.saveSession()
 
@@ -39,13 +47,17 @@ class client:
 
         self.setConfig()
 
-    def headless(self, path):
+    def headless(self, path, proxy=""):
         options = webdriver.ChromeOptions()
         options.add_argument('headless')
-        options.add_argument('window-size=1200x600')
+        options.add_argument('window-size=1500,1200')
         options.add_argument('no-sandbox')
         options.add_argument('disable-dev-shm-usage')
         options.add_argument('disable-gpu')
+
+        if proxy is not "":
+            self.proxy = True
+            options.add_argument('proxy-server={}'.format(proxy))
 
         self.driver = webdriver.Chrome(path, chrome_options=options)
         self.setConfig()
@@ -76,6 +88,10 @@ class client:
         # reduce sleep time if in headless mode
         if self._headless:
             seconds = seconds / 2
+
+        # doubles the sleep time, proxys are normaly way slower
+        if self.proxy:
+            seconds = seconds * 2
 
         time.sleep(seconds)
 

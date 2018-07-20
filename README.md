@@ -142,6 +142,15 @@ $ python3 start.py -h
 if you don't wont a browser window to pop up, or using the script on a dedicated server with no gui, it is possible to run the script in headless mode.  
 the console window will inform you about important actions the bot will do.
 
+### proxy
+
+```python
+browser.chrome(chromedriverPath, proxy="127.0.0.1:1234")
+```
+
+if you want to surfe the web with a proxy, just provide it to the browser object. this is also possible in headless mode.  
+if the proxy is set to `""`, it's going to be disabled. It's also disabled by default.
+
 ---
 
 _i love lowercase_
