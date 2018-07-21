@@ -49,7 +49,8 @@ game = gameworld(browser, world)
 #game.upgradeSlot(0, 1)
 
 # village, farmlist, interval in seconds
-game.startFarming(0, [0], 400)
+gme.startFarming(0, [0], 400)
+#game.sortDangerFarms(farmlists=[0], toList=1, yellow=False, red=True)
 
 # path to farmlist file - farms without travian plus
 # game.startFarmlist("./assets/farmlist.txt")

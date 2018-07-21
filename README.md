@@ -50,7 +50,7 @@ the first code snippet in each section always shows some example implementation 
 ```python
 # sends farmlist with index 1 (the one after the starter list)
 # in your first village (index 0) in an interval of 60 seconds
-game.startFarming(0, [1], 60)
+game.startFarming(village=0, farmlists=[1], interval=60)
 
 #sends farmlist 1 and 3 in your second village in an interval of 30 seconds
 game.startFarming(1, [1,3], 30)
@@ -68,6 +68,35 @@ interval of sending the list _in seconds_
 
 you can stack as many of them together if you want.  
 it's also possible to send different farmlist in the same village in different intervals.
+
+### sorting out yellow / red farms
+
+**note that this feature is not fully tested yet!**  
+_i need someone with alot of big farmlists to test this feature for me_
+
+this line will let the bot automaticly sort out red or/and yellow farms for you.  
+it is checking all given farmlists in an interval (_in seconds_) for danger farms.  
+if a farm is yellow or red, and you set the equivalent value to `True`, this farm will be placed onto the farmlist with the index given by the paramter `toList`.  
+the starter farmlist is index 0.
+
+```python
+game.sortDangerFarms(farmlists=[0], toList=1, yellow=False, red=True, interval=240)
+```
+
+**first param:**  
+array of farmlist indexes (start farmlist is 0)
+
+**second param:**  
+index of the farmlist the 'danger' farms will be put into
+
+**third param:**  
+`True` if you want yellow farms to be sorted out
+
+**fourth param:**  
+`True` if you want also red farms to be sorted out
+
+**fifth param:**  
+interval of checking the farmlists _in seconds_
 
 ### farmlists as .txt file (no travian plus needed)
 
@@ -97,7 +126,7 @@ add the following line to your `start.py` script: (adjust the path to your .txt 
 
 ```python
 # path to farmlist file - farms without travian plus
-game.startFarmlist("./assets/farmlist.txt")
+game.startFarmlist(path="./assets/farmlist.txt")
 ```
 
 ### adventures
@@ -112,10 +141,11 @@ be careful if the hero in low on health! there is no stopping mechanism for now.
 ### upgrade resource fields
 
 ```python
-game.upgradeSlot(0, 5)
+game.upgradeSlot(village=0, slot=5, amount=1)
 ```
 
-this function will upgrade the resource field with id 5 for one level in your first village.
+this function will upgrade the resource field with id 5 for one level in your first village.  
+increasing the amount parameter will increase the levels the building is getting upgraded.
 
 on the picture below you can see all field id's.  
 these stay the same no matter what kind of village you have (even in 15er crop villages).
