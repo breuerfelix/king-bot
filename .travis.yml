@@ -3,6 +3,7 @@ cache: pip
 python:
     - 3.6
 install:
-  - python3 install.py
+  - pip3 install selenium
+  - pip3 install schedule
 script:
   - python3 start.py -t
