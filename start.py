@@ -1,45 +1,78 @@
 from src import client, login, gameworld
 import sys
+import getopt
 import platform
-
-if len(sys.argv) > 1 and sys.argv[1] == "-t":
-    sys.exit()
+import time
 
 # settings
 chromedriverPath = './assets/chromedriver'  # without extension
-world = 'COM5'  # choose uppercase (exact world name)
+currentSessionPath = './assets/currentSession.txt'
 
 if platform.system() == 'Windows':
     chromedriverPath += '.exe'
 
-# settings path
-credentialsPath = "./assets/credentials.txt"
-currentSessionPath = './assets/currentSession.txt'
-
-# read login credentials
-file = open(credentialsPath, "r")
-text = file.read()
-file.close()
-
-email = text.split(";")[0]
-password = text.split(";")[1]
-
+world = 'COM5'  # choose uppercase (exact world name)
+email = None
+password = None
 browser = client()
-needlogin = False
+login_req = True
+manual_login = False
 
-# get startup arguments
-if len(sys.argv) > 1 and sys.argv[1] == "-r":
-    filename = currentSessionPath
-    browser.remote(filename)
-elif len(sys.argv) > 1 and sys.argv[1] == "-h":
-    browser.headless(chromedriverPath)
-    needlogin = True
-else:
+try:
+    opts, args = getopt.getopt(
+        sys.argv[1:], "hmrte:p:w:", ["email=", "password=", "gameworld="])
+except:
+    print("error in arguments. check github for details.")
+    sys.exit()
+for opt, arg in opts:
+    if opt == "-t":
+        # todo run test file or type checker
+        sys.exit()
+    elif opt == '-h':
+        browser.headless(chromedriverPath)
+    elif opt == '-r':
+        browser.remote(currentSessionPath)
+        login_req = False
+    elif opt == '-m':
+        login_req = False
+        manual_login = True
+    elif opt in ("-e", "--email"):
+        email = arg
+    elif opt in ("-p", "--password"):
+        password = arg
+    elif opt in ("-w", "--gameworld"):
+        world = arg
+
+if browser.driver == None:
     browser.chrome(chromedriverPath)
-    needlogin = True
 
-if needlogin:
+if login_req:
+    if email == None or password == None:
+        # settings path
+        credentialsPath = "./assets/credentials.txt"
+
+        # read login credentials
+        file = open(credentialsPath, "r")
+        text = file.read()
+        file.close()
+
+        if email == None:
+            email = text.split(";")[0]
+        if password == None:
+            password = text.split(";")[1]
+
     login(browser=browser, gameworld=world, email=email, password=password)
+    
+    # clear loging credentials
+    email = None
+    password = None
+
+if manual_login:
+    browser.use()
+    browser.get('https://kingdoms.com')
+    time.sleep(120)
+    browser.done()
+
 
 
 game = gameworld(browser, world)

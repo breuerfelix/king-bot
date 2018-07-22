@@ -26,13 +26,16 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
     3.  edit chromedriver path in `start.py` line 7
         1.  `chromedriverPath = 'enter path here'`
 5.  store your login credentials
-    1.  create file named `credentials.txt` in `assets/` folder
-    2.  write your email and password like following
-    3.  `test@gmail.com;my_password`
-    4.  save the file
+    1.  **you don't want to store them into a file? or login manually?**
+        1.  _see chapter start options!_
+    2.  create file named `credentials.txt` in `assets/` folder
+    3.  write your email and password like following
+    4.  `test@gmail.com;my_password`
+    5.  save the file
 6.  edit `start.py`
     1.  edit your gameworld in line 8 `world = 'COM4'`
         1.  make sure to use uppercase!
+        2.  you can also provide the world via argument - see chapter start options
     2.  place the actions your bot have to do at the end
         1.  read documentation for this
 7.  execute in console:
@@ -171,6 +174,30 @@ $ python3 start.py -h
 
 if you don't wont a browser window to pop up, or using the script on a dedicated server with no gui, it is possible to run the script in headless mode.  
 the console window will inform you about important actions the bot will do.
+
+### provide credentials
+
+```bash
+$ python3 start.py -e email@test.de -p your_password
+$ python3 start.py --email email@test.de --password your_password
+```
+
+if you don't want to store your credentials into a file, just provide them via arguments like this.  
+it's also possible to login manually if you dont want to provide your login credentials at all.
+
+### login manually
+
+```bash
+$ python3 start.py -m
+```
+
+if you don't trust my program, even if it' open source, you can login manually and don't even type your email or password anywhere in my script.  
+the bot will open the main page of travian kingdoms.  
+it will now wait _120 seconds_ for you to log into your account.  
+after you are logged in, just open the gameworld you want your bot to run in.  
+if you are finished, just wait for the timer to end, so the bot can do its work.
+
+__note: this is not possible in headless mode!__
 
 ### proxy
 
