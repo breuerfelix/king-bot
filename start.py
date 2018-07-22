@@ -1,4 +1,4 @@
-from src import client, account, gameworld
+from src import client, login, gameworld
 import sys
 import platform
 
@@ -25,6 +25,7 @@ email = text.split(";")[0]
 password = text.split(";")[1]
 
 browser = client()
+needlogin = False
 
 # get startup arguments
 if len(sys.argv) > 1 and sys.argv[1] == "-r":
@@ -32,12 +33,13 @@ if len(sys.argv) > 1 and sys.argv[1] == "-r":
     browser.remote(filename)
 elif len(sys.argv) > 1 and sys.argv[1] == "-h":
     browser.headless(chromedriverPath)
-    acc = account(browser, email, password)
-    acc.login(world)
+    needlogin = True
 else:
     browser.chrome(chromedriverPath)
-    acc = account(browser, email, password)
-    acc.login(world)
+    needlogin = True
+
+if needlogin:
+    login(browser=browser, gameworld=world, email=email, password=password)
 
 
 game = gameworld(browser, world)
@@ -49,7 +51,7 @@ game = gameworld(browser, world)
 #game.upgradeSlot(0, 1)
 
 # village, farmlist, interval in seconds
-gme.startFarming(0, [0], 400)
+#game.startFarming(0, [0], 400)
 #game.sortDangerFarms(farmlists=[0], toList=1, yellow=False, red=True)
 
 # path to farmlist file - farms without travian plus

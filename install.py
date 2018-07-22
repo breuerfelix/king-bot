@@ -7,3 +7,4 @@ def install(package):
 
 install("schedule")
 install("selenium")
+install("typing")

@@ -5,5 +5,6 @@ python:
 install:
   - pip3 install selenium
   - pip3 install schedule
+  - pip3 install typing
 script:
   - python3 start.py -t
