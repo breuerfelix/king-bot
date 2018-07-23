@@ -25,7 +25,7 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
     2.  move to `assets/` folder
     3.  edit chromedriver path in `start.py` line 7
         1.  `chromedriverPath = 'enter path here'`
-5.  store your login credentials
+5.  store your login credentials _(optional)_
     1.  **you don't want to store them into a file? or login manually?**
         1.  _see chapter start options!_
     2.  create file named `credentials.txt` in `assets/` folder
@@ -157,15 +157,6 @@ these stay the same no matter what kind of village you have (even in 15er crop v
 
 ## start options
 
-### remote browser
-
-```bash
-$ python3 start.py -r
-```
-
-if the script exists because of an exception, it's possible to re-use the browser session so you don't have to go through the whole login process again.  
-just don't exit the browser window and make sure to remove the functions in the script, which the bot already completed in last session.
-
 ### headless browsing
 
 ```bash
@@ -197,7 +188,16 @@ it will now wait _120 seconds_ for you to log into your account.
 after you are logged in, just open the gameworld you want your bot to run in.  
 if you are finished, just wait for the timer to end, so the bot can do its work.
 
-__note: this is not possible in headless mode!__
+**note:** _this is not possible in headless mode!_
+
+### remote browser
+
+```bash
+$ python3 start.py -r
+```
+
+if the script exists because of an exception, it's possible to re-use the browser session so you don't have to go through the whole login process again.  
+just don't exit the browser window and make sure to remove the functions in the script, which the bot already completed in last session.
 
 ### proxy
 
