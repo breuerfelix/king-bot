@@ -6,3 +6,4 @@ source.html
 .DS_Store
 currentSession.txt
 credentials.txt
+.mypy_cache
