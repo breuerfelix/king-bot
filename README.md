@@ -50,23 +50,26 @@ the first code snippet in each section always shows some example implementation 
 
 ### farming (travian plus)
 
+the bot will open given village, selects all farmlists from the array, sends them, and go to sleep.  
+this is by far the simplest implementation of a farm bot.
+
 ```python
 # sends farmlist with index 1 (the one after the starter list)
 # in your first village (index 0) in an interval of 60 seconds
-game.startFarming(village=0, farmlists=[1], interval=60)
+kingbot.start_farming(village=0, farmlists=[1], interval=60)
 
 #sends farmlist 1 and 3 in your second village in an interval of 30 seconds
-game.startFarming(1, [1,3], 30)
+kingbot.start_farming(1, [1,3], 30)
 ```
 
-**first param:**  
+**village:**  
 index of village (0 is the first village)
 
-**second param:**  
+**farmlists:**  
 index of farmlist (0 is the starter list with only 10 farms)  
 must be an _array_! you can send multiple lists in this interval
 
-**third param:**  
+**interval:**  
 interval of sending the list _in seconds_
 
 you can stack as many of them together if you want.  
@@ -83,22 +86,22 @@ if a farm is yellow or red, and you set the equivalent value to `True`, this far
 the starter farmlist is index 0.
 
 ```python
-game.sortDangerFarms(farmlists=[0], toList=1, yellow=False, red=True, interval=240)
+kingbot.sort_danger_farms(farmlists=[0], to_list=1, red=True, yellow=False, interval=240)
 ```
 
-**first param:**  
+**farmlists:**  
 array of farmlist indexes (start farmlist is 0)
 
-**second param:**  
+**to_list:**  
 index of the farmlist the 'danger' farms will be put into
 
-**third param:**  
-`True` if you want yellow farms to be sorted out
+**red:**  
+`True` if you want red farms to be sorted out
 
-**fourth param:**  
-`True` if you want also red farms to be sorted out
+**yellow:**  
+`True` if you want also yellow farms to be sorted out
 
-**fifth param:**  
+**interval:**  
 interval of checking the farmlists _in seconds_
 
 ### farmlists as .txt file (no travian plus needed)
@@ -129,33 +132,58 @@ add the following line to your `start.py` script: (adjust the path to your .txt 
 
 ```python
 # path to farmlist file - farms without travian plus
-game.startFarmlist(path="./assets/farmlist.txt")
+kingbot.start_custom_farmlist(path="./assets/farmlist.txt")
 ```
+
+**path:**  
+path to your custom farmlist file
 
 ### adventures
-
-```python
-game.enableAdventures()
-```
 
 this enables auto sending the hero on adventures.  
 be careful if the hero in low on health! there is no stopping mechanism for now.
 
-### upgrade resource fields
-
 ```python
-game.upgradeSlot(village=0, slot=5, amount=1)
+kingbot.start_adventures(interval=500)
 ```
 
-this function will upgrade the resource field with id 5 for one level in your first village.  
-increasing the amount parameter will increase the levels the building is getting upgraded.
+**interval:** _(optional -> default = 100)_  
+time _in seconds_ the hero thread will sleep until it checks for a new adventure again
 
-on the picture below you can see all field id's.  
+### upgrade resource fields / buildings
+
+**note:** _this feature is disabled right now, it needs improvement!_
+
+this function will upgrade a resource field in any village.  
+upgrading buildings inside the village is still under construction.
+
+on the picture below you can see all field slot id's.  
 these stay the same no matter what kind of village you have (even in 15er crop villages).
+
+```python
+kingbot.upgrade_slot(village=0, slot=5)
+```
+
+**village:**  
+index of the village the slot should be upgraded in (starting at 0)
+
+**slot:**  
+see the picture below to get the right slot for your field
 
 ![resource-fields](https://scriptworld.net/assets/king-bot/resourceFields.png)
 
 ## start options
+
+### provide credentials
+
+```bash
+$ python3 start.py -e email@test.de -p your_password -w your_gameworld
+$ python3 start.py --email email@test.de --password your_password --gameworld your_gameworld
+```
+
+if you don't want to store your credentials into a file, just provide them via arguments like this.  
+it's also possible to login manually if you dont want to provide your login credentials at all. _see below: login manually_  
+all of these options are optional, you can always provice some via code, and some via start options, that's up to you
 
 ### headless browsing
 
@@ -165,16 +193,6 @@ $ python3 start.py -h
 
 if you don't wont a browser window to pop up, or using the script on a dedicated server with no gui, it is possible to run the script in headless mode.  
 the console window will inform you about important actions the bot will do.
-
-### provide credentials
-
-```bash
-$ python3 start.py -e email@test.de -p your_password
-$ python3 start.py --email email@test.de --password your_password
-```
-
-if you don't want to store your credentials into a file, just provide them via arguments like this.  
-it's also possible to login manually if you dont want to provide your login credentials at all.
 
 ### login manually
 

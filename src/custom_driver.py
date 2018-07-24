@@ -1,16 +1,52 @@
 from selenium import webdriver
+from selenium.webdriver.remote import webelement
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import time
 from .utils import log
 from threading import RLock
+from typing import Any
 
 """
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 """
+
+
+def use_browser(org_func: Any):
+    def wrapper(*args, **kwargs):
+        browser = None
+        for arg in args:
+            if type(arg) is client:
+                browser = arg
+                break
+
+        for _, value in kwargs.items():
+            if type(value) is client:
+                browser = value
+                break
+
+        if browser != None:
+            rv = None
+            browser.use()
+
+            try:
+                rv = org_func(*args, **kwargs)
+            except Exception as e:
+                rv = None
+                log("exception in function: {} exception: {}".format(
+                    org_func.__name__, str(e)))
+            finally:
+                browser.done()
+
+                return rv
+
+        else:
+            return org_func(*args, **kwargs)
+
+    return wrapper
 
 
 class client:
@@ -22,7 +58,7 @@ class client:
         self.proxy = False
         pass
 
-    def chrome(self, path, proxy=""):
+    def chrome(self, path: str, proxy: str = ''):
         options = webdriver.ChromeOptions()
         if proxy is not "":
             self.proxy = True
@@ -31,10 +67,10 @@ class client:
         options.add_argument('window-size=1500,1200')
 
         self.driver = webdriver.Chrome(path, chrome_options=options)
-        self.setConfig()
-        self.saveSession()
+        self.set_config()
+        self.save_session()
 
-    def remote(self, path):
+    def remote(self, path: str):
         file = open(path, "r")
         content = file.read()
         lines = content.split(";")
@@ -45,9 +81,9 @@ class client:
             command_executor=url, desired_capabilities=DesiredCapabilities.CHROME)
         self.driver.session_id = session
 
-        self.setConfig()
+        self.set_config()
 
-    def headless(self, path, proxy=""):
+    def headless(self, path: str, proxy: str = ''):
         options = webdriver.ChromeOptions()
         options.add_argument('headless')
         options.add_argument('window-size=1500,1200')
@@ -60,10 +96,10 @@ class client:
             options.add_argument('proxy-server={}'.format(proxy))
 
         self.driver = webdriver.Chrome(path, chrome_options=options)
-        self.setConfig()
+        self.set_config()
         self._headless = True
 
-    def setConfig(self):
+    def set_config(self):
         # set timeout to find an element in seconds
         self.driver.implicitly_wait(5)
         # set page load timeout in seconds
@@ -78,13 +114,15 @@ class client:
     # endregion
 
     # region browser function
-    def get(self, page):
+    def get(self, page: str):
         self.driver.get(page)
 
-    def find(self, xpath):
+    def find(self, xpath: str, wait: int = 0):
+        # todo wait x seconds until presencd of element
+        self.sleep(wait)
         return self.driver.find_element_by_xpath(xpath)
 
-    def sleep(self, seconds):
+    def sleep(self, seconds: int):
         # reduce sleep time if in headless mode
         if self._headless:
             seconds = seconds / 2
@@ -95,20 +133,20 @@ class client:
 
         time.sleep(seconds)
 
-    def click(self, element):
+    def click(self, element: webelement, wait: int = 0.5):
         ActionChains(self.driver).move_to_element(element).click().perform()
-        self.sleep(0.5)
+        self.sleep(wait)
 
-    def hover(self, element):
+    def hover(self, element: webelement, wait: int = 0.5):
         ActionChains(self.driver).move_to_element(element).perform()
-        self.sleep(0.5)
+        self.sleep(wait)
 
-    def scroll_down(self, element):
+    def scroll_down(self, element: webelement):
         element.send_keys(Keys.PAGE_DOWN)
     # endregion
 
     # region session
-    def saveSession(self):
+    def save_session(self):
         url = self.driver.command_executor._url
         session = self.driver.session_id
 
@@ -124,7 +162,7 @@ class client:
         except:
             log('Error saving Session')
 
-    def writeSource(self):
+    def write_source(self):
         file = open("./source.html", "w")
         file.write(self.driver.page_source)
         file.close()
