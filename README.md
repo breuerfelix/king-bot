@@ -81,7 +81,7 @@ _i need someone with alot of big farmlists to test this feature for me_
 
 this line will let the bot automaticly sort out red or/and yellow farms for you.  
 it is checking all given farmlists in an interval (_in seconds_) for danger farms.  
-if a farm is yellow or red, and you set the equivalent value to `True`, this farm will be placed onto the farmlist with the index given by the paramter `toList`.  
+if a farm is yellow or red, and you set the equivalent value to `True`, this farm will be placed onto the farmlist with the index given by the paramter `to_list`.  
 the starter farmlist is index 0.
 
 ```python
@@ -89,7 +89,7 @@ kingbot.sort_danger_farms(farmlists=[0], to_list=1, red=True, yellow=False, inte
 ```
 
 **farmlists:**  
-array of farmlist indexes (start farmlist is 0)
+array of farmlist indexes _(start farmlist is 0)_
 
 **to_list:**  
 index of the farmlist the 'danger' farms will be put into
@@ -109,7 +109,7 @@ this technique is a little bit slower than then one with travian plus.
 the bot will manually launch every attack at the rally point.  
 i only implemented this feature for people who doesn't want to pay for the game and still want to farm only around 200 villages.
 
-you have to create a file which looks like the following: (_attention for separators!_)
+you have to create a file which looks like the following: _(attention for separators!)_
 
 ```csv
 -26;-34;120;0;1,2
@@ -120,12 +120,12 @@ you have to create a file which looks like the following: (_attention for separa
 **pattern:** x-coordinate **;** y-coordinate **;** time to wait till sending the troops again in seconds **;** index of village **;** index of unit in the horizontal bar **,** amount of units
 
 every line represents one farm. the first 2 values are the x- and y-coordinates.  
-the third value is the time (_in seconds_) the bot waits until it sends the farm again.  
+the third value is the time _(in seconds)_ the bot waits until it sends the farm again.  
 fourth value is the village from where the troops are going to be send off.  
-the last values (_comma separated!_) are the amount and index of the unit which is going to be send.  
+the last values _(comma separated!)_ are the amount and index of the unit which is going to be send.  
 you can find out the index when trying to launch a new attack. you will be asked which village you want to attack and which troops you wanna use.  
 from left to right, starting at 0, these are the indexes of the units you want to use.  
-for example (gauls): 0 = phalanx, 1 = swordsman.
+for example _(gauls)_: 0 = phalanx, 1 = swordsman.
 
 add the following line to your `start.py` script: (adjust the path to your .txt file if needed)
 
