@@ -23,7 +23,7 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
 4.  download chromedriver for your system
     1.  [get chromederiver](http://chromedriver.chromium.org)
     2.  move to `assets/` folder
-    3.  edit chromedriver path in `start.py` _(optinal)_
+    3.  edit chromedriver path in `start.py` _(optional)_
         1.  `chrome_driver_path = 'enter path here'`
 5.  edit `start.py`
     1.  place the actions your bot should do at the end
@@ -31,7 +31,7 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
         2.  read `sample_start.py` to get an impression
 6.  insert your credentials _(optional)_
     1.  **you don't want to provide them? just login manually!**
-        1.  _see chapter start options!_
+        1.  _see chapter start optional!_
     2.  create file named `credentials.txt` in `assets/` folder
     3.  write your email and password like following
     4.  `test@gmail.com;my_password`
