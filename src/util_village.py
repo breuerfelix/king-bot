@@ -26,6 +26,12 @@ def openCity(browser):
     browser.sleep(1)
 
 
+def openResources(browser):
+    btn = browser.find("//a[@id='optimizly_mainnav_resources']")
+    browser.click(btn)
+    browser.sleep(1)
+
+
 def openBuilding(browser, building):
     # todo open by slot id
     img = browser.find(

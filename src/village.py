@@ -1,9 +1,9 @@
-from .utils import closeModal, log, openResources, openVillage
+from .utils import closeModal, log
 from threading import Lock
 from .slot import slot
 from threading import Thread
 import time
-from .util_village import openVillage as openVil
+from .util_village import openResources, openBuilding, openCity, openVillage
 
 
 class village:
@@ -33,7 +33,7 @@ class village:
 
         try:
             self.initResourceFields()
-            self.initVillageSlots()
+            self.initCitySlots()
         except:
             log("error init village")
         finally:
@@ -46,19 +46,12 @@ class village:
             if slot.field:
                 slot.update()
 
-    def initVillageSlots(self):
-        openVillage(self.browser)
+    def initCitySlots(self):
+        openCity(self.browser)
         self.browser.sleep(1)
         for slot in self.slots:
             if slot.field == True:
                 slot.update()
-
-    def openBuilding(self, building):
-        # todo open by slot id
-        img = self.browser.find(
-            "//img[@id='buildingImage{}']".format(building))
-        self.browser.click(img)
-        self.browser.sleep(0.5)
 
     def upgrade(self, slotnumber):
         slot = None
@@ -153,9 +146,9 @@ class village:
             self.browser.use()
 
             try:
-                openVil(self.browser, self.index)
-                openVillage(self.browser)
-                self.openBuilding(32)
+                openVillage(self.browser, self.index)
+                openCity(self.browser)
+                openBuilding(self.browser, 32)
                 self.browser.sleep(1)
                 tab = self.browser.find(
                     "//a[contains(@class, 'tab naviTabFarmList')]")
