@@ -19,7 +19,7 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
 3.  install packages
     1.  open console
     2.  goto this repository
-    3.  run `pip3 install .`
+    3.  run `pip3 install .` or `pip3 install -r requirements.txt`
 4.  download chromedriver for your system
     1.  [get chromederiver](http://chromedriver.chromium.org)
     2.  move to `assets/` folder

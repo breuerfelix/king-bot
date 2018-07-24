@@ -90,6 +90,16 @@ def main():
 
     # path to farmlist file - farms without travian plus
     # game.startFarmlist("./assets/farmlist.txt")
+from collections import namedtuple
+
+
+def test(struct):
+    print(struct.a)
+    struct.a = 59
+
 
 if __name__ == "__main__":
-    main()
+    struct = namedtuple("struct", "a b c")
+    m = struct(23, 10, None)
+    test(m)
+    print(m.a)
