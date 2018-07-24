@@ -17,13 +17,13 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
     1.  [get python](https://www.python.org/downloads/)
 2.  clone this repository
 3.  install packages
-    1.  open console as administrator
+    1.  open console
     2.  goto this repository
-    3.  `python3 install.py`
+    3.  run `pip3 install .`
 4.  download chromedriver for your system
     1.  [get chromederiver](http://chromedriver.chromium.org)
     2.  move to `assets/` folder
-    3.  edit chromedriver path in `start.py` line 7
+    3.  edit chromedriver path in `start.py` line 7 _(optinal)_
         1.  `chromedriverPath = 'enter path here'`
 5.  store your login credentials _(optional)_
     1.  **you don't want to store them into a file? or login manually?**
