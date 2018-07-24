@@ -23,28 +23,27 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
 4.  download chromedriver for your system
     1.  [get chromederiver](http://chromedriver.chromium.org)
     2.  move to `assets/` folder
-    3.  edit chromedriver path in `start.py` line 7 _(optinal)_
-        1.  `chromedriverPath = 'enter path here'`
-5.  store your login credentials _(optional)_
-    1.  **you don't want to store them into a file? or login manually?**
+    3.  edit chromedriver path in `start.py` _(optinal)_
+        1.  `chrome_driver_path = 'enter path here'`
+5.  edit `start.py`
+    1.  place the actions your bot should do at the end
+        1.  read documentation for this
+        2.  read `sample_start.py` to get an impression
+6.  insert your credentials _(optional)_
+    1.  **you don't want to provide them? just login manually!**
         1.  _see chapter start options!_
     2.  create file named `credentials.txt` in `assets/` folder
     3.  write your email and password like following
     4.  `test@gmail.com;my_password`
     5.  save the file
-6.  edit `start.py`
-    1.  edit your gameworld in line 8 `world = 'COM4'`
-        1.  make sure to use uppercase!
-        2.  you can also provide the world via argument - see chapter start options
-    2.  place the actions your bot have to do at the end
-        1.  read documentation for this
 7.  execute in console:
     1.  `python3 start.py`
     2.  read documentation for options like remote browser or headless browsing
 
 # documentation
 
-the first code snippet in each section always shows some example implementation of the action you want to perform.
+the first code snippet in each section always shows some example implementation of the action you want to perform.  
+this snipped is followed by a short description for all parameters given to the method.
 
 ## specify the bot
 
@@ -63,10 +62,10 @@ kingbot.start_farming(1, [1,3], 30)
 ```
 
 **village:**  
-index of village (0 is the first village)
+index of village _(0 is the first village)_
 
 **farmlists:**  
-index of farmlist (0 is the starter list with only 10 farms)  
+index of farmlist _(0 is the starter list with only 10 farms)_  
 must be an _array_! you can send multiple lists in this interval
 
 **interval:**  
@@ -154,8 +153,7 @@ time _in seconds_ the hero thread will sleep until it checks for a new adventure
 
 **note:** _this feature is disabled right now, it needs improvement!_
 
-this function will upgrade a resource field in any village.  
-upgrading buildings inside the village is still under construction.
+this function will upgrade a resource field or building in any village.
 
 on the picture below you can see all field slot id's.  
 these stay the same no matter what kind of village you have (even in 15er crop villages).
@@ -220,11 +218,11 @@ just don't exit the browser window and make sure to remove the functions in the 
 ### proxy
 
 ```python
-browser.chrome(chromedriverPath, proxy="127.0.0.1:1234")
+proxy = '127.0.0.1:1234'
 ```
 
-if you want to surfe the web with a proxy, just provide it to the browser object. this is also possible in headless mode.  
-if the proxy is set to `""`, it's going to be disabled. It's also disabled by default.
+if you want to surf the web via proxy, just insert it in `start.py`. this is also possible in headless mode.  
+if the proxy is set to `''`, it's going to be disabled. it's also disabled by default.
 
 ---
 
