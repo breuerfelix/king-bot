@@ -163,7 +163,7 @@ kingbot.upgrade_slot(village=0, slot=5)
 ```
 
 **village:**  
-index of the village the slot should be upgraded in (starting at 0)
+index of the village the slot should be upgraded in _(starting at 0)_
 
 **slot:**  
 see the picture below to get the right slot for your field
@@ -180,8 +180,9 @@ $ python3 start.py --email email@test.de --password your_password --gameworld yo
 ```
 
 if you don't want to store your credentials into a file, just provide them via arguments like this.  
-it's also possible to login manually if you dont want to provide your login credentials at all. _see below: login manually_  
-all of these options are optional, you can always provice some via code, and some via start options, that's up to you
+it's also possible to login manually if you dont want to provide your login credentials at all. _see below: login manually_
+
+all of these options are optional, you can always provice some via code, and some via start options, that's up to you.
 
 ### headless browsing
 
