@@ -11,7 +11,26 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
 [![built with Selenium](https://img.shields.io/badge/built%20with-Selenium-yellow.svg)](https://github.com/SeleniumHQ/selenium)
 [![built with Python3](https://img.shields.io/badge/built%20with-Python3-red.svg)](https://www.python.org/)
 
-# installation
+# table of contents
+
+- [king-bot](#king-bot)
+- [table of contents](#table-of-contents)
+- [getting-started](#getting-started)
+- [documentation](#documentation)
+    - [features](#features)
+        - [farming (travian plus)](#farming-travian-plus)
+        - [sorting out yellow / red farms](#sorting-out-yellow--red-farms)
+        - [farmlists as .txt file (no travian plus needed)](#farmlists-as-txt-file-no-travian-plus-needed)
+        - [adventures](#adventures)
+        - [upgrade resource fields / buildings](#upgrade-resource-fields--buildings)
+    - [start options](#start-options)
+        - [provide credentials](#provide-credentials)
+        - [headless browsing](#headless-browsing)
+        - [login manually](#login-manually)
+        - [remote browser](#remote-browser)
+        - [proxy](#proxy)
+
+# getting-started
 
 1.  install python3 for your system
     1.  [get python](https://www.python.org/downloads/)
@@ -45,7 +64,7 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
 the first code snippet in each section always shows some example implementation of the action you want to perform.  
 this snipped is followed by a short description for all parameters given to the method.
 
-## specify the bot
+## features
 
 ### farming (travian plus)
 
