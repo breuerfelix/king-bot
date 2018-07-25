@@ -1,9 +1,5 @@
-from .custom_driver import client
-
-
 class slot:
-    def __init__(self, browser: client, id: int):
-        self.browser = browser
+    def __init__(self, id: int):
         self.id = id
         self.upgradable = False
         self.field = id < 19
@@ -11,11 +7,8 @@ class slot:
 
 
 class village:
-    def __init__(self, browser: client, name: str, index: int):
+    def __init__(self, name: str, index: int):
         self.slots = []
-        self.browser = browser
-
-        self.upgradeList = []
 
         self.name = name
         self.index = index
@@ -24,10 +17,8 @@ class village:
 
 
 class gameworld:
-    def __init__(self, browser: client, world: str):
+    def __init__(self, world: str):
         self.world = world.lower()
-        self.browser = browser
 
         # init
         self.villages = []
-        self.delayCheckAdventures = 60

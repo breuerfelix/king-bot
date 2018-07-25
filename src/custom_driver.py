@@ -38,6 +38,15 @@ def use_browser(org_func: Any):
                 rv = None
                 log("exception in function: {} exception: {}".format(
                     org_func.__name__, str(e)))
+
+                log("reloading world")
+                url = browser.driver.current_url
+                world = url.split('//')
+                world = world[1]
+                world = world.split('.')
+                world = world[0]
+
+                browser.get('https://{}.kingdoms.com'.format(world))
             finally:
                 browser.done()
 
@@ -103,7 +112,7 @@ class client:
         # set timeout to find an element in seconds
         self.driver.implicitly_wait(5)
         # set page load timeout in seconds
-        self.driver.set_page_load_timeout(10)
+        self.driver.set_page_load_timeout(20)
 
     # region locks
     def use(self):

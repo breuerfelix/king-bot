@@ -18,7 +18,7 @@ def adventures_thread(browser: client, interval: int):
 def start_adventure(browser: client):
     log("adventure thread waking up")
 
-    heroLinks = browser.find("//div[@class='heroLinks']")
+    heroLinks = browser.find("//div[@class='heroLinksss']")
     a = heroLinks.find_element_by_xpath(
         ".//a[contains(@class, 'adventureLink')]")
     browser.click(a, 2)

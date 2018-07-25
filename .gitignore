@@ -8,3 +8,4 @@ currentSession.txt
 credentials.txt
 .mypy_cache
 currentSession.txt
+test_start.py
