@@ -3,7 +3,7 @@ import time
 from random import randint
 from .utils import log
 from .village import open_village, open_city, open_building
-from farming import send_farm
+from .farming import send_farm
 
 
 def check_for_attack_thread(browser: client, village: int, interval: int, units: list, target: list):
