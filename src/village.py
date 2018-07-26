@@ -2,6 +2,8 @@ from .utils import log
 from .util_game import close_modal
 from .custom_driver import client
 
+# todo check if already in village/city or ress
+
 
 def open_village(browser: client, id: int):
     index = id

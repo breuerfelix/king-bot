@@ -96,7 +96,6 @@ def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool,
                 icon = tds[6].find_element_by_xpath(".//i")
                 translate = icon.get_attribute("tooltip-translate")
                 if translate != "Notification_1":
-                    print("found yellow or red farm")
                     movefarm = False
                     if translate == "Notification_2":
                         #farm is yellow
@@ -135,6 +134,8 @@ def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool,
                         closemodal = modal.find_element_by_xpath(
                             ".//a[contains(@class, 'closeWindow')]")
                         browser.click(closemodal, 2)
+
+                        print("moved one farm")
             except:
                 # farm never got sent
                 pass
@@ -204,7 +205,21 @@ def send_farm(browser: client, x: int, y: int, village: int, units: list):
     input = input[int(units[0])]
     input = input.find_element_by_xpath(".//input")
 
-    input.send_keys(units[1])
+    # check if field is disabled
+    dis = input.get_attribute("disabled")
+    if dis:
+        log("not enough troops to send farm")
+        close_modal(browser)
+        return
+
+    # check if available unit count is lower than troops given, if so, send available units
+    number = input.get_attribute("number")
+    units_to_send = units[1]
+    if int(number) < units_to_send:
+        units_to_send = number
+
+    # input units
+    input.send_keys(units_to_send)
 
     btn = browser.find("//button[contains(@class, 'next clickable')]")
     browser.click(btn, 1)

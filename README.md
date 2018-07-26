@@ -22,6 +22,7 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
         - [sorting out yellow / red farms](#sorting-out-yellow--red-farms)
         - [farmlists as .txt file (no travian plus needed)](#farmlists-as-txt-file-no-travian-plus-needed)
         - [adventures](#adventures)
+        - [dodge incoming attacks](#dodge-incoming-attacks)
         - [upgrade resource fields / buildings](#upgrade-resource-fields--buildings)
     - [start options](#start-options)
         - [provide credentials](#provide-credentials)
@@ -167,6 +168,28 @@ kingbot.start_adventures(interval=500)
 
 **interval:** _(optional -> default = 100)_  
 time _in seconds_ the hero thread will sleep until it checks for a new adventure again
+
+### dodge incoming attacks
+
+since everybody hates to get attacked at night, the bot is able do dodge incoming attacks.  
+it will send your units to a given village for raid. make sure the village is inactive and valid.
+
+the bot will wake up 10 minutes before the attack lands, so take a target which is at least 5:01 minutes away. (7:00 if you got a map and also send your hero)  
+use this method for every village you want to save.
+
+```python
+kingbot.dodge_attack(village=0, units=[1, 0, 3], target=[1, 1])
+```
+
+**village:**  
+index of village which the bot is going to check _(starting at 0)_
+
+**units:**  
+array of unit indexes which are going to be saved _(starting at 0)_  
+insert `-1` _(units=[-1])_ to save **all** available units in this village
+
+**target:**  
+first index is the x-coordinate and second for the y-coordinate of the village the bot will send the units for a robbery
 
 ### upgrade resource fields / buildings
 

@@ -9,6 +9,7 @@ import time
 from .util_game import close_welcome_screen
 from .utils import log
 from .farming import start_farming_thread, start_custom_farmlist_thread, sort_danger_farms_thread
+from .dodge_attack import check_for_attack_thread
 
 
 class king_bot:
@@ -133,3 +134,18 @@ class king_bot:
     def sort_danger_farms(self, farmlists: list, to_list: int, red: bool, yellow: bool, interval: int):
         Thread(target=sort_danger_farms_thread, args=[
                self.browser, farmlists, to_list, red, yellow, interval]).start()
+
+    def dodge_attack(self, village: int, interval: int = 600, resources: bool = False, units: list = [], target: list = None, barracks_location: int = None, barracks_unit: int = None, stable_location: int = None, stable_unit: int = None):
+        # check dependencies for units
+        if units:
+            if target == None:
+                log("please provide a target to send your troops for saving")
+                return
+
+        # check dependencies for resources
+        if resources:
+            log("saving resources is not yet implemented. check for new releases")
+            pass
+
+        Thread(target=check_for_attack_thread, args=[
+               self.browser, village, interval, units, target]).start()
