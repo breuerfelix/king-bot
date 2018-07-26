@@ -22,3 +22,6 @@ kingbot.start_custom_farmlist(path="./assets/farmlist.txt")
 
 kingbot.sort_danger_farms(
     farmlists=[0], to_list=1, red=True, yellow=False, interval=240)
+
+kingbot.dodge_attack(village=0, units=[1, 2, 11], target=[-10, 53])
+kingbot.dodge_attack(village=1, units=[-1], target=[-20, 60])

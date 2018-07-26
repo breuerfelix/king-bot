@@ -27,6 +27,8 @@ def login(browser: client, gameworld: str, email: str, password: str):
     # login to gameworld
     browser.find(
         "//span[contains(text(), '{}')]/following::button[@type='button']".format(world)).click()
+
+    log("login successful")
     browser.sleep(8)
 
 
