@@ -133,7 +133,7 @@ you have to create a file which looks like the following: _(attention for separa
 
 ```csv
 -26;-34;120;0;1,2
--28;-24;70;0;1,2
+-28;-24;70;0;1,2,3,4
 -30;-57;300;0;1,2
 ```
 
@@ -145,7 +145,13 @@ fourth value is the village from where the troops are going to be send off.
 the last values _(comma separated!)_ are the amount and index of the unit which is going to be send.  
 you can find out the index when trying to launch a new attack. you will be asked which village you want to attack and which troops you wanna use.  
 from left to right, starting at 0, these are the indexes of the units you want to use.  
-for example _(gauls)_: 0 = phalanx, 1 = swordsman.
+for example _(gauls)_: 0 = phalanx, 1 = swordsman.  
+if you want to send different units, just stack them at the end.  
+...0,1,3,4 -> this would send 1 of unit 0 and 4 of unit 3 to this farm.
+
+**attention:**  
+_adding a unit index of `-1` will send **all** units with max number to this farm._  
+_adding a unit value of `-1` will send **all** units of this type to this farm._
 
 add the following line to your `start.py` script: (adjust the path to your .txt file if needed)
 

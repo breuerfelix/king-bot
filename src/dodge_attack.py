@@ -3,6 +3,7 @@ import time
 from random import randint
 from .utils import log
 from .village import open_village, open_city, open_building
+from farming import send_farm
 
 
 def check_for_attack_thread(browser: client, village: int, interval: int, units: list, target: list):
@@ -20,7 +21,13 @@ def check_for_attack_thread(browser: client, village: int, interval: int, units:
 
             if countdown < save_send_time:
                 # send units away
-                save_units(browser, village, units, target)
+                unit_dict = {}
+                # fill the dict, -1 means send all units
+                for unit in units:
+                    unit_dict[int(unit)] = -1
+
+                send_farm(browser=browser, village=village,
+                          units=unit_dict, x=int(target[0]), y=int(target[1]))
                 sleep_time = save_send_time  # sleep at least until attack is over
             elif countdown > sleep_time + save_send_time:
                 # do nothing and wait for next waking up
@@ -55,54 +62,3 @@ def check_for_attack(browser: client, village: int) -> str:
             return countdown
 
     return None
-
-
-@use_browser
-def save_units(browser: client, village: int, units: list, target: list):
-    if units:
-        if not target:
-            return
-
-    open_village(browser, village)
-    open_city(browser)
-    open_building(browser, 32)
-    btn = browser.find("//button[contains(@class, 'sendTroops')]")
-    browser.click(btn, 2)
-
-    input = browser.find(
-        "//div[@class='modalContent']")
-    input = input.find_element_by_xpath(
-        ".//input[contains(@class, 'targetInput')]")
-    input.send_keys("({}|{})".format(target[0], target[1]))
-    browser.sleep(1)
-
-    btn = browser.find(
-        "//div[contains(@class, 'clickableContainer missionType4')]")
-    browser.click(btn)
-
-    input = browser.find("//tbody[contains(@class, 'inputTroops')]/tr")
-    input = input.find_elements_by_xpath(".//td")
-
-    if units[0] == -1:
-        # send all units !
-        for inp in input:
-            inp = inp.find_element_by_xpath(".//input")
-            dis = inp.get_attribute("disabled")
-            if not dis:
-                number = inp.get_attribute("number")
-                inp.send_keys(number)
-    else:
-        for unit in units:
-            inp = input[unit].find_element_by_xpath(".//input")
-            dis = inp.get_attribute("disabled")
-            if not dis:
-                number = inp.get_attribute("number")
-                inp.send_keys(number)
-
-    btn = browser.find("//button[contains(@class, 'next clickable')]")
-    browser.click(btn, 1)
-    btn = browser.find(
-        "//button[contains(@class, 'sendTroops clickable')]")
-    browser.click(btn, 1)
-
-    log("Farm sent: ({}/{}).".format(target[0], target[1]))

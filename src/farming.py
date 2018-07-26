@@ -155,20 +155,34 @@ def start_custom_farmlist_thread(browser: client, path: str):
 
     for line in lines:
         args = line.split(";")
-        print(args)
+
+        units = args[4]
+        units = units.split(",")
+        unit_dict = {}
+
+        for i in range(0, len(units), 2):
+            unit_dict[int(units[i])] = int(units[i + 1])
 
         # shedule task
         schedule.every(int(args[2])).seconds.do(
-            send_farm, browser=browser, x=args[0], y=args[1], village=args[3], units=args[4])
+            send_farm, browser=browser, x=args[0], y=args[1], village=args[3], units=unit_dict)
         print("job started")
 
     browser.use()
 
     for line in lines:
         args = line.split(";")
+
+        units = args[4]
+        units = units.split(",")
+        unit_dict = {}
+
+        for i in range(0, len(units), 2):
+            unit_dict[int(units[i])] = int(units[i + 1])
+
         # send one time at start
         send_farm(browser=browser, x=args[0],
-                  y=args[1], village=args[3], units=args[4])
+                  y=args[1], village=args[3], units=unit_dict)
 
     browser.done()
 
@@ -178,8 +192,8 @@ def start_custom_farmlist_thread(browser: client, path: str):
 
 
 @use_browser
-def send_farm(browser: client, x: int, y: int, village: int, units: list):
-    log("Sending farm: ({}/{}) ...".format(x, y))
+def send_farm(browser: client, village: int, x: int, y: int, units: dict):
+    log("sending units to: ({}/{}) ...".format(x, y))
 
     open_village(browser, int(village))
     open_city(browser)
@@ -198,28 +212,48 @@ def send_farm(browser: client, x: int, y: int, village: int, units: list):
         "//div[contains(@class, 'clickableContainer missionType4')]")
     browser.click(btn)
 
-    units = units.split(",")
-
     input = browser.find("//tbody[contains(@class, 'inputTroops')]/tr")
     input = input.find_elements_by_xpath(".//td")
-    input = input[int(units[0])]
-    input = input.find_element_by_xpath(".//input")
 
-    # check if field is disabled
-    dis = input.get_attribute("disabled")
-    if dis:
-        log("not enough troops to send farm")
+    units_sent = False
+
+    if -1 in units:
+        # send all units, max count
+        for inp in input:
+            inp = inp.find_element_by_xpath(".//input")
+            dis = inp.get_attribute("disabled")
+            if not dis:
+                number = inp.get_attribute("number")
+                inp.send_keys(number)
+                units_sent = True
+    else:
+        # send value amount of units with index key
+        for key, value in units.items():
+            inp = input[int(key)].find_element_by_xpath(".//input")
+            # check if the field is disabled
+            dis = inp.get_attribute("disabled")
+
+            if not dis:
+                # gets max available troop count
+                number = inp.get_attribute("number")
+
+                units_to_send = int(value)
+
+                # send all units if value is -1
+                if units_to_send == -1:
+                    units_to_send = int(number)
+                else:
+                    if int(number) < units_to_send:
+                        # send max value if there arent enough units to send
+                        units_to_send = number
+
+                inp.send_keys(units_to_send)
+                units_sent = True
+
+    if not units_sent or units_sent:
+        log("no units got sent...")
         close_modal(browser)
         return
-
-    # check if available unit count is lower than troops given, if so, send available units
-    number = input.get_attribute("number")
-    units_to_send = units[1]
-    if int(number) < units_to_send:
-        units_to_send = number
-
-    # input units
-    input.send_keys(units_to_send)
 
     btn = browser.find("//button[contains(@class, 'next clickable')]")
     browser.click(btn, 1)
@@ -227,4 +261,4 @@ def send_farm(browser: client, x: int, y: int, village: int, units: list):
         "//button[contains(@class, 'sendTroops clickable')]")
     browser.click(btn, 1)
 
-    log("Farm sent: ({}/{}).".format(x, y))
+    log("units sent to: ({}/{}).".format(x, y))
