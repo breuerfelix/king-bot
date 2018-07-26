@@ -1,4 +1,4 @@
-# king-bot
+# king-bot <!-- omit in toc -->
 
 check out the insights of this project: [scriptworld.net](https://scriptworld.net/projects/king-bot/)
 
@@ -11,25 +11,22 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
 [![built with Selenium](https://img.shields.io/badge/built%20with-Selenium-yellow.svg)](https://github.com/SeleniumHQ/selenium)
 [![built with Python3](https://img.shields.io/badge/built%20with-Python3-red.svg)](https://www.python.org/)
 
-# table of contents
+# table of contents <!-- omit in toc -->
 
-- [king-bot](#king-bot)
-- [table of contents](#table-of-contents)
 - [getting-started](#getting-started)
-- [documentation](#documentation)
-    - [features](#features)
-        - [farming (travian plus)](#farming-travian-plus)
-        - [sorting out yellow / red farms](#sorting-out-yellow--red-farms)
-        - [farmlists as .txt file (no travian plus needed)](#farmlists-as-txt-file-no-travian-plus-needed)
-        - [adventures](#adventures)
-        - [dodge incoming attacks](#dodge-incoming-attacks)
-        - [upgrade resource fields / buildings](#upgrade-resource-fields--buildings)
-    - [start options](#start-options)
-        - [provide credentials](#provide-credentials)
-        - [headless browsing](#headless-browsing)
-        - [login manually](#login-manually)
-        - [remote browser](#remote-browser)
-        - [proxy](#proxy)
+- [features](#features)
+    - [farming (travian plus)](#farming-travian-plus)
+    - [sorting out yellow / red farms](#sorting-out-yellow--red-farms)
+    - [farmlists as .txt file (no travian plus needed)](#farmlists-as-txt-file-no-travian-plus-needed)
+    - [adventures](#adventures)
+    - [dodge incoming attacks](#dodge-incoming-attacks)
+    - [upgrade resource fields / buildings](#upgrade-resource-fields--buildings)
+- [start options](#start-options)
+    - [provide credentials](#provide-credentials)
+    - [headless browsing](#headless-browsing)
+    - [login manually](#login-manually)
+    - [remote browser](#remote-browser)
+    - [proxy](#proxy)
 
 # getting-started
 
@@ -60,14 +57,9 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
     1.  `python3 start.py`
     2.  read documentation for options like remote browser or headless browsing
 
-# documentation
+# features
 
-the first code snippet in each section always shows some example implementation of the action you want to perform.  
-this snipped is followed by a short description for all parameters given to the method.
-
-## features
-
-### farming (travian plus)
+## farming (travian plus)
 
 the bot will open given village, selects all farmlists from the array, sends them, and go to sleep.  
 this is by far the simplest implementation of a farm bot.
@@ -94,7 +86,7 @@ interval of sending the list _in seconds_
 you can stack as many of them together if you want.  
 it's also possible to send different farmlist in the same village in different intervals.
 
-### sorting out yellow / red farms
+## sorting out yellow / red farms
 
 **note that this feature is not fully tested yet!**  
 _i need someone with alot of big farmlists to test this feature for me_
@@ -123,7 +115,7 @@ index of the farmlist the 'danger' farms will be put into
 **interval:**  
 interval of checking the farmlists _in seconds_
 
-### farmlists as .txt file (no travian plus needed)
+## farmlists as .txt file (no travian plus needed)
 
 this technique is a little bit slower than then one with travian plus.  
 the bot will manually launch every attack at the rally point.  
@@ -163,7 +155,7 @@ kingbot.start_custom_farmlist(path="./assets/farmlist.txt")
 **path:**  
 path to your custom farmlist file
 
-### adventures
+## adventures
 
 this enables auto sending the hero on adventures.  
 be careful if the hero in low on health! there is no stopping mechanism for now.
@@ -175,7 +167,7 @@ kingbot.start_adventures(interval=500)
 **interval:** _(optional -> default = 100)_  
 time _in seconds_ the hero thread will sleep until it checks for a new adventure again
 
-### dodge incoming attacks
+## dodge incoming attacks
 
 since everybody hates to get attacked at night, the bot is able do dodge incoming attacks.  
 it will send your units to a given village for raid. make sure the village is inactive and valid.
@@ -197,7 +189,7 @@ insert `-1` _(units=[-1])_ to save **all** available units in this village
 **target:**  
 first index is the x-coordinate and second for the y-coordinate of the village the bot will send the units for a robbery
 
-### upgrade resource fields / buildings
+## upgrade resource fields / buildings
 
 **note:** _this feature is disabled right now, it needs improvement!_
 
@@ -218,9 +210,9 @@ see the picture below to get the right slot for your field
 
 ![resource-fields](https://scriptworld.net/assets/king-bot/resourceFields.png)
 
-## start options
+# start options
 
-### provide credentials
+## provide credentials
 
 ```bash
 $ python3 start.py -e email@test.de -p your_password -w your_gameworld
@@ -232,7 +224,7 @@ it's also possible to login manually if you dont want to provide your login cred
 
 all of these options are optional, you can always provice some via code, and some via start options, that's up to you.
 
-### headless browsing
+## headless browsing
 
 ```bash
 $ python3 start.py -h
@@ -241,7 +233,7 @@ $ python3 start.py -h
 if you don't wont a browser window to pop up, or using the script on a dedicated server with no gui, it is possible to run the script in headless mode.  
 the console window will inform you about important actions the bot will do.
 
-### login manually
+## login manually
 
 ```bash
 $ python3 start.py -m
@@ -255,7 +247,7 @@ if you are finished, just wait for the timer to end, so the bot can do its work.
 
 **note:** _this is not possible in headless mode!_
 
-### remote browser
+## remote browser
 
 ```bash
 $ python3 start.py -r
@@ -264,7 +256,7 @@ $ python3 start.py -r
 if the script exists because of an exception, it's possible to re-use the browser session so you don't have to go through the whole login process again.  
 just don't exit the browser window and make sure to remove the functions in the script, which the bot already completed in last session.
 
-### proxy
+## proxy
 
 ```python
 proxy = '127.0.0.1:1234'
