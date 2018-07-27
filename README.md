@@ -61,6 +61,16 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
 
 # features
 
+just an overview with method signatures. for details check each chapter.
+
+```python
+def start_adventures(self, interval: int = 100):
+def start_farming(self, village: int, farmlists: list, interval: int):
+def start_custom_farmlist(self, path: str):
+def sort_danger_farms(self, farmlists: list, to_list: int, red: bool, yellow: bool, interval: int):
+def dodge_attack(self, village: int, interval: int = 600, units: list = [], target: list = None):
+```
+
 ## farming (travian plus)
 
 the bot will open given village, selects all farmlists from the array, sends them, and go to sleep.  
@@ -214,7 +224,9 @@ see the picture below to get the right slot for your field
 
 # start options
 
-| short | long        | argments       | description             |
+just an overview. for details check each topic.
+
+| short | long        | arguments      | description             |
 | :---: | :---------: | :------------: | :---------------------: |
 | -e    | --email     | your_email     | optional for login      |
 | -p    | --password  | your_password  | optional for login      |
