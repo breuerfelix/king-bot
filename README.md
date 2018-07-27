@@ -64,11 +64,11 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
 just an overview with method signatures. for details check each chapter.
 
 ```python
-def start_adventures(self, interval: int = 100):
-def start_farming(self, village: int, farmlists: list, interval: int):
-def start_custom_farmlist(self, path: str):
-def sort_danger_farms(self, farmlists: list, to_list: int, red: bool, yellow: bool, interval: int):
-def dodge_attack(self, village: int, interval: int = 600, units: list = [], target: list = None):
+def start_adventures(interval: int = 100):
+def start_farming(village: int, farmlists: list, interval: int):
+def start_custom_farmlist(path: str):
+def sort_danger_farms(farmlists: list, to_list: int, red: bool, yellow: bool, interval: int):
+def dodge_attack(village: int, interval: int = 600, units: list = [], target: list = None):
 ```
 
 ## farming (travian plus)
