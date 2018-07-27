@@ -8,7 +8,6 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
 
 __youtube video:__ how to setup the bot. [click here !](https://youtu.be/JGqBnTLFDFc)
 
-
 [![Build Status](https://travis-ci.org/scriptworld-git/king-bot.svg?branch=master)](https://travis-ci.org/scriptworld-git/king-bot)
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/scriptworld-git/king-bot/blob/master/LICENSE)
 [![built with Selenium](https://img.shields.io/badge/built%20with-Selenium-yellow.svg)](https://github.com/SeleniumHQ/selenium)
@@ -34,6 +33,7 @@ __youtube video:__ how to setup the bot. [click here !](https://youtu.be/JGqBnTL
 - [how to contribute](#how-to-contribute)
     - [code style](#code-style)
     - [workflow](#workflow)
+- [contact](#contact)
 
 # getting-started
 
@@ -323,6 +323,11 @@ you are not quite sure if you are able to contribute ? **[contact me (: !](mailt
 -   fork the repository
 -   start scripting
 -   make a pull request
+
+# contact
+
+__discord:__ _jaxor#9641_  
+__email:__ _webmaster@scriptworld.net_
 
 ---
 
