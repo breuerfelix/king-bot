@@ -327,7 +327,7 @@ you are not quite sure if you are able to contribute ? **[contact me (: !](mailt
 # contact
 
 __discord:__ _jaxor#9641_  
-__email:__ _webmaster@scriptworld.net_
+__email:__ _felix@scriptworld.net_
 
 ---
 
