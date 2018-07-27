@@ -59,7 +59,7 @@ def use_browser(org_func: Any):
 
 
 class client:
-    def __init__(self):
+    def __init__(self) -> None:
         self.driver = None
         self.delay = None
         self._headless = False
@@ -67,7 +67,7 @@ class client:
         self.proxy = False
         pass
 
-    def chrome(self, path: str, proxy: str = ''):
+    def chrome(self, path: str, proxy: str = '') -> None:
         options = webdriver.ChromeOptions()
         if proxy is not "":
             self.proxy = True
@@ -79,7 +79,7 @@ class client:
         self.set_config()
         self.save_session()
 
-    def remote(self, path: str):
+    def remote(self, path: str) -> None:
         file = open(path, "r")
         content = file.read()
         lines = content.split(";")
@@ -92,7 +92,7 @@ class client:
 
         self.set_config()
 
-    def headless(self, path: str, proxy: str = ''):
+    def headless(self, path: str, proxy: str = '') -> None:
         options = webdriver.ChromeOptions()
         options.add_argument('headless')
         options.add_argument('window-size=1500,1200')
@@ -108,22 +108,22 @@ class client:
         self.set_config()
         self._headless = True
 
-    def set_config(self):
+    def set_config(self) -> None:
         # set timeout to find an element in seconds
         self.driver.implicitly_wait(5)
         # set page load timeout in seconds
         self.driver.set_page_load_timeout(20)
 
     # region locks
-    def use(self):
+    def use(self) -> None:
         self.lock.acquire()
 
-    def done(self):
+    def done(self) -> None:
         self.lock.release()
     # endregion
 
     # region browser function
-    def get(self, page: str):
+    def get(self, page: str) -> None:
         self.driver.get(page)
 
     def find(self, xpath: str, wait: float = 0):
@@ -131,7 +131,7 @@ class client:
         self.sleep(wait)
         return self.driver.find_element_by_xpath(xpath)
 
-    def sleep(self, seconds: float):
+    def sleep(self, seconds: float) -> None:
         # reduce sleep time if in headless mode
         if self._headless:
             seconds = seconds / 2
@@ -142,20 +142,20 @@ class client:
 
         time.sleep(seconds)
 
-    def click(self, element: webelement, wait: float = 0.5):
+    def click(self, element: webelement, wait: float = 0.5) -> None:
         ActionChains(self.driver).move_to_element(element).click().perform()
         self.sleep(wait)
 
-    def hover(self, element: webelement, wait: float = 0.5):
+    def hover(self, element: webelement, wait: float = 0.5) -> None:
         ActionChains(self.driver).move_to_element(element).perform()
         self.sleep(wait)
 
-    def scroll_down(self, element: webelement):
+    def scroll_down(self, element: webelement) -> None:
         element.send_keys(Keys.PAGE_DOWN)
     # endregion
 
     # region session
-    def save_session(self):
+    def save_session(self) -> None:
         url = self.driver.command_executor._url
         session = self.driver.session_id
 
@@ -171,7 +171,7 @@ class client:
         except:
             log('Error saving Session')
 
-    def write_source(self):
+    def write_source(self) -> None:
         file = open("./source.html", "w")
         file.write(self.driver.page_source)
         file.close()

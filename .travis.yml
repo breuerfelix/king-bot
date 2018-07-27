@@ -5,5 +5,5 @@ python:
 install:
   - pip3 install .
   - pip3 install mypy
- script:
+script:
   - mypy start.py --ignore-missing-imports
