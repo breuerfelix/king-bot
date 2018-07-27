@@ -36,7 +36,7 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
 3.  install packages
     1.  open console
     2.  goto this repository
-    3.  run `pip3 install .` or `pip3 install -r requirements.txt`
+    3.  run `pip install .` or `pip install -r requirements.txt`
 4.  download chromedriver for your system
     1.  [get chromederiver](http://chromedriver.chromium.org)
     2.  move to `assets/` folder
@@ -54,8 +54,10 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
     4.  `test@gmail.com;my_password`
     5.  save the file
 7.  execute in console:
-    1.  `python3 start.py`
+    1.  `python start.py`
     2.  read documentation for options like remote browser or headless browsing
+8. on mac or linux
+    1. use `python3` and `pip3` instead
 
 # features
 
@@ -212,11 +214,20 @@ see the picture below to get the right slot for your field
 
 # start options
 
+| short | long        | argments       | description             |
+| :---: | :---------: | :------------: | :---------------------: |
+| -e    | --email     | your_email     | optional for login      |
+| -p    | --password  | your_password  | optional for login      |
+| -w    | --gameworld | your_gameworld | optional for login      |
+| -m    | -           | -              | login manually          |
+| -h    | -           | -              | no browser window       |
+| -r    | -           | -              | connect to last session |
+
 ## provide credentials
 
 ```bash
-$ python3 start.py -e email@test.de -p your_password -w your_gameworld
-$ python3 start.py --email email@test.de --password your_password --gameworld your_gameworld
+$ python start.py -e email@test.de -p your_password -w your_gameworld
+$ python start.py --email email@test.de --password your_password --gameworld your_gameworld
 ```
 
 if you don't want to store your credentials into a file, just provide them via arguments like this.  
@@ -227,7 +238,7 @@ all of these options are optional, you can always provice some via code, and som
 ## headless browsing
 
 ```bash
-$ python3 start.py -h
+$ python start.py -h
 ```
 
 if you don't wont a browser window to pop up, or using the script on a dedicated server with no gui, it is possible to run the script in headless mode.  
@@ -236,7 +247,7 @@ the console window will inform you about important actions the bot will do.
 ## login manually
 
 ```bash
-$ python3 start.py -m
+$ python start.py -m
 ```
 
 if you don't trust my program, even if it' open source, you can login manually and don't even type your email or password anywhere in my script.  
@@ -250,7 +261,7 @@ if you are finished, just wait for the timer to end, so the bot can do its work.
 ## remote browser
 
 ```bash
-$ python3 start.py -r
+$ python start.py -r
 ```
 
 if the script exists because of an exception, it's possible to re-use the browser session so you don't have to go through the whole login process again.  
