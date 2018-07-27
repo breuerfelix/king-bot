@@ -7,3 +7,4 @@ install:
   - pip3 install mypy
 script:
   - mypy start.py --ignore-missing-imports
+  - python3 start.py -t

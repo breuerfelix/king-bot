@@ -60,7 +60,7 @@ def use_browser(org_func: Any):
 
 class client:
     def __init__(self) -> None:
-        self.driver = None
+        self.driver: webdriver = None
         self.delay = None
         self._headless = False
         self.lock = RLock()
@@ -126,7 +126,7 @@ class client:
     def get(self, page: str) -> None:
         self.driver.get(page)
 
-    def find(self, xpath: str, wait: float = 0):
+    def find(self, xpath: str, wait: float = 0) -> webelement:
         # todo wait x seconds until presencd of element
         self.sleep(wait)
         return self.driver.find_element_by_xpath(xpath)
