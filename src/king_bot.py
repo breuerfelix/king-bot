@@ -13,8 +13,8 @@ from .dodge_attack import check_for_attack_thread
 
 
 class king_bot:
-    def __init__(self, email: str, password: str, gameworld: str, chrome_driver_path: str, current_session_path: str, proxy: str, start_args: list):
-        self.browser = None
+    def __init__(self, email: str, password: str, gameworld: str, chrome_driver_path: str, current_session_path: str, proxy: str, start_args: list) -> None:
+        self.browser = client()
         self.chrome_driver_path = chrome_driver_path
         self.current_session_path = current_session_path
         self.gameworld = gameworld
@@ -26,8 +26,7 @@ class king_bot:
         self.init(email=email, password=password,
                   proxy=proxy, start_args=start_args)
 
-    def init(self, email: str, password: str, proxy: str, start_args: list):
-        self.browser = client()
+    def init(self, email: str, password: str, proxy: str, start_args: list) -> None:
         login_req = True
         manual_login = False
 
@@ -61,7 +60,7 @@ class king_bot:
             self.browser.chrome(self.chrome_driver_path, proxy=proxy)
 
         if login_req:
-            if email == None or password == None:
+            if not email or not password:
                 # settings path
                 credentialsPath = "./assets/credentials.txt"
 
@@ -70,21 +69,21 @@ class king_bot:
                 text = file.read()
                 file.close()
 
-                if email == None:
+                if not email:
                     email = text.split(";")[0]
-                if password == None:
+                if not password:
                     password = text.split(";")[1]
 
             close = False
-            if self.gameworld == None:
+            if not self.gameworld:
                 log("no gameworld provided")
                 close = True
 
-            if email == None:
+            if not email:
                 log("no email provided")
                 close = True
 
-            if password == None:
+            if not password:
                 log("no password provided")
                 close = True
 
@@ -95,8 +94,8 @@ class king_bot:
                   email=email, password=password)
 
             # clear loging credentials
-            email = None
-            password = None
+            email = ""
+            password = ""
 
         if manual_login:
             self.browser.use()
@@ -113,30 +112,30 @@ class king_bot:
 
         self.browser.done()
 
-    def start_adventures(self, interval: int = 100):
+    def start_adventures(self, interval: int = 100) -> None:
         Thread(target=adventures_thread, args=(self.browser, interval)).start()
 
     # todo implement
-    def upgrade_slot(self, village: int, slot: int):
+    def upgrade_slot(self, village: int, slot: int) -> None:
         log("upgrading slots is under construction - check for updates")
 
         if slot > 19:
             log("upgrading buildings is still under construction")
             return
 
-    def start_farming(self, village: int, farmlists: list, interval: int):
+    def start_farming(self, village: int, farmlists: list, interval: int) -> None:
         Thread(target=start_farming_thread, args=[
                self.browser, village, farmlists, interval]).start()
 
-    def start_custom_farmlist(self, path: str):
+    def start_custom_farmlist(self, path: str) -> None:
         Thread(target=start_custom_farmlist_thread,
                args=[self.browser, path]).start()
 
-    def sort_danger_farms(self, farmlists: list, to_list: int, red: bool, yellow: bool, interval: int):
+    def sort_danger_farms(self, farmlists: list, to_list: int, red: bool, yellow: bool, interval: int) -> None:
         Thread(target=sort_danger_farms_thread, args=[
                self.browser, farmlists, to_list, red, yellow, interval]).start()
 
-    def dodge_attack(self, village: int, interval: int = 600, resources: bool = False, units: list = [], target: list = None, barracks_location: int = None, barracks_unit: int = None, stable_location: int = None, stable_unit: int = None):
+    def dodge_attack(self, village: int, interval: int = 600, resources: bool = False, units: list = [], target: list = None, barracks_location: int = None, barracks_unit: int = None, stable_location: int = None, stable_unit: int = None) -> None:
         # check dependencies for units
         if units:
             if target == None:

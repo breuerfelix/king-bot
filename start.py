@@ -2,10 +2,10 @@ from src import king_bot
 import sys
 
 # these could be read in via arguments, file or login manually - read documentation
-gameworld = None  # choose uppercase (exact world name) - optional
-email = None  # optional
-password = None  # optional
-proxy = ''  # optional
+gameworld = ""  # choose uppercase (exact world name) - optional
+email = ""  # optional
+password = ""  # optional
+proxy = ""  # optional
 
 # without extension (even on windows)
 chrome_driver_path = './assets/chromedriver'

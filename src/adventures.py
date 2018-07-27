@@ -5,7 +5,7 @@ from .utils import log
 from .util_game import close_modal
 
 
-def adventures_thread(browser: client, interval: int):
+def adventures_thread(browser: client, interval: int) -> None:
     # init delay
     time.sleep(2)
 
@@ -15,7 +15,7 @@ def adventures_thread(browser: client, interval: int):
 
 
 @use_browser
-def start_adventure(browser: client):
+def start_adventure(browser: client) -> None:
     log("adventure thread waking up")
 
     heroLinks = browser.find("//div[@class='heroLinks']")

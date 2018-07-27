@@ -126,12 +126,12 @@ class client:
     def get(self, page: str):
         self.driver.get(page)
 
-    def find(self, xpath: str, wait: int = 0):
+    def find(self, xpath: str, wait: float = 0):
         # todo wait x seconds until presencd of element
         self.sleep(wait)
         return self.driver.find_element_by_xpath(xpath)
 
-    def sleep(self, seconds: int):
+    def sleep(self, seconds: float):
         # reduce sleep time if in headless mode
         if self._headless:
             seconds = seconds / 2
@@ -142,11 +142,11 @@ class client:
 
         time.sleep(seconds)
 
-    def click(self, element: webelement, wait: int = 0.5):
+    def click(self, element: webelement, wait: float = 0.5):
         ActionChains(self.driver).move_to_element(element).click().perform()
         self.sleep(wait)
 
-    def hover(self, element: webelement, wait: int = 0.5):
+    def hover(self, element: webelement, wait: float = 0.5):
         ActionChains(self.driver).move_to_element(element).perform()
         self.sleep(wait)
 

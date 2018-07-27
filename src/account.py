@@ -3,7 +3,7 @@ from .custom_driver import client, use_browser
 
 
 @use_browser
-def login(browser: client, gameworld: str, email: str, password: str):
+def login(browser: client, gameworld: str, email: str, password: str) -> None:
     world = gameworld
 
     browser.get('https://kingdoms.com')
@@ -32,7 +32,7 @@ def login(browser: client, gameworld: str, email: str, password: str):
     browser.sleep(8)
 
 
-def check_notification(browser: client):
+def check_notification(browser: client) -> None:
     try:
         browser.find("//body[contains(@class, 'modal-open')]")
         log('closing notification-modal')

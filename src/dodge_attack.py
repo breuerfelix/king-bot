@@ -61,4 +61,4 @@ def check_for_attack(browser: client, village: int) -> str:
 
             return countdown
 
-    return None
+    return ""
