@@ -6,7 +6,7 @@ from .village import open_village, open_city, open_building
 from .farming import send_farm
 
 
-def check_for_attack_thread(browser: client, village: int, interval: int, units: list, target: list):
+def check_for_attack_thread(browser: client, village: int, interval: int, units: list, target: list) -> None:
     time.sleep(randint(0, 10))
 
     while True:

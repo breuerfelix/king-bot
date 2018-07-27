@@ -6,7 +6,7 @@ from .util_game import close_modal
 import schedule
 
 
-def start_farming_thread(browser: client, village: int, farmlists: list, interval: int):
+def start_farming_thread(browser: client, village: int, farmlists: list, interval: int) -> None:
     # todo exit when in beginners protection
     time.sleep(3)
 
@@ -16,7 +16,7 @@ def start_farming_thread(browser: client, village: int, farmlists: list, interva
 
 
 @use_browser
-def start_farming(browser: client, village: int, farmlists: list):
+def start_farming(browser: client, village: int, farmlists: list) -> None:
     log("farming thread in village {} waking up".format(village))
 
     open_village(browser, village)
@@ -52,7 +52,7 @@ def start_farming(browser: client, village: int, farmlists: list):
     log("farming thread in village {} sleeping".format(village))
 
 
-def sort_danger_farms_thread(browser: client, farmlists: list, to_list: int, red: bool, yellow: bool, interval: int):
+def sort_danger_farms_thread(browser: client, farmlists: list, to_list: int, red: bool, yellow: bool, interval: int) -> None:
     time.sleep(2)
 
     while True:
@@ -62,7 +62,7 @@ def sort_danger_farms_thread(browser: client, farmlists: list, to_list: int, red
 
 
 @use_browser
-def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool, yellow: bool):
+def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool, yellow: bool) -> None:
     print("sorting farms started...")
 
     open_city(browser)
@@ -149,7 +149,7 @@ def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool,
     print("sorting farms going to sleep")
 
 
-def start_custom_farmlist_thread(browser: client, path: str):
+def start_custom_farmlist_thread(browser: client, path: str) -> None:
     with open(path, "r") as file:
         lines = file.readlines()
 
@@ -157,11 +157,11 @@ def start_custom_farmlist_thread(browser: client, path: str):
         args = line.split(";")
 
         units = args[4]
-        units = units.split(",")
+        unit_list = units.split(",")
         unit_dict = {}
 
-        for i in range(0, len(units), 2):
-            unit_dict[int(units[i])] = int(units[i + 1])
+        for i in range(0, len(unit_list), 2):
+            unit_dict[int(unit_list[i])] = int(unit_list[i + 1])
 
         # shedule task
         schedule.every(int(args[2])).seconds.do(
@@ -174,11 +174,11 @@ def start_custom_farmlist_thread(browser: client, path: str):
         args = line.split(";")
 
         units = args[4]
-        units = units.split(",")
+        unit_list = units.split(",")
         unit_dict = {}
 
-        for i in range(0, len(units), 2):
-            unit_dict[int(units[i])] = int(units[i + 1])
+        for i in range(0, len(unit_list), 2):
+            unit_dict[int(unit_list[i])] = int(unit_list[i + 1])
 
         # send one time at start
         send_farm(browser=browser, x=args[0],
@@ -192,7 +192,7 @@ def start_custom_farmlist_thread(browser: client, path: str):
 
 
 @use_browser
-def send_farm(browser: client, village: int, x: int, y: int, units: dict):
+def send_farm(browser: client, village: int, x: int, y: int, units: dict) -> None:
     log("sending units to: ({}/{}) ...".format(x, y))
 
     open_village(browser, int(village))
