@@ -27,6 +27,10 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
     - [login manually](#login-manually)
     - [remote browser](#remote-browser)
     - [proxy](#proxy)
+- [faq](#faq)
+- [how to contribute](#how-to-contribute)
+    - [code style](#code-style)
+    - [workflow](#workflow)
 
 # getting-started
 
@@ -56,8 +60,8 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
 7.  execute in console:
     1.  `python start.py`
     2.  read documentation for options like remote browser or headless browsing
-8. on mac or linux
-    1. use `python3` and `pip3` instead
+8.  on mac or linux
+    1.  use `python3` and `pip3` instead
 
 # features
 
@@ -287,6 +291,33 @@ proxy = '127.0.0.1:1234'
 
 if you want to surf the web via proxy, just insert it in `start.py`. this is also possible in headless mode.  
 if the proxy is set to `''`, it's going to be disabled. it's also disabled by default.
+
+# faq
+
+**can i play the game while the bot is running?**  
+yes. just open a new browser window and leave the bot window in the background. login to your gameworld and keep playing.  
+one instance doesn't effect another browser instance. you can also start your script without a browser window.
+
+**can i get banned for using the bot?**  
+yes, but the chances are below 1%. it's nearly impossible to detect this bot, because it clicks all buttons just like a human would do.  
+also there is browser and sleeping time delay, so they can't event check if the interval is always the same.
+
+# how to contribute
+
+you are not quite sure if you are able to contribute ? **[contact me (: !](mailto:f.breuer@scriptworld.net)** i love to teach people who are interested in learning.
+
+## code style
+
+-   type definitions at least for method signatures
+-   do comments
+-   keep your code seperated in files
+
+## workflow
+
+-   take an issue or a personal idea to implement
+-   fork the repository
+-   start scripting
+-   make a pull request
 
 ---
 
