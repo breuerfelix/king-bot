@@ -37,6 +37,8 @@ __youtube video:__ how to setup the bot. [click here !](https://youtu.be/JGqBnTL
 
 # getting-started
 
+watch the youtube video if you got problems setting up the bot. [click here !](https://youtu.be/JGqBnTLFDFc)
+
 1.  install python3 for your system
     1.  [get python](https://www.python.org/downloads/)
 2.  clone this repository
