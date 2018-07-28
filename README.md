@@ -62,9 +62,11 @@ watch the youtube video if you got problems setting up the bot. [click here !](h
     3.  write your email and password like following
     4.  `test@gmail.com;my_password`
     5.  save the file
-7.  execute in console:
-    1.  `python start.py`
-    2.  read documentation for options like remote browser or headless browsing
+7.  execute script:
+    1.  browse to this directory via console
+        1. _important because of relative paths_
+    2.  `python start.py`
+    3.  read documentation for options like remote browser or headless browsing
 8.  on mac or linux
     1.  use `python3` and `pip3` instead
 
