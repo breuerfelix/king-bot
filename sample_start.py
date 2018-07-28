@@ -9,10 +9,9 @@ proxy = ''  # optional
 
 # without extension (even on windows)
 chrome_driver_path = './assets/chromedriver'
-current_session_path = './assets/currentSession.txt'
 
 kingbot = king_bot(email=email, password=password, gameworld=gameworld,
-                   chrome_driver_path=chrome_driver_path, current_session_path=current_session_path, proxy=proxy, start_args=sys.argv)
+                   chrome_driver_path=chrome_driver_path, proxy=proxy, start_args=sys.argv, debug=False)
 
 kingbot.start_adventures(interval=500)
 

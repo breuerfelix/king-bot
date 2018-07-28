@@ -13,10 +13,9 @@ from .dodge_attack import check_for_attack_thread
 
 
 class king_bot:
-    def __init__(self, email: str, password: str, gameworld: str, chrome_driver_path: str, current_session_path: str, proxy: str, start_args: list) -> None:
-        self.browser = client()
+    def __init__(self, email: str, password: str, gameworld: str, chrome_driver_path: str, proxy: str, start_args: list, debug: bool = False) -> None:
+        self.browser = client(debug=debug)
         self.chrome_driver_path = chrome_driver_path
-        self.current_session_path = current_session_path
         self.gameworld = gameworld
 
         # add extension if on windows
@@ -38,13 +37,13 @@ class king_bot:
             sys.exit()
         for opt, arg in opts:
             if opt == "-t":
-                # todo run test file or type checker
+                # todo run units tests
                 # checks dependencies for travis
                 sys.exit()
             elif opt == '-h':
                 self.browser.headless(self.chrome_driver_path, proxy=proxy)
             elif opt == '-r':
-                self.browser.remote(self.current_session_path)
+                self.browser.remote()
                 login_req = False
             elif opt == '-m':
                 login_req = False

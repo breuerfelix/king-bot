@@ -4,8 +4,7 @@ chromedriver.*
 __pycache__
 source.html
 .DS_Store
-currentSession.txt
+current_session.txt
 credentials.txt
 .mypy_cache
-currentSession.txt
 test_start.py

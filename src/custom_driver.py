@@ -59,12 +59,14 @@ def use_browser(org_func: Any):
 
 
 class client:
-    def __init__(self) -> None:
+    def __init__(self, debug: bool = False) -> None:
         self.driver: webdriver = None
         self.delay = None
-        self._headless = False
+        self._headless: bool = False
         self.lock = RLock()
-        self.proxy = False
+        self.proxy: bool = False
+        self.debug: bool = debug
+        self.current_session_path: str = "./assets/current_session.txt"
         pass
 
     def chrome(self, path: str, proxy: str = '') -> None:
@@ -79,8 +81,12 @@ class client:
         self.set_config()
         self.save_session()
 
-    def remote(self, path: str) -> None:
-        file = open(path, "r")
+    def remote(self) -> None:
+        if not self.debug:
+            log("debug mode is turned off, can't reuse old session")
+            return
+
+        file = open(self.current_session_path, "r")
         content = file.read()
         lines = content.split(";")
         url = lines[0]
@@ -156,10 +162,13 @@ class client:
 
     # region session
     def save_session(self) -> None:
+        if not self.debug:
+            return
+
         url = self.driver.command_executor._url
         session = self.driver.session_id
 
-        filename = './assets/currentSession.txt'
+        filename = self.current_session_path
         semi = ';'
 
         content = url + semi + session

@@ -53,17 +53,12 @@ watch the youtube video if you got problems setting up the bot. [click here !](h
     3.  edit chromedriver path in `start.py` _(optional)_
         1.  `chrome_driver_path = 'enter path here'`
 5.  edit `start.py`
-    1.  place the actions your bot should do at the end
+    1.  insert your credentials _(optional)_
+        1.  login without inserting -> _see chapter start options_
+    2.  place the actions your bot should do at the end
         1.  read documentation for this
         2.  read `sample_start.py` to get an impression
-6.  insert your credentials _(optional)_
-    1.  **you don't want to provide them? just login manually!**
-        1.  _see chapter start options!_
-    2.  create file named `credentials.txt` in `assets/` folder
-    3.  write your email and password like following
-    4.  `test@gmail.com;my_password`
-    5.  save the file
-7.  execute script:
+7.  execute script
     1.  browse to this directory via console
         1. _important because of relative paths_
     2.  `python start.py`
@@ -328,10 +323,12 @@ you are not quite sure if you are able to contribute ? **[contact me (: !](mailt
 -   make a pull request
 
 ## nice to know
-
-- store your login credentials in `./assets/credentials.txt` -> ignored by git
+`
+- store your login credentials in `./assets/credentials.txt` -> ignored by gi`t
 - write your testscript as `test_start.py` -> ignored by git
 - run mypy for typechecking `mypy start.py --ignore-missing-imports`
+- set debug flag to `True` -> `kingbot = kingbot(..., debug=True)`
+    - if your script executes with and error resume your session with `python start.py -r`
 
 # contact
 
