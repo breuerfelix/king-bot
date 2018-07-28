@@ -323,8 +323,8 @@ you are not quite sure if you are able to contribute ? **[contact me (: !](mailt
 -   make a pull request
 
 ## nice to know
-`
-- store your login credentials in `./assets/credentials.txt` -> ignored by gi`t
+
+- store your login credentials in `./assets/credentials.txt` -> ignored by git
 - write your testscript as `test_start.py` -> ignored by git
 - run mypy for typechecking `mypy start.py --ignore-missing-imports`
 - set debug flag to `True` -> `kingbot = kingbot(..., debug=True)`
