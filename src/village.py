@@ -8,6 +8,15 @@ from .custom_driver import client
 def open_village(browser: client, id: int):
     index = id
 
+    # check selected village
+    ul = browser.find("//div[contains(@class, 'villageListDropDown')]")
+    ul = ul.find_element_by_xpath(".//ul")
+    lis = ul.find_elements_by_xpath(".//li")
+    classes = lis[index].get_attribute("class")
+
+    if "selected" in classes:
+        return
+
     btn = browser.find("//a[@id='villageOverview']")
     browser.click(btn, 1)
     table = browser.find(
@@ -18,7 +27,6 @@ def open_village(browser: client, id: int):
     link = tds[0].find_element_by_xpath(".//a")
     browser.click(link, 1)
 
-    log("opened village {}".format(index))
     close_modal(browser)
 
 
