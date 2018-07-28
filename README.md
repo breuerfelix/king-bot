@@ -33,6 +33,7 @@ __youtube video:__ how to setup the bot. [click here !](https://youtu.be/JGqBnTL
 - [how to contribute](#how-to-contribute)
     - [code style](#code-style)
     - [workflow](#workflow)
+    - [nice to know](#nice-to-know)
 - [contact](#contact)
 
 # getting-started
@@ -325,6 +326,12 @@ you are not quite sure if you are able to contribute ? **[contact me (: !](mailt
 -   fork the repository
 -   start scripting
 -   make a pull request
+
+## nice to know
+
+- store your login credentials in `./assets/credentials.txt` -> ignored by git
+- write your testscript as `test_start.py` -> ignored by git
+- run mypy for typechecking `mypy start.py --ignore-missing-imports`
 
 # contact
 
