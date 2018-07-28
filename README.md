@@ -307,7 +307,8 @@ also there is browser and sleeping time delay, so they can't event check if the 
 
 # how to contribute
 
-you are not quite sure if you are able to contribute ? **[contact me (: !](mailto:f.breuer@scriptworld.net)** i love to teach people who are interested in learning.
+you are not quite sure if you are able to contribute ? **[contact me (: !](mailto:f.breuer@scriptworld.net)**  
+i love to teach people who are interested in learning.
 
 ## code style
 
