@@ -148,3 +148,6 @@ class king_bot:
 
         Thread(target=check_for_attack_thread, args=[
                self.browser, village, interval, units, target]).start()
+
+    def upgrade_units_smithy(self, village: int, units: list, interval: int):
+        pass

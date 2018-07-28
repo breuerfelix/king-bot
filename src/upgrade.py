@@ -10,3 +10,5 @@ def upgrade_slot(browser: client, id: int) -> None:
     browser.click(el, 1)
 
     log("added slot: {} to queue".format(id))
+
+# def upgrade_units_smithy_thread(browser:client, )

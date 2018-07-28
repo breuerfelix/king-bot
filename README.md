@@ -22,6 +22,7 @@ __youtube video:__ how to setup the bot. [click here !](https://youtu.be/JGqBnTL
     - [farmlists as .txt file (no travian plus needed)](#farmlists-as-txt-file-no-travian-plus-needed)
     - [adventures](#adventures)
     - [dodge incoming attacks](#dodge-incoming-attacks)
+    - [upgrade units in smithy](#upgrade-units-in-smithy)
     - [upgrade resource fields / buildings](#upgrade-resource-fields--buildings)
 - [start options](#start-options)
     - [provide credentials](#provide-credentials)
@@ -207,6 +208,18 @@ insert `-1` _(units=[-1])_ to save **all** available units in this village
 
 **target:**  
 first index is the x-coordinate and second for the y-coordinate of the village the bot will send the units for a robbery
+
+## upgrade units in smithy
+
+```python
+kingbot.upgrade_units_smithy(village=0, units=[21, 22])
+```
+
+| gaul          | teuton | roman |
+| :-----------: | :----: | :---: |
+| 21: phalanx   |        |       |
+| 22: swordsman |        |       |
+|               |        |       |
 
 ## upgrade resource fields / buildings
 
