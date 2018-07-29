@@ -7,6 +7,7 @@ import time
 from .utils import log
 from threading import RLock
 from typing import Any
+from .settings import settings
 
 """
 from selenium.webdriver.support.ui import WebDriverWait
@@ -66,7 +67,7 @@ class client:
         self.lock = RLock()
         self.proxy: bool = False
         self.debug: bool = debug
-        self.current_session_path: str = "./assets/current_session.txt"
+        self.current_session_path: str = settings.current_session_path
         pass
 
     def chrome(self, path: str, proxy: str = '') -> None:
