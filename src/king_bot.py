@@ -10,6 +10,7 @@ from .util_game import close_welcome_screen
 from .utils import log
 from .farming import start_farming_thread, start_custom_farmlist_thread, sort_danger_farms_thread
 from .dodge_attack import check_for_attack_thread
+from .upgrade import upgrade_units_smithy_thread
 
 
 class king_bot:
@@ -149,5 +150,6 @@ class king_bot:
         Thread(target=check_for_attack_thread, args=[
                self.browser, village, interval, units, target]).start()
 
-    def upgrade_units_smithy(self, village: int, units: list, interval: int):
-        pass
+    def upgrade_units_smithy(self, village: int, units: list, interval: int) -> None:
+        Thread(target=upgrade_units_smithy_thread, args=[
+               self.browser, village, units, interval]).start()
