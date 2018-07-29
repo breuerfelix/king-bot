@@ -318,6 +318,7 @@ i love to teach people who are interested in learning.
 ## nice to know
 
 - store your login credentials in `./assets/credentials.txt` -> ignored by git
+    - gameworld;your_email;your_password
 - write your testscript as `test_start.py` -> ignored by git
 - run mypy for typechecking `mypy start.py --ignore-missing-imports`
 - set debug flag to `True` -> `kingbot = kingbot(..., debug=True)`

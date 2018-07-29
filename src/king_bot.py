@@ -60,16 +60,18 @@ class king_bot:
             self.browser.chrome(self.chrome_driver_path, proxy=proxy)
 
         if login_req:
-            if not email or not password:
+            if not email or not password or not self.gameworld:
                 # read login credentials
                 file = open(settings.credentials_path, "r")
                 text = file.read()
                 file.close()
 
+                if not self.gameworld:
+                    self.gameworld = text.split(";")[0]
                 if not email:
-                    email = text.split(";")[0]
+                    email = text.split(";")[1]
                 if not password:
-                    password = text.split(";")[1]
+                    password = text.split(";")[2]
 
             close = False
             if not self.gameworld:
