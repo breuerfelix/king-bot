@@ -1,10 +1,6 @@
 .vscode
-chromedriver
-chromedriver.*
 __pycache__
 source.html
 .DS_Store
-current_session.txt
-credentials.txt
 .mypy_cache
 test_start.py
