@@ -150,6 +150,6 @@ class king_bot:
         Thread(target=check_for_attack_thread, args=[
                self.browser, village, interval, units, target]).start()
 
-    def upgrade_units_smithy(self, village: int, units: list, interval: int) -> None:
+    def upgrade_units_smithy(self, village: int, units: list, interval: int = 1000) -> None:
         Thread(target=upgrade_units_smithy_thread, args=[
                self.browser, village, units, interval]).start()
