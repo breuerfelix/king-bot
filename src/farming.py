@@ -1,4 +1,5 @@
 from .custom_driver import client, use_browser
+from .settings import settings
 import time
 from .utils import log
 from .village import open_building, open_city, open_village
@@ -149,8 +150,8 @@ def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool,
     print("sorting farms going to sleep")
 
 
-def start_custom_farmlist_thread(browser: client, path: str) -> None:
-    with open(path, "r") as file:
+def start_custom_farmlist_thread(browser: client) -> None:
+    with open(settings.farmlist_path, "r") as file:
         lines = file.readlines()
 
     for line in lines:

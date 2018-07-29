@@ -10,12 +10,13 @@ from .util_game import close_welcome_screen
 from .utils import log
 from .farming import start_farming_thread, start_custom_farmlist_thread, sort_danger_farms_thread
 from .dodge_attack import check_for_attack_thread
+from .settings import settings
 
 
 class king_bot:
-    def __init__(self, email: str, password: str, gameworld: str, chrome_driver_path: str, proxy: str, start_args: list, debug: bool = False) -> None:
+    def __init__(self, email: str, password: str, gameworld: str, proxy: str, start_args: list, debug: bool = False) -> None:
         self.browser = client(debug=debug)
-        self.chrome_driver_path = chrome_driver_path
+        self.chrome_driver_path = settings.chromedriver_path
         self.gameworld = gameworld
 
         # add extension if on windows
@@ -60,11 +61,8 @@ class king_bot:
 
         if login_req:
             if not email or not password:
-                # settings path
-                credentialsPath = "./assets/credentials.txt"
-
                 # read login credentials
-                file = open(credentialsPath, "r")
+                file = open(settings.credentials_path, "r")
                 text = file.read()
                 file.close()
 
@@ -112,7 +110,7 @@ class king_bot:
         self.browser.done()
 
     def start_adventures(self, interval: int = 100) -> None:
-        Thread(target=adventures_thread, args=(self.browser, interval)).start()
+        Thread(target=adventures_thread, args=[self.browser, interval]).start()
 
     # todo implement
     def upgrade_slot(self, village: int, slot: int) -> None:
@@ -126,9 +124,9 @@ class king_bot:
         Thread(target=start_farming_thread, args=[
                self.browser, village, farmlists, interval]).start()
 
-    def start_custom_farmlist(self, path: str) -> None:
+    def start_custom_farmlist(self) -> None:
         Thread(target=start_custom_farmlist_thread,
-               args=[self.browser, path]).start()
+               args=[self.browser]).start()
 
     def sort_danger_farms(self, farmlists: list, to_list: int, red: bool, yellow: bool, interval: int) -> None:
         Thread(target=sort_danger_farms_thread, args=[
