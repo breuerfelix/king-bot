@@ -71,7 +71,7 @@ def start_adventures(interval: int = 100) -> None:
 def start_farming(village: int, farmlists: list, interval: int) -> None:
 def start_custom_farmlist() -> None:
 def sort_danger_farms(farmlists: list, to_list: int, red: bool, yellow: bool, interval: int) -> None:
-def dodge_attack(village: int, interval: int = 600, units: list = [], target: list = None) -> None:
+def dodge_attack(village: int, interval: int = 600, units: list = [], target: list = []) -> None:
 ```
 
 ## farming (travian plus)

@@ -134,7 +134,7 @@ class king_bot:
         Thread(target=sort_danger_farms_thread, args=[
                self.browser, farmlists, to_list, red, yellow, interval]).start()
 
-    def dodge_attack(self, village: int, interval: int = 600, resources: bool = False, units: list = [], target: list = None, barracks_location: int = None, barracks_unit: int = None, stable_location: int = None, stable_unit: int = None) -> None:
+    def dodge_attack(self, village: int, interval: int = 600, resources: bool = False, units: list = [], target: list = [], barracks_location: int = None, barracks_unit: int = None, stable_location: int = None, stable_unit: int = None) -> None:
         # check dependencies for units
         if units:
             if target == None:
