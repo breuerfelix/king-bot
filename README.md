@@ -57,10 +57,8 @@ watch the youtube video if you got problems setting up the bot. [click here !](h
         1.  read documentation for this
         2.  read `sample_start.py` to get an impression
 7.  execute script
-    1.  browse to this directory via console
-        1. _important because of relative paths_
-    2.  `python start.py`
-    3.  read documentation for options like remote browser or headless browsing
+    1.  `python start.py`
+    2.  read documentation for options like remote browser or headless browsing
 8.  on mac or linux
     1.  use `python3` and `pip3` instead
 
