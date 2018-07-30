@@ -6,7 +6,7 @@ from .custom_driver import client, use_browser
 def login(browser: client, gameworld: str, email: str, password: str) -> None:
     world = gameworld
 
-    browser.get('https://kingdoms.com')
+    browser.get('https://kingdoms.com/com')
 
     loginButton = browser.find("//span[text()='Login']")
     browser.click(loginButton, 1)
