@@ -2,7 +2,7 @@
 
 check out the insights of this project: [scriptworld.net](https://scriptworld.net/projects/king-bot/)
 
-feel free to join the project or **[contact me! (:](mailto:f.breuer@scriptworld.net)**
+feel free to join the [official discord channel](https://discord.gg/5n2btF7) or **[contact me! (:](mailto:f.breuer@scriptworld.net)**
 
 you want to run the bot **24/7**, but don't want to use your computer? **[contact me aswell! (:](mailto:f.breuer@scriptworld.net)**
 
