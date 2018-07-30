@@ -1,4 +1,4 @@
-from src import king_bot
+from src import king_bot, settings
 import sys
 
 
@@ -6,6 +6,7 @@ gameworld = 'COM5'  # choose uppercase (exact world name) - optional
 email = 'test@gmail.com'  # optional
 password = 'save_password4000'  # optional
 proxy = ''  # optional
+settings.browser_speed = 1.0  # increase the number if your internet connecion is slow
 
 kingbot = king_bot(email=email, password=password, gameworld=gameworld,
                    proxy=proxy, start_args=sys.argv, debug=False)
