@@ -220,6 +220,7 @@ def send_farm(browser: client, village: int, x: int, y: int, units: dict) -> Non
 
     if -1 in units:
         # send all units, max count
+        log("send all units max count...")
         for inp in input:
             inp = inp.find_element_by_xpath(".//input")
             dis = inp.get_attribute("disabled")
@@ -251,11 +252,12 @@ def send_farm(browser: client, village: int, x: int, y: int, units: dict) -> Non
                 inp.send_keys(units_to_send)
                 units_sent = True
 
-    if not units_sent or units_sent:
+    if not units_sent:
         log("no units got sent...")
         close_modal(browser)
         return
 
+    browser.sleep(1)
     btn = browser.find("//button[contains(@class, 'next clickable')]")
     browser.click(btn, 1)
     btn = browser.find(
