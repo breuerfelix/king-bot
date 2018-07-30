@@ -299,6 +299,10 @@ one instance doesn't effect another browser instance. you can also start your sc
 yes, but the chances are below 1%. it's nearly impossible to detect this bot, because it clicks all buttons just like a human would do.  
 also there is browser and sleeping time delay, so they can't event check if the interval is always the same.
 
+__my internet is really slow. the bot is too fast and can't find elements!__  
+`settings.browser_speed = 1.0` -> just increase this value. it will adjust __all__ sleep timers.  
+you will find that value in `start.py` file.
+
 # how to contribute
 
 you are not quite sure if you are able to contribute ? **[contact me (: !](mailto:f.breuer@scriptworld.net)**  
