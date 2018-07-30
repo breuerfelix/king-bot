@@ -277,6 +277,7 @@ $ python start.py -r
 
 if the script exists because of an exception, it's possible to re-use the browser session so you don't have to go through the whole login process again.  
 just don't exit the browser window and make sure to remove the functions in the script, which the bot already completed in last session.  
+
 __note:__ _debug mode must be enabled!_
 
 ## proxy
