@@ -326,7 +326,7 @@ i love to teach people who are interested in learning.
 
 # contact
 
-__discord:__ _jaxor#9641_  
+__discord:__ _Jaxor#9641_  
 __email:__ _felix@scriptworld.net_
 
 ---
