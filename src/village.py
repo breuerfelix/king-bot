@@ -43,11 +43,21 @@ def open_village(browser: client, id: int) -> None:
 
 def open_city(browser: client) -> None:
     btn = browser.find("//a[@id='optimizly_mainnav_village']")
+    classes = btn.get_attribute("class")
+
+    if "active" in classes:
+        return
+
     browser.click(btn, 1)
 
 
 def open_resources(browser: client) -> None:
     btn = browser.find("//a[@id='optimizly_mainnav_resources']")
+    classes = btn.get_attribute("class")
+
+    if "active" in classes:
+        return
+
     browser.click(btn, 1)
 
 
