@@ -127,9 +127,9 @@ class king_bot:
         Thread(target=start_farming_thread, args=[
                self.browser, village, farmlists, interval]).start()
 
-    def start_custom_farmlist(self) -> None:
+    def start_custom_farmlist(self, reload: bool = False) -> None:
         Thread(target=start_custom_farmlist_thread,
-               args=[self.browser]).start()
+               args=[self.browser, reload]).start()
 
     def sort_danger_farms(self, farmlists: list, to_list: int, red: bool, yellow: bool, interval: int) -> None:
         Thread(target=sort_danger_farms_thread, args=[
