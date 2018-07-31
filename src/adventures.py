@@ -16,7 +16,7 @@ def adventures_thread(browser: client, interval: int) -> None:
 
 @use_browser
 def start_adventure(browser: client) -> None:
-    log("adventure thread waking up")
+    #log("adventure thread waking up")
 
     heroLinks = browser.find("//div[@class='heroLinks']")
     a = heroLinks.find_element_by_xpath(
@@ -40,4 +40,4 @@ def start_adventure(browser: client) -> None:
 
     close_modal(browser)
 
-    log("adventure thread sleeping")
+    #log("adventure thread sleeping")

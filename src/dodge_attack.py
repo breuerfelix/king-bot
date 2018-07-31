@@ -28,6 +28,9 @@ def check_for_attack_thread(browser: client, village: int, interval: int, units:
 
                 send_farm(browser=browser, village=village,
                           units=unit_dict, x=int(target[0]), y=int(target[1]))
+
+                log("units sent to rescue")
+
                 sleep_time = save_send_time  # sleep at least until attack is over
             elif countdown > sleep_time + save_send_time:
                 # do nothing and wait for next waking up
@@ -37,13 +40,13 @@ def check_for_attack_thread(browser: client, village: int, interval: int, units:
                 sleep_time = countdown - (sleep_time + 10)
             pass
 
-        log("checking for attacks going to sleep")
+        #log("checking for attacks going to sleep")
         time.sleep(sleep_time)
 
 
 @use_browser
 def check_for_attack(browser: client, village: int) -> str:
-    log("checking for incoming attacks...")
+    #log("checking for incoming attacks...")
 
     open_village(browser, village)
 

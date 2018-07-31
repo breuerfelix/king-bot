@@ -20,7 +20,7 @@ def start_farming_thread(browser: client, village: int, farmlists: list, interva
 
 @use_browser
 def start_farming(browser: client, village: int, farmlists: list) -> None:
-    log("farming thread in village {} waking up".format(village))
+    #log("farming thread in village {} waking up".format(village))
 
     open_village(browser, village)
     open_city(browser)
@@ -48,11 +48,11 @@ def start_farming(browser: client, village: int, farmlists: list) -> None:
     btn = browser.find(
         "//button[contains(@class, 'startRaid')]")
     browser.click(btn, 1)
-    log("farmlist sent")
+    log("farmlists: {} sent in village: {}".format(str(farmlists), str(village)))
 
     close_modal(browser)
 
-    log("farming thread in village {} sleeping".format(village))
+    #log("farming thread in village {} sleeping".format(village))
 
 
 def sort_danger_farms_thread(browser: client, farmlists: list, to_list: int, red: bool, yellow: bool, interval: int) -> None:
@@ -61,12 +61,11 @@ def sort_danger_farms_thread(browser: client, farmlists: list, to_list: int, red
     while True:
         sort_danger_farms(browser, farmlists, to_list, red, yellow)
         time.sleep(interval + randint(0, 10))  # randomized intervals
-# endregion
 
 
 @use_browser
 def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool, yellow: bool) -> None:
-    print("sorting farms started...")
+    #log("sorting farms started...")
 
     open_city(browser)
     open_building(browser, 32)
@@ -138,7 +137,7 @@ def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool,
                             ".//a[contains(@class, 'closeWindow')]")
                         browser.click(closemodal, 2)
 
-                        print("moved one farm")
+                        log("moved farm to save list")
             except:
                 # farm never got sent
                 pass
@@ -149,7 +148,7 @@ def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool,
         browser.click(btnback, 1)
 
     close_modal(browser)
-    print("sorting farms going to sleep")
+    #log("sorting farms going to sleep")
 
 
 def start_custom_farmlist_thread(browser: client, reload: bool, interval: int = 60) -> None:
@@ -183,7 +182,7 @@ def start_custom_farmlist_thread(browser: client, reload: bool, interval: int = 
                 send_farm, browser=browser, x=args[0], y=args[1], village=args[3], units=unit_dict).tag(add_job)
 
             jobs.append(add_job)
-            print("job " + add_job + " started")
+            log("job " + add_job + " started")
 
         browser.use()
 
@@ -211,7 +210,7 @@ def start_custom_farmlist_thread(browser: client, reload: bool, interval: int = 
 
 @use_browser
 def send_farm(browser: client, village: int, x: int, y: int, units: dict) -> None:
-    log("sending units to: ({}/{}) ...".format(x, y))
+    #log("sending units to: ({}/{}) ...".format(x, y))
 
     open_village(browser, int(village))
     open_city(browser)
