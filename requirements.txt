@@ -1,3 +1,4 @@
 selenium
 schedule
 typing
+fake-useragent

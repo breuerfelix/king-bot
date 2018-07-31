@@ -8,6 +8,7 @@ from .utils import log
 from threading import RLock
 from typing import Any
 from .settings import settings
+from fake_useragent import UserAgent
 
 """
 from selenium.webdriver.support.ui import WebDriverWait
@@ -101,6 +102,8 @@ class client:
         self.set_config()
 
     def headless(self, path: str, proxy: str = '') -> None:
+        ua = UserAgent()
+        userAgent = ua.random
         options = webdriver.ChromeOptions()
         options.add_argument('headless')
         options.add_argument('window-size=1500,1200')
@@ -108,6 +111,7 @@ class client:
         options.add_argument('disable-dev-shm-usage')
         options.add_argument('disable-gpu')
         options.add_argument('log-level=3')
+        options.add_argument(f'user-agent={userAgent}')
 
         if proxy is not "":
             self.proxy = True
