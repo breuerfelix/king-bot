@@ -1,4 +1,5 @@
 from .custom_driver import client, use_browser
+from .settings import settings
 import time
 from .utils import log
 from .village import open_building, open_city, open_village
@@ -149,8 +150,8 @@ def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool,
     print("sorting farms going to sleep")
 
 
-def start_custom_farmlist_thread(browser: client, path: str) -> None:
-    with open(path, "r") as file:
+def start_custom_farmlist_thread(browser: client) -> None:
+    with open(settings.farmlist_path, "r") as file:
         lines = file.readlines()
 
     for line in lines:
@@ -219,6 +220,7 @@ def send_farm(browser: client, village: int, x: int, y: int, units: dict) -> Non
 
     if -1 in units:
         # send all units, max count
+        log("send all units max count...")
         for inp in input:
             inp = inp.find_element_by_xpath(".//input")
             dis = inp.get_attribute("disabled")
@@ -250,11 +252,12 @@ def send_farm(browser: client, village: int, x: int, y: int, units: dict) -> Non
                 inp.send_keys(units_to_send)
                 units_sent = True
 
-    if not units_sent or units_sent:
+    if not units_sent:
         log("no units got sent...")
         close_modal(browser)
         return
 
+    browser.sleep(1)
     btn = browser.find("//button[contains(@class, 'next clickable')]")
     browser.click(btn, 1)
     btn = browser.find(

@@ -2,7 +2,7 @@
 
 check out the insights of this project: [scriptworld.net](https://scriptworld.net/projects/king-bot/)
 
-feel free to join the project or **[contact me! (:](mailto:f.breuer@scriptworld.net)**
+feel free to join the [official discord channel](https://discord.gg/5n2btF7) or **[contact me! (:](mailto:f.breuer@scriptworld.net)**
 
 you want to run the bot **24/7**, but don't want to use your computer? **[contact me aswell! (:](mailto:f.breuer@scriptworld.net)**
 
@@ -51,8 +51,6 @@ watch the youtube video if you got problems setting up the bot. [click here !](h
 4.  download chromedriver for your system
     1.  [get chromederiver](http://chromedriver.chromium.org)
     2.  move to `assets/` folder
-    3.  edit chromedriver path in `start.py` _(optional)_
-        1.  `chrome_driver_path = 'enter path here'`
 5.  edit `start.py`
     1.  insert your credentials _(optional)_
         1.  login without inserting -> _see chapter start options_
@@ -60,10 +58,8 @@ watch the youtube video if you got problems setting up the bot. [click here !](h
         1.  read documentation for this
         2.  read `sample_start.py` to get an impression
 7.  execute script
-    1.  browse to this directory via console
-        1. _important because of relative paths_
-    2.  `python start.py`
-    3.  read documentation for options like remote browser or headless browsing
+    1.  `python start.py`
+    2.  read documentation for options like remote browser or headless browsing
 8.  on mac or linux
     1.  use `python3` and `pip3` instead
 
@@ -74,9 +70,9 @@ just an overview with method signatures. for details check each chapter.
 ```python
 def start_adventures(interval: int = 100) -> None:
 def start_farming(village: int, farmlists: list, interval: int) -> None:
-def start_custom_farmlist(path: str) -> None:
+def start_custom_farmlist() -> None:
 def sort_danger_farms(farmlists: list, to_list: int, red: bool, yellow: bool, interval: int) -> None:
-def dodge_attack(village: int, interval: int = 600, units: list = [], target: list = None) -> None:
+def dodge_attack(village: int, interval: int = 600, units: list = [], target: list = []) -> None:
 ```
 
 ## farming (travian plus)
@@ -141,7 +137,7 @@ this technique is a little bit slower than then one with travian plus.
 the bot will manually launch every attack at the rally point.  
 i only implemented this feature for people who doesn't want to pay for the game and still want to farm only around 200 villages.
 
-you have to create a file which looks like the following: _(attention for separators!)_
+you have to create a file named `farmlist.txt` in `assets/` folder, which looks like the following: _(attention for separators!)_
 
 ```csv
 -26;-34;120;0;1,2
@@ -165,15 +161,11 @@ if you want to send different units, just stack them at the end.
 _adding a unit index of `-1` will send **all** units with max number to this farm._  
 _adding a unit value of `-1` will send **all** units of this type to this farm._
 
-add the following line to your `start.py` script: (adjust the path to your .txt file if needed)
+add the following line to your `start.py` script:
 
 ```python
-# path to farmlist file - farms without travian plus
-kingbot.start_custom_farmlist(path="./assets/farmlist.txt")
+kingbot.start_custom_farmlist()
 ```
-
-**path:**  
-path to your custom farmlist file
 
 ## adventures
 
@@ -310,7 +302,9 @@ $ python start.py -r
 ```
 
 if the script exists because of an exception, it's possible to re-use the browser session so you don't have to go through the whole login process again.  
-just don't exit the browser window and make sure to remove the functions in the script, which the bot already completed in last session.
+just don't exit the browser window and make sure to remove the functions in the script, which the bot already completed in last session.  
+
+__note:__ _debug mode must be enabled!_
 
 ## proxy
 
@@ -330,6 +324,10 @@ one instance doesn't effect another browser instance. you can also start your sc
 **can i get banned for using the bot?**  
 yes, but the chances are below 1%. it's nearly impossible to detect this bot, because it clicks all buttons just like a human would do.  
 also there is browser and sleeping time delay, so they can't event check if the interval is always the same.
+
+__my internet is really slow. the bot is too fast and can't find elements!__  
+`settings.browser_speed = 1.0` -> just increase this value. it will adjust __all__ sleep timers.  
+you will find that value in `start.py` file.
 
 # how to contribute
 
@@ -352,6 +350,7 @@ i love to teach people who are interested in learning.
 ## nice to know
 
 - store your login credentials in `./assets/credentials.txt` -> ignored by git
+    - gameworld;your_email;your_password
 - write your testscript as `test_start.py` -> ignored by git
 - run mypy for typechecking `mypy start.py --ignore-missing-imports`
 - set debug flag to `True` -> `kingbot = kingbot(..., debug=True)`
@@ -359,7 +358,7 @@ i love to teach people who are interested in learning.
 
 # contact
 
-__discord:__ _jaxor#9641_  
+__discord:__ _scriptworld#9641_  
 __email:__ _felix@scriptworld.net_
 
 ---

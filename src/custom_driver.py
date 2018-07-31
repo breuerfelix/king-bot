@@ -7,6 +7,7 @@ import time
 from .utils import log
 from threading import RLock
 from typing import Any
+from .settings import settings
 
 """
 from selenium.webdriver.support.ui import WebDriverWait
@@ -66,7 +67,7 @@ class client:
         self.lock = RLock()
         self.proxy: bool = False
         self.debug: bool = debug
-        self.current_session_path: str = "./assets/current_session.txt"
+        self.current_session_path: str = settings.current_session_path
         pass
 
     def chrome(self, path: str, proxy: str = '') -> None:
@@ -134,10 +135,13 @@ class client:
 
     def find(self, xpath: str, wait: float = 0) -> webelement:
         # todo wait x seconds until presencd of element
+        wait = wait * settings.browser_speed
         self.sleep(wait)
         return self.driver.find_element_by_xpath(xpath)
 
     def sleep(self, seconds: float) -> None:
+        seconds = seconds * settings.browser_speed
+
         # reduce sleep time if in headless mode
         if self._headless:
             seconds = seconds / 2
@@ -150,10 +154,14 @@ class client:
 
     def click(self, element: webelement, wait: float = 0.5) -> None:
         ActionChains(self.driver).move_to_element(element).click().perform()
+
+        wait = wait * settings.browser_speed
         self.sleep(wait)
 
     def hover(self, element: webelement, wait: float = 0.5) -> None:
         ActionChains(self.driver).move_to_element(element).perform()
+
+        wait = wait * settings.browser_speed
         self.sleep(wait)
 
     def scroll_down(self, element: webelement) -> None:

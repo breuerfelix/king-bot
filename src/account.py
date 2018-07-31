@@ -6,10 +6,10 @@ from .custom_driver import client, use_browser
 def login(browser: client, gameworld: str, email: str, password: str) -> None:
     world = gameworld
 
-    browser.get('https://kingdoms.com')
+    browser.get('https://kingdoms.com/com')
 
     loginButton = browser.find("//span[text()='Login']")
-    browser.click(loginButton)
+    browser.click(loginButton, 1)
 
     el = browser.find("//iframe[@class='mellon-iframe']", 3)
     browser.driver.switch_to.frame(el)
