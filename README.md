@@ -73,6 +73,7 @@ def start_farming(village: int, farmlists: list, interval: int) -> None:
 def start_custom_farmlist() -> None:
 def sort_danger_farms(farmlists: list, to_list: int, red: bool, yellow: bool, interval: int) -> None:
 def dodge_attack(village: int, interval: int = 600, units: list = [], target: list = []) -> None:
+def upgrade_units_smithy(village: int, units: list, interval: int = 1000) -> None:
 ```
 
 ## farming (travian plus)
@@ -206,6 +207,12 @@ first index is the x-coordinate and second for the y-coordinate of the village t
 ```python
 kingbot.upgrade_units_smithy(village=0, units=[21, 22])
 ```
+__village:__  
+index of village _(starting at 0)_
+
+__units:__  
+list of units you want to upgrade   
+first one with highest priority, last one with lowest  
 
 | roman                  | teuton              | gaul                  |
 | ---------------------- | ------------------- | --------------------- |
@@ -225,6 +232,8 @@ you can increase the list as long as you want to.
 
 the bot can't switch smithy pages for now, so make sure the window is big enough to cover 8 slots.   
 By default this should be the case, otherwise it will just cover the 4 slots on the front for now.
+
+sleeping time will be the time the academy needs to finish the current research, so the bot won't wake up unnecessarily in the given interval.
 
 ## upgrade resource fields / buildings
 
