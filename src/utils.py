@@ -7,7 +7,7 @@ def check_for_lines(path: str, current_lines: list) -> dict:
     lines_to_remove: list = []
 
     with open(path, "r") as file:
-        lines = file.readlines()
+        lines = file.read().splitlines()
 
     for line in lines:
         if line not in current_lines:

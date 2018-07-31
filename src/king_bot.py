@@ -64,7 +64,8 @@ class king_bot:
             if not email or not password or not self.gameworld:
                 # read login credentials
                 file = open(settings.credentials_path, "r")
-                text = file.read()
+                lines = file.read().splitlines()
+                text = lines[0]
                 file.close()
 
                 if not self.gameworld:
