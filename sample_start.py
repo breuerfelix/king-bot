@@ -24,3 +24,5 @@ kingbot.sort_danger_farms(
 
 kingbot.dodge_attack(village=0, units=[1, 2, 11], target=[-10, 53])
 kingbot.dodge_attack(village=1, units=[-1], target=[-20, 60])
+
+kingbot.upgrade_units_smithy(village=0, units=[21, 25, 23])

@@ -228,10 +228,11 @@ kingbot.upgrade_units_smithy(village=0, units=[21, 22])
 | 29: chieftain         | 19: chief           | 9: senator             |
 | 30: settler           | 20: settler         | 10: settler            |
 
-the bot checks if it can upgrade given units in given order. first it checks swordsman in this example and if they are not available or maxed out, it will try to upgradr phalax again.  
+the bot checks if it can upgrade given units in given order. first it checks swordsman in this example and if they are not available or maxed out, it will try to upgrade phalax again.  
 you can increase the list as long as you want to.
 
-the bot cant switch smithy pages for now, so make sure the window is big enough to cover 8
+the bot can't switch smithy pages for now, so make sure the window is big enough to cover 8 slots.   
+By default this should be the case, otherwise it will just cover the 4 slots on the front for now.
 
 ## upgrade resource fields / buildings
 
