@@ -15,7 +15,7 @@ setup(
     name='king-bot',
     version=__version__,
     author=__author__,
-    author_email='webmaster@scriptworld.net',
+    author_email='felix@scriptworld.net',
     url='https://github.com/scriptworld-git/king-bot',
     description=description,
     install_requires=requirements,

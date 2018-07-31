@@ -2,7 +2,7 @@ from src import king_bot, settings
 import sys
 
 
-gameworld = 'COM5'  # choose uppercase (exact world name) - optional
+gameworld = 'COMX'  # choose uppercase (exact world name) - optional
 email = 'test@gmail.com'  # optional
 password = 'save_password4000'  # optional
 proxy = ''  # optional
