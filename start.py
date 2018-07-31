@@ -9,6 +9,7 @@ proxy = ""  # optional
 # increase the number if your internet connecion is slow
 settings.browser_speed = 1.0
 
+
 kingbot = king_bot(email=email, password=password,
                    gameworld=gameworld, proxy=proxy, start_args=sys.argv)
 

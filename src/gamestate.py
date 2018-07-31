@@ -18,7 +18,7 @@ def load_slot_data(browser: client, id: int) -> dict:
 
 
 def init_villages(browser: client) -> list:
-    villages = []
+    villages:list  = []
 
     btn = browser.find("//a[@id='villageOverview']")
     browser.click(btn, 1)

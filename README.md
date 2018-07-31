@@ -22,6 +22,7 @@ __youtube video:__ how to setup the bot. [click here !](https://youtu.be/JGqBnTL
     - [farmlists as .txt file (no travian plus needed)](#farmlists-as-txt-file-no-travian-plus-needed)
     - [adventures](#adventures)
     - [dodge incoming attacks](#dodge-incoming-attacks)
+    - [upgrade units in smithy](#upgrade-units-in-smithy)
     - [upgrade resource fields / buildings](#upgrade-resource-fields--buildings)
 - [start options](#start-options)
     - [provide credentials](#provide-credentials)
@@ -199,6 +200,31 @@ insert `-1` _(units=[-1])_ to save **all** available units in this village
 
 **target:**  
 first index is the x-coordinate and second for the y-coordinate of the village the bot will send the units for a robbery
+
+## upgrade units in smithy
+
+```python
+kingbot.upgrade_units_smithy(village=0, units=[21, 22])
+```
+
+| gaul                  | teuton              | roman                  |
+| :-------------------: | :-----------------: | :--------------------: |
+| 21: phalanx           | 11: clubswinger     | 1: legionnaire         |
+| 22: swordsman         | 12: spearfighter    | 2: praetorian          |
+| 23: pathfinder        | 13: axefighter      | 3: imperian            |
+| 24: theutates thunder | 14: scout           | 4: equites legati      |
+| 25: druidrider        | 15: paladin         | 5: equites imperatoris |
+| 26: headuan           | 16: teutonic knight | 6: equites caesaris    |
+| 27: ram               | 17: ram             | 7: battering ram       |
+| 28: trebuchet         | 18: catapult        | 8: fire catapult       |
+| 29: chieftain         | 19: chief           | 9: senator             |
+| 30: settler           | 20: settler         | 10: settler            |
+
+the bot checks if it can upgrade given units in given order. first it checks swordsman in this example and if they are not available or maxed out, it will try to upgrade phalax again.  
+you can increase the list as long as you want to.
+
+the bot can't switch smithy pages for now, so make sure the window is big enough to cover 8 slots.   
+By default this should be the case, otherwise it will just cover the 4 slots on the front for now.
 
 ## upgrade resource fields / buildings
 
