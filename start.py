@@ -14,4 +14,4 @@ kingbot = king_bot(email=email, password=password, gameworld=gameworld,
                    chrome_driver_path=chrome_driver_path, proxy=proxy, start_args=sys.argv, debug=True)
 
 # place your actions below
-kingbot.upgrade_units_smithy(0, [21])
+kingbot.upgrade_units_smithy(0, [21, 23])

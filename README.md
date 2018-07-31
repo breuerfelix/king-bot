@@ -215,11 +215,22 @@ first index is the x-coordinate and second for the y-coordinate of the village t
 kingbot.upgrade_units_smithy(village=0, units=[21, 22])
 ```
 
-| gaul          | teuton | roman |
-| :-----------: | :----: | :---: |
-| 21: phalanx   |        |       |
-| 22: swordsman |        |       |
-|               |        |       |
+| gaul                  | teuton | roman |
+| :-------------------: | :----: | :---: |
+| 21: phalanx           |        |       |
+| 22: swordsman         |        |       |
+| 23: pathfinder        |        |       |
+| 24: theutates thunder |        |       |
+| 25: druidrider        |        |       |
+| 26: headuan           |        |       |
+| 27: ram               |        |       |
+| 28: trebuchet         |        |       |
+| 29: chieftain         |        |       |
+
+the bot checks if it can upgrade given units in given order. first it checks swordsman in this example and if they are not available or maxed out, it will try to upgradr phalax again.  
+you can increase the list as long as you want to.
+
+the bot cant switch smithy pages for now, so make sure the window is big enough to cover 8
 
 ## upgrade resource fields / buildings
 

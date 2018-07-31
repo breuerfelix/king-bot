@@ -1,6 +1,7 @@
 from .custom_driver import client, use_browser
 from .slot import find_slot
-from .utils import log, close_modal
+from .utils import log
+from .util_game import close_modal
 import time
 from random import randint
 from .village import open_building, open_village, open_city, open_building_type, building
@@ -22,10 +23,9 @@ def upgrade_units_smithy_thread(browser: client, village: int, units: list, inte
         sleep_time: int = interval
 
         rv = upgrade_units_smithy(browser, village, units)
-        log(rv)
 
         if rv is not -1:
-            sleep_time = rv
+            sleep_time = rv + 5
 
         time.sleep(sleep_time)
 
@@ -41,6 +41,7 @@ def upgrade_units_smithy(browser: client, village: int, units: list):
     pages = carousel.find_element_by_xpath(".//div[contains(@class, 'pages')]")
     classes = pages.get_attribute("class")
 
+    # todo implement pages
     pages = "ng-hide" not in classes  # true if there are more than one page
 
     item_container = carousel.find_element_by_xpath(".//div[@class='items']")
@@ -94,11 +95,11 @@ def upgrade_units_smithy(browser: client, village: int, units: list):
     else:
         for un in units:
             if un in available_units:
-                browser.click(available_units[un], 0.5)
+                browser.click(available_units[un], 1)
                 break
 
         # click upgrade button
         improve = browser.find("//button[contains(@clickable, 'research')]")
-        browser.click(improve)
+        browser.click(improve, 1)
         close_modal(browser)
         return -1
