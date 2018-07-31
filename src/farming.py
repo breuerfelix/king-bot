@@ -5,15 +5,16 @@ from .utils import log
 from .village import open_building, open_city, open_village
 from .util_game import close_modal
 import schedule
+from random import randint
 
 
 def start_farming_thread(browser: client, village: int, farmlists: list, interval: int) -> None:
     # todo exit when in beginners protection
-    time.sleep(3)
+    time.sleep(randint(0, 10))  # starting sleep timer
 
     while True:
         start_farming(browser, village, farmlists)
-        time.sleep(interval)
+        time.sleep(interval + randint(0, 10))  # randomize intervals
 
 
 @use_browser
@@ -54,11 +55,11 @@ def start_farming(browser: client, village: int, farmlists: list) -> None:
 
 
 def sort_danger_farms_thread(browser: client, farmlists: list, to_list: int, red: bool, yellow: bool, interval: int) -> None:
-    time.sleep(2)
+    time.sleep(randint(0, 10))  # random sleeping at start
 
     while True:
         sort_danger_farms(browser, farmlists, to_list, red, yellow)
-        time.sleep(interval)
+        time.sleep(interval + randint(0, 10))  # randomized intervals
 # endregion
 
 

@@ -23,6 +23,7 @@ def upgrade_units_smithy_thread(browser: client, village: int, units: list, inte
         sleep_time: int = interval
 
         rv = upgrade_units_smithy(browser, village, units)
+        log("upgrade units in smithy thread going to sleep ...")
 
         if rv is not -1:
             sleep_time = rv + 5
@@ -32,6 +33,8 @@ def upgrade_units_smithy_thread(browser: client, village: int, units: list, inte
 
 @use_browser
 def upgrade_units_smithy(browser: client, village: int, units: list):
+    log("upgrade units in smithy thread waking up ...")
+
     open_village(browser, village)
     open_city(browser)
     open_building_type(browser, building.smithy)
