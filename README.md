@@ -70,7 +70,7 @@ just an overview with method signatures. for details check each chapter.
 ```python
 def start_adventures(interval: int = 100) -> None:
 def start_farming(village: int, farmlists: list, interval: int) -> None:
-def start_custom_farmlist() -> None:
+def start_custom_farmlist(reload: bool = False) -> None:
 def sort_danger_farms(farmlists: list, to_list: int, red: bool, yellow: bool, interval: int) -> None:
 def dodge_attack(village: int, interval: int = 600, units: list = [], target: list = []) -> None:
 def upgrade_units_smithy(village: int, units: list, interval: int = 1000) -> None:
@@ -165,8 +165,12 @@ _adding a unit value of `-1` will send **all** units of this type to this farm._
 add the following line to your `start.py` script:
 
 ```python
-kingbot.start_custom_farmlist()
+kingbot.start_custom_farmlist(reload=False)
 ```
+
+__reload:__  
+if you set this value to `True` the bot will rescan your farmlist file every minute for changing lines  
+you can add or remove farms without restarting the script
 
 ## adventures
 

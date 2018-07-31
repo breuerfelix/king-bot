@@ -152,7 +152,7 @@ def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool,
     print("sorting farms going to sleep")
 
 
-def start_custom_farmlist_thread(browser: client, reload: bool) -> None:
+def start_custom_farmlist_thread(browser: client, reload: bool, interval: int = 60) -> None:
     # thread that executes jobs
     Thread(target=run_jobs).start()
 
@@ -205,6 +205,8 @@ def start_custom_farmlist_thread(browser: client, reload: bool) -> None:
 
         if not reload:
             break
+
+        time.sleep(interval)
 
 
 @use_browser
