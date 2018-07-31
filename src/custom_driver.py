@@ -77,6 +77,7 @@ class client:
             options.add_argument('proxy-server={}'.format(proxy))
 
         options.add_argument('window-size=1500,1200')
+        options.add_argument('log-level=3')
 
         self.driver = webdriver.Chrome(path, chrome_options=options)
         self.set_config()
@@ -106,6 +107,7 @@ class client:
         options.add_argument('no-sandbox')
         options.add_argument('disable-dev-shm-usage')
         options.add_argument('disable-gpu')
+        options.add_argument('log-level=3')
 
         if proxy is not "":
             self.proxy = True
@@ -117,9 +119,9 @@ class client:
 
     def set_config(self) -> None:
         # set timeout to find an element in seconds
-        self.driver.implicitly_wait(5)
+        self.driver.implicitly_wait(5 * settings.browser_speed)
         # set page load timeout in seconds
-        self.driver.set_page_load_timeout(20)
+        self.driver.set_page_load_timeout(15 + settings.browser_speed)
 
     # region locks
     def use(self) -> None:
