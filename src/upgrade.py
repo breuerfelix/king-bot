@@ -32,7 +32,7 @@ def upgrade_units_smithy_thread(browser: client, village: int, units: list, inte
 
 
 @use_browser
-def upgrade_units_smithy(browser: client, village: int, units: list):
+def upgrade_units_smithy(browser: client, village: int, units: list) -> int:
     log("upgrade units in smithy thread waking up ...")
 
     open_village(browser, village)
