@@ -207,18 +207,18 @@ first index is the x-coordinate and second for the y-coordinate of the village t
 kingbot.upgrade_units_smithy(village=0, units=[21, 22])
 ```
 
-| gaul                  | teuton              | roman                  |
-| :-------------------: | :-----------------: | :--------------------: |
-| 21: phalanx           | 11: clubswinger     | 1: legionnaire         |
-| 22: swordsman         | 12: spearfighter    | 2: praetorian          |
-| 23: pathfinder        | 13: axefighter      | 3: imperian            |
-| 24: theutates thunder | 14: scout           | 4: equites legati      |
-| 25: druidrider        | 15: paladin         | 5: equites imperatoris |
-| 26: headuan           | 16: teutonic knight | 6: equites caesaris    |
-| 27: ram               | 17: ram             | 7: battering ram       |
-| 28: trebuchet         | 18: catapult        | 8: fire catapult       |
-| 29: chieftain         | 19: chief           | 9: senator             |
-| 30: settler           | 20: settler         | 10: settler            |
+| roman                  | teuton              | gaul                  |
+| ---------------------- | ------------------- | --------------------- |
+| 1: legionnaire         | 11: clubswinger     | 21: phalanx           |
+| 2: praetorian          | 12: spearfighter    | 22: swordsman         |
+| 3: imperian            | 13: axefighter      | 23: pathfinder        |
+| 4: equites legati      | 14: scout           | 24: theutates thunder |
+| 5: equites imperatoris | 15: paladin         | 25: druidrider        |
+| 6: equites caesaris    | 16: teutonic knight | 26: headuan           |
+| 7: battering ram       | 17: ram             | 27: ram               |
+| 8: fire catapult       | 18: catapult        | 28: trebuchet         |
+| 9: senator             | 19: chief           | 29: chieftain         |
+| 10: settler            | 20: settler         | 30: settler           |
 
 the bot checks if it can upgrade given units in given order. first it checks swordsman in this example and if they are not available or maxed out, it will try to upgrade phalax again.  
 you can increase the list as long as you want to.
