@@ -101,7 +101,7 @@ def upgrade_units_smithy(browser: client, village: int, units: list) -> int:
         for un in units:
             if un in available_units:
                 browser.click(available_units[un], 1)
-                log("upgrade unit: " + str(un) + "in village: " + str(village))
+                log("upgrade unit: " + str(un) + " in village: " + str(village))
                 break
 
         # click upgrade button
