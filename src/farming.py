@@ -1,10 +1,11 @@
 from .custom_driver import client, use_browser
 from .settings import settings
 import time
-from .utils import log
+from .utils import log, check_for_lines
 from .village import open_building, open_city, open_village
 from .util_game import close_modal
 import schedule
+from threading import Thread
 from random import randint
 
 
@@ -151,46 +152,61 @@ def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool,
     print("sorting farms going to sleep")
 
 
-def start_custom_farmlist_thread(browser: client) -> None:
-    with open(settings.farmlist_path, "r") as file:
-        lines = file.readlines()
+def start_custom_farmlist_thread(browser: client, reload: bool, interval: int = 60) -> None:
+    # thread that executes jobs
+    Thread(target=run_jobs).start()
 
-    for line in lines:
-        args = line.split(";")
-
-        units = args[4]
-        unit_list = units.split(",")
-        unit_dict = {}
-
-        for i in range(0, len(unit_list), 2):
-            unit_dict[int(unit_list[i])] = int(unit_list[i + 1])
-
-        # shedule task
-        schedule.every(int(args[2])).seconds.do(
-            send_farm, browser=browser, x=args[0], y=args[1], village=args[3], units=unit_dict)
-        print("job started")
-
-    browser.use()
-
-    for line in lines:
-        args = line.split(";")
-
-        units = args[4]
-        unit_list = units.split(",")
-        unit_dict = {}
-
-        for i in range(0, len(unit_list), 2):
-            unit_dict[int(unit_list[i])] = int(unit_list[i + 1])
-
-        # send one time at start
-        send_farm(browser=browser, x=args[0],
-                  y=args[1], village=args[3], units=unit_dict)
-
-    browser.done()
+    jobs: list = []  # current jobs
 
     while True:
-        schedule.run_pending()
-        time.sleep(1)
+        job_dict = check_for_lines(
+            path=settings.farmlist_path, current_lines=jobs)
+
+        # remove jobs that are not present anymore
+        for rem_job in job_dict['remove']:
+            schedule.clear(rem_job)
+            jobs.remove(rem_job)
+
+        # add new jobs
+        for add_job in job_dict['add']:
+            args = add_job.split(";")
+
+            units = args[4]
+            unit_list = units.split(",")
+            unit_dict = {}
+
+            for i in range(0, len(unit_list), 2):
+                unit_dict[int(unit_list[i])] = int(unit_list[i + 1])
+
+            # shedule task
+            schedule.every(int(args[2])).seconds.do(
+                send_farm, browser=browser, x=args[0], y=args[1], village=args[3], units=unit_dict).tag(add_job)
+
+            jobs.append(add_job)
+            print("job " + add_job + " started")
+
+        browser.use()
+
+        for add_job in job_dict['add']:
+            args = add_job.split(";")
+
+            units = args[4]
+            unit_list = units.split(",")
+            unit_dict = {}
+
+            for i in range(0, len(unit_list), 2):
+                unit_dict[int(unit_list[i])] = int(unit_list[i + 1])
+
+            # send one time at start
+            send_farm(browser=browser, x=args[0],
+                      y=args[1], village=args[3], units=unit_dict)
+
+        browser.done()
+
+        if not reload:
+            break
+
+        time.sleep(interval)
 
 
 @use_browser
@@ -266,3 +282,9 @@ def send_farm(browser: client, village: int, x: int, y: int, units: dict) -> Non
     browser.click(btn, 1)
 
     log("units sent to: ({}/{}).".format(x, y))
+
+
+def run_jobs():
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
