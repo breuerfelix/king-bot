@@ -37,7 +37,7 @@ def check_for_attack_thread(browser: client, village: int, interval: int, units:
                 pass
             else:
                 # wake up before attack so the countdown will be smaller than save_send_time
-                sleep_time = countdown - (sleep_time + 10)
+                sleep_time = countdown - (save_send_time - 10)
             pass
 
         #log("checking for attacks going to sleep")
