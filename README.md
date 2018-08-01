@@ -146,7 +146,8 @@ you have to create a file named `farmlist.txt` in `assets/` folder, which looks 
 -30;-57;300;0;1,2
 ```
 
-**pattern:** x-coordinate **;** y-coordinate **;** time to wait till sending the troops again in seconds **;** index of village **;** index of unit in the horizontal bar **,** amount of units
+**pattern:**  
+x-coordinate **;** y-coordinate **;** time to wait till sending the troops again in seconds **;** index of village **;** index of unit in the horizontal bar **,** amount of units
 
 every line represents one farm. the first 2 values are the x- and y-coordinates.  
 the third value is the time _(in seconds)_ the bot waits until it sends the farm again.  
