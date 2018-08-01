@@ -6,7 +6,8 @@ __author__ = 'felix.scriptworld'
 requirements = [
     'selenium',
     'typing',
-    'schedule'
+    'schedule',
+    'fake_useragent'
 ]
 
 description = 'Travian Kingdoms automation bot.'
