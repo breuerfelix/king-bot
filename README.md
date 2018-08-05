@@ -176,14 +176,21 @@ you can add or remove farms without restarting the script
 ## adventures
 
 this enables auto sending the hero on adventures.  
-be careful if the hero in low on health! there is no stopping mechanism for now.
+you can enter the value of how much adventure you want to do and setting minimum health of hero when they send to an adventure.
 
 ```python
-kingbot.start_adventures(interval=500)
+kingbot.start_adventures(interval=500, repetition=4, health=35)
 ```
 
-**interval:** _(optional -> default = 100)_  
+**interval:** _(optional -> default = 100)_
 time _in seconds_ the hero thread will sleep until it checks for a new adventure again
+
+**repetition:** _(optional -> default = 0)_
+how much adventure you want to do.
+**attention:** if you put `0`, the hero will doing adventure until the hero reaches minimum health
+
+**health:** _(optional -> default = 50)_
+setting minimum health of hero when they send to an adventure
 
 ## dodge incoming attacks
 

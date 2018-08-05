@@ -5,17 +5,33 @@ from .utils import log
 from .util_game import close_modal
 
 
-def adventures_thread(browser: client, interval: int) -> None:
+def adventures_thread(browser: client, interval: int, repetition: int, health: int) -> None:
     # init delay
     time.sleep(2)
 
-    while True:
-        start_adventure(browser)
-        time.sleep(interval)
+    HeroAvailable = True
+    while HeroAvailable:
+        HeroAvailable = CheckHero(browser, health)
+        if not HeroAvailable:
+            break
 
+        if repetition > 0:
+            while repetition > 0:
+                repetition = start_adventure(browser, repetition)
+                HeroAvailable = CheckHero(browser, health)
+                if not HeroAvailable:
+                    break
+                time.sleep(interval)
+        else :
+            while True:
+                start_adventure(browser, repetition)
+                HeroAvailable = CheckHero(browser, health)
+                if not HeroAvailable:
+                    break
+                time.sleep(interval)
 
 @use_browser
-def start_adventure(browser: client) -> None:
+def start_adventure(browser: client, repetition) -> None:
     #log("adventure thread waking up")
 
     heroLinks = browser.find("//div[@class='heroLinks']")
@@ -37,7 +53,20 @@ def start_adventure(browser: client) -> None:
     if available:
         browser.click(el, 2)
         log("adventure started")
-
+        repetition -= 1
     close_modal(browser)
-
+    return repetition
     #log("adventure thread sleeping")
+
+@use_browser
+def CheckHero(browser: client, health) -> None:
+
+    heroStats = browser.find("//div[@class='heroStats']")
+    heroStats = heroStats.find_element_by_xpath(".//div[contains(@class, 'health')]")
+    heroHealth = int(heroStats.get_attribute("perc"))
+
+    if heroHealth > health:
+        return True
+
+    else:
+        return False
