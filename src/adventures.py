@@ -9,18 +9,12 @@ def adventures_thread(browser: client, interval: int, health: int) -> None:
     # init delay
     time.sleep(2)
 
-    HeroAvailable = True
-    while HeroAvailable:
-
-        while True:
-            HeroAvailable = CheckHero(browser, health)
-            if not HeroAvailable:
-                log("Hero not well")
-                break
+    while True:
+        if check_health(browser, health):
             start_adventure(browser)
-            time.sleep(interval)
+        else:
+            log("hero is too low for adventures")
 
-        HeroAvailable = True
         time.sleep(interval)
 
 @use_browser
@@ -51,14 +45,10 @@ def start_adventure(browser: client) -> None:
     #log("adventure thread sleeping")
 
 @use_browser
-def CheckHero(browser: client, health) -> None:
+def check_health(browser: client, health: int) -> bool:
 
     heroStats = browser.find("//div[@class='heroStats']")
     heroStats = heroStats.find_element_by_xpath(".//div[contains(@class, 'health')]")
     heroHealth = int(heroStats.get_attribute("perc"))
 
-    if heroHealth > health:
-        return True
-
-    else:
-        return False
+    return heroHealth > health
