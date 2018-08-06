@@ -8,12 +8,12 @@ def login(browser: client, gameworld: str, email: str, password: str) -> None:
 
     browser.get('https://kingdoms.com/com')
 
-    loginButton = browser.find("//span[text()='Login']")
+    loginButton = browser.find("//span[text()='Login']", 1)
     browser.click(loginButton, 1)
 
     el = browser.find("//iframe[@class='mellon-iframe']", 3)
     browser.driver.switch_to.frame(el)
-    el = browser.find("//iframe")
+    el = browser.find("//iframe", 3)
     browser.driver.switch_to.frame(el)
 
     browser.find("//input[@name='email']").send_keys(email)
@@ -21,7 +21,6 @@ def login(browser: client, gameworld: str, email: str, password: str) -> None:
     pw.send_keys(password)
     pw.submit()
     browser.sleep(3)
-
     check_notification(browser)
 
     # login to gameworld
