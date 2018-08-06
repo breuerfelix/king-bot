@@ -5,35 +5,26 @@ from .utils import log
 from .util_game import close_modal
 
 
-def adventures_thread(browser: client, interval: int, repetition: int, health: int) -> None:
+def adventures_thread(browser: client, interval: int, health: int) -> None:
     # init delay
     time.sleep(2)
 
     HeroAvailable = True
     while HeroAvailable:
 
-        if repetition > 0:
-            while repetition > 0:
-                HeroAvailable = CheckHero(browser, health)
-                if not HeroAvailable:
-                    log("Hero not well")
-                    break
-                repetition = start_adventure(browser, repetition)
-                time.sleep(interval)
-        else :
-            while True:
-                HeroAvailable = CheckHero(browser, health)
-                if not HeroAvailable:
-                    log("Hero not well")
-                    break
-                start_adventure(browser, repetition)
-                time.sleep(interval)
+        while True:
+            HeroAvailable = CheckHero(browser, health)
+            if not HeroAvailable:
+                log("Hero not well")
+                break
+            start_adventure(browser)
+            time.sleep(interval)
 
         HeroAvailable = True
         time.sleep(interval)
 
 @use_browser
-def start_adventure(browser: client, repetition) -> None:
+def start_adventure(browser: client) -> None:
     #log("adventure thread waking up")
 
     heroLinks = browser.find("//div[@class='heroLinks']")
@@ -55,9 +46,8 @@ def start_adventure(browser: client, repetition) -> None:
     if available:
         browser.click(el, 2)
         log("adventure started")
-        repetition -= 1
+
     close_modal(browser)
-    return repetition
     #log("adventure thread sleeping")
 
 @use_browser

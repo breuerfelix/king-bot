@@ -113,8 +113,8 @@ class king_bot:
 
         self.browser.done()
 
-    def start_adventures(self, interval: int = 100, repetition: int = 0, health: int = 50) -> None:
-        Thread(target=adventures_thread, args=[self.browser, interval, repetition, health]).start()
+    def start_adventures(self, interval: int = 100, health: int = 50) -> None:
+        Thread(target=adventures_thread, args=[self.browser, interval, health]).start()
 
     # todo implement
     def upgrade_slot(self, village: int, slot: int) -> None:
