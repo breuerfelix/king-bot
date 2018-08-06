@@ -11,24 +11,26 @@ def adventures_thread(browser: client, interval: int, repetition: int, health: i
 
     HeroAvailable = True
     while HeroAvailable:
-        HeroAvailable = CheckHero(browser, health)
-        if not HeroAvailable:
-            break
 
         if repetition > 0:
             while repetition > 0:
-                repetition = start_adventure(browser, repetition)
                 HeroAvailable = CheckHero(browser, health)
                 if not HeroAvailable:
+                    log("Hero not well")
                     break
+                repetition = start_adventure(browser, repetition)
                 time.sleep(interval)
         else :
             while True:
-                start_adventure(browser, repetition)
                 HeroAvailable = CheckHero(browser, health)
                 if not HeroAvailable:
+                    log("Hero not well")
                     break
+                start_adventure(browser, repetition)
                 time.sleep(interval)
+
+        HeroAvailable = True
+        time.sleep(interval)
 
 @use_browser
 def start_adventure(browser: client, repetition) -> None:
