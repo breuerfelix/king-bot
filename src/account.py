@@ -11,7 +11,7 @@ def login(browser: client, gameworld: str, email: str, password: str) -> None:
     loginButton = browser.find("//span[text()='Login']")
     browser.click(loginButton, 1)
 
-    el = browser.find("//iframe[@class='mellon-iframe']", 3)
+    el = browser.find("//iframe[@class='mellon-iframe']", 2)
     browser.driver.switch_to.frame(el)
     el = browser.find("//iframe")
     browser.driver.switch_to.frame(el)
