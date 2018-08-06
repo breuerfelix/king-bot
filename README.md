@@ -71,7 +71,7 @@ watch the youtube video if you got problems setting up the bot. [click here !](h
 just an overview with method signatures. for details check each chapter.
 
 ```python
-def start_adventures(interval: int = 100) -> None:
+def start_adventures(interval: int = 100, health: int = 50) -> None:
 def start_farming(village: int, farmlists: list, interval: int) -> None:
 def start_custom_farmlist(reload: bool = False) -> None:
 def sort_danger_farms(farmlists: list, to_list: int, red: bool, yellow: bool, interval: int) -> None:
@@ -179,14 +179,17 @@ you can add or remove farms without restarting the script
 ## adventures
 
 this enables auto sending the hero on adventures.  
-be careful if the hero in low on health! there is no stopping mechanism for now.
+you hero won't die, because they will only start when the hero is above x hp.
 
 ```python
-kingbot.start_adventures(interval=500)
+kingbot.start_adventures(interval=500, health=35)
 ```
 
 **interval:** _(optional -> default = 100)_  
 time _in seconds_ the hero thread will sleep until it checks for a new adventure again
+
+**health:** _(optional -> default = 50)_  
+minimum health _(in percent)_ of hero to start an adventure
 
 ## dodge incoming attacks
 
