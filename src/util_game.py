@@ -25,3 +25,13 @@ def check_resources(browser: client):
         value = int(find_resources.get_attribute("value"))
         resources[res] = value
     return resources
+
+def shortcut(browser: client, shortcut: str):
+    shortcut_list = {"marketplace":0, "barrack":1, "stable":2, "workshop":3}
+    shortcut_list = shortcut_list[shortcut]
+
+    shortcut_link = browser.find("//div[@id='quickLinks']")
+    shortcut_link = shortcut_link.find_element_by_xpath(".//div[contains(@class, 'slotWrapper')]")
+    link = shortcut_link.find_elements_by_xpath(".//div[contains(@class, 'slotContainer')]")
+
+    browser.click(link[shortcut_list], 1)
