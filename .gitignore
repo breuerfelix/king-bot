@@ -4,3 +4,7 @@ source.html
 .DS_Store
 .mypy_cache
 test_start.py
+/bin/*
+/include/*
+/lib/*
+/share/*

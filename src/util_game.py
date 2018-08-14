@@ -16,7 +16,7 @@ def close_welcome_screen(browser: client):
     browser.click(el)
 
 
-def check_resources(browser: client):
+def check_resources(browser: client) -> {}:
     resources_list = ["wood", "clay", "iron", "crop"]
     resources = {}
     for res in resources_list:
@@ -35,3 +35,14 @@ def shortcut(browser: client, shortcut: str):
     link = shortcut_link.find_elements_by_xpath(".//div[contains(@class, 'slotContainer')]")
 
     browser.click(link[shortcut_list], 1)
+
+def village_list(browser: client) -> []:
+    villages_list = []
+    ul = browser.find("//div[contains(@class, 'villageListDropDown')]")
+    ul = ul.find_element_by_xpath(".//ul")
+    lis = ul.find_elements_by_xpath(".//li")
+    for village in lis:
+        village_name = village.find_element_by_xpath(".//div[contains(@class, 'villageEntry')]")
+        village_name = village_name.get_attribute("innerHTML")
+        villages_list.append(village_name)
+    return villages_list
