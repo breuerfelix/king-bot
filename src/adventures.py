@@ -11,14 +11,14 @@ def adventures_thread(browser: client, interval: int, health: int) -> None:
 
     while True:
         if check_health(browser, health):
-            start_adventure(browser)
+            interval = start_adventure(browser, interval)
         else:
             log("hero is too low for adventures")
 
         time.sleep(interval)
 
 @use_browser
-def start_adventure(browser: client) -> None:
+def start_adventure(browser: client, interval: int) -> int:
     #log("adventure thread waking up")
 
     heroLinks = browser.find("//div[@class='heroLinks']")
@@ -39,10 +39,14 @@ def start_adventure(browser: client) -> None:
 
     if available:
         browser.click(el, 2)
-        interval = check_adventure_time(browser)
+        intervals = check_adventure_time(browser)
         log("adventure started")
+        close_modal(browser)
+        return intervals
 
+    intervals = interval
     close_modal(browser)
+    return intervals
     #log("adventure thread sleeping")
 
 @use_browser
