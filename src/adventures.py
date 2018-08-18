@@ -39,6 +39,7 @@ def start_adventure(browser: client) -> None:
 
     if available:
         browser.click(el, 2)
+        interval = check_adventure_time(browser)
         log("adventure started")
 
     close_modal(browser)
@@ -52,3 +53,18 @@ def check_health(browser: client, health: int) -> bool:
     heroHealth = int(heroStats.get_attribute("perc"))
 
     return heroHealth > health
+
+@use_browser
+def check_adventure_time(browser: client) -> int:
+    movements = browser.find("//div[@id='troopMovements']")
+    ul = movements.find_element_by_xpath(".//ul")
+    lis = ul.find_elements_by_xpath(".//li")
+
+    for li in lis:
+        classes = li.get_attribute("class")
+        if "outgoing_adventure" in classes:
+            cd = li.find_element_by_xpath(".//div[@class='countdown']")
+            adventure_time = cd.get_attribute("innerHTML")
+            timelist = adventure_time.split(":")
+            countdown = (((int(timelist[0]) * 60 * 60) + (int(timelist[1]) * 60) + int(timelist[2])) * 2) + 10
+    return countdown

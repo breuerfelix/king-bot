@@ -79,9 +79,11 @@ def save_resources(browser: client, threshold: list):
     browser.click(train_button, 1)
     close_modal(browser)
     #put resource left to market based on threshold
+    time.sleep(1)
     resource = check_resources(browser)
     foo = 0
     shortcut(browser, "marketplace")
+    time.sleep(1)
     el = browser.find("//div[@class='modalContent']")
     sell_tab = el.find_element_by_xpath(".//a[contains(@class, 'naviTabSell clickable')]")
     browser.click(sell_tab, 1)
@@ -97,6 +99,7 @@ def save_resources(browser: client, threshold: list):
                 offering_type = offering.find_elements_by_xpath(".//a[contains(@class, 'filter iconButton')]")
                 browser.click(offering_type[foo], 1)
                 input_offering = browser.find("//input[@id='marketNewOfferOfferedAmount']").send_keys("1000")
+                time.sleep(1)
                 searching = browser.find("//div[@class='searchBox']")
                 searching = searching.find_element_by_xpath(".//div[@class='resourceFilter filterBar']")
                 searching_type = searching.find_elements_by_xpath(".//a[contains(@class, 'filter iconButton')]")
