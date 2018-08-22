@@ -199,3 +199,6 @@ class client:
         file.write(self.driver.page_source)
         file.close()
     # endregion
+
+    def Refresh(self) -> None:
+        self.driver.refresh()

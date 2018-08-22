@@ -1,101 +1,83 @@
 from .custom_driver import client, use_browser
-from threading import Thread
 from .utils import log
 from .util_game import close_modal
 import time
-from .farming import send_farm
+from .village import open_city
 
 def robber_hideout_thread(browser: client, interval: int):
-    threshold = [1, 0]
     while True:
         robber = check_robber(browser)
-        current_troops = check_troops(browser)
         if robber:
-            if robber[1] is True:
-                pass
+            outgoing_troops = check_troops(browser)
+            if outgoing_troops:
+                open_city(browser)
+                log("Troops is busy right now.")
             else:
-                if sum(current_troops) < sum(threshold):
-                    pass
-                else:
-                    unit_dict = {0: 110, 1: 110, 10: 99}
-                    send_farm(browser=browser, village=0, units=unit_dict, x=robber[2], y=robber[3])
+                send_troops(browser, robber)
+                open_city(browser)
+                log("Troops sent.")
 
-        #log(current_troops)
-        #log(robber)
         time.sleep(interval)
+        log("Refreshing the page.")
+        browser.Refresh()
 
 @use_browser
-def check_troops(browser: client) -> list:
-    units = ["unitType1", "unitType2"]
-    current_troops = []
-    int_current_troops = []
-    foo = 0
-    troops_stationed = browser.find("//div[@id='troopsStationed']")
-    ul = troops_stationed.find_element_by_xpath(".//ul[@class='troopsStationed']")
-    uls = ul.find_elements_by_xpath(".//ul")
-    li = uls[0].find_elements_by_xpath(".//li")
-    for listed in li[1:]:
-        iis = listed.find_element_by_xpath(".//i")
-        divs = listed.find_element_by_xpath(".//div")
-        iis_class = iis.get_attribute("class").split(" ")
-        divs_count = divs.get_attribute("innerHTML")
-        for unit in units:
-            if unit in iis_class:
-                current_troops.append(divs_count)
+def send_troops(browser: client, robber) -> None:
+    if robber is None:
+        return
+    browser.click(robber, 2)
 
-    for current_troops_unit in current_troops:
-        int_current_troops.append(int(current_troops_unit))
-    return int_current_troops
+    item_pos1 = browser.find("//div[contains(@class, 'item pos1')]")
+    browser.click(item_pos1, 2)
+
+    raid_button = browser.find("//div[contains(@class, 'clickableContainer missionType4')]")
+    browser.click(raid_button, 2)
+
+    input = browser.find("//tbody[contains(@class, 'inputTroops')]/tr")
+    input = input.find_elements_by_xpath(".//td")
+    for inp in input:
+        inp = inp.find_element_by_xpath(".//input")
+        dis = inp.get_attribute("disabled")
+        if not dis:
+            number = inp.get_attribute("number")
+            inp.send_keys(number)
+            time.sleep(1)
+
+    time.sleep(1)
+    send_button_1 = browser.find("//button[contains(@class, 'next clickable')]")
+    browser.click(send_button_1, 2)
+
+    send_button_2 = browser.find("//button[contains(@class, 'sendTroops clickable')]")
+    browser.click(send_button_2, 2)
 
 @use_browser
-def check_robber(browser: client) -> list:
-    robber_info = []
+def check_troops(browser: client) -> bool:
+    movements = browser.find("//div[@id='troopMovements']")
+    ul = movements.find_element_by_xpath(".//ul")
+    lis = ul.find_elements_by_xpath(".//li")
+
+    for li in lis:
+        classes = li.get_attribute("class")
+        if "outgoing_attacks" or "return" in classes:
+            return True
+
+    return False
+
+@use_browser
+def check_robber(browser: client):
     map_button = browser.find("//a[contains(@class, 'navi_map bubbleButton')]")
     browser.click(map_button, 1)
     overlay_markers = browser.find("//div[@id='overlayMarkers']")
-    try:
-        overlay_markers = overlay_markers.find_element_by_xpath(".//div[@class='villageName unselectable robber']")
-        robber_element = overlay_markers.find_element_by_xpath(".//span")
-        span_attribute = robber_element.get_attribute("class").split(" ")
-        if "jsVillageType5" in span_attribute:
-            robber_name = robber_element.get_attribute("innerHTML")
-            #log(robber_name)
-            browser.hover(robber_element, 1)
-            browser.hover(robber_element, 1)
-            #log("It should've hovering to Robber right?")
-            #time.sleep(3)
-            info_movements = browser.find("//div[contains(@class, 'infoMovements unselectable')]")
-            ul = info_movements.find_element_by_xpath(".//ul[@class='troopMovements']")
-            try:
-                li = ul.find_element_by_xpath(".//li[contains(@class, 'incoming_attacks')]")
-                tile_information = browser.find("//div[@id='tileInformation']")
-                tile_information = tile_information.find_element_by_xpath(".//span[@class='coordinateWrapper']")
-                x_coordinate = int(tile_information.get_attribute("x"))
-                y_coordinate = int(tile_information.get_attribute("y"))
-                robber_info.append(robber_name)
-                robber_info.append(True)
-                robber_info.append(x_coordinate)
-                robber_info.append(y_coordinate)
-                #log("{0} is Under Attacks".format(robber_name))
-                return robber_info
-                #return list contains Robber data. The data is 'Boolean Under Attacks, x coordinate, y coordinate'
-            except:
-                tile_information = browser.find("//div[@id='tileInformation']")
-                tile_information = tile_information.find_element_by_xpath(".//span[@class='coordinateWrapper']")
-                x_coordinate = int(tile_information.get_attribute("x"))
-                y_coordinate = int(tile_information.get_attribute("y"))
-                robber_info.append(robber_name)
-                robber_info.append(False)
-                robber_info.append(x_coordinate)
-                robber_info.append(y_coordinate)
-                #log("There is no Attacks to {0}".format(robber_name))
-                return robber_info
-                #return list contains Robber data. The data is 'Boolean Under Attacks, x coordinate, y coordinate'
-        else:
-            #log("There is no Robber Hideout. \nPS: Robber Camp different with Robber Hideout.")
-            return robber_info
-            #return empty list
-    except:
-        #log("There is no Robber Hideout")
-        return robber_info
-        #return empty list
+    divs = overlay_markers.find_elements_by_xpath(".//div")
+    for listed in divs:
+        attribute = listed.get_attribute("class")
+        if "robber" in attribute:
+            span = listed.find_element_by_xpath(".//span")
+            span_attribute = span.get_attribute("class")
+            if "jsVillageType5" in span_attribute:
+                robber_name = span.get_attribute("innerHTML")
+                browser.hover(span)
+                browser.hover(span)
+                return span
+
+    return None
