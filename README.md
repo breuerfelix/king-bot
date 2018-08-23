@@ -73,7 +73,7 @@ just an overview with method signatures. for details check each chapter.
 def start_adventures(interval: int = 100, health: int = 50) -> None:
 def start_farming(village: int, farmlists: list, interval: int) -> None:
 def start_custom_farmlist(reload: bool = False) -> None:
-def sort_danger_farms(farmlists: list, to_list: int, red: bool, yellow: bool, interval: int) -> None:
+def sort_danger_farms(farmlists: list, to_list: int, red: bool, yellow: bool, interval: int = 300) -> None:
 def dodge_attack(village: int, interval: int = 600, units: list = [], target: list = []) -> None:
 def upgrade_units_smithy(village: int, units: list, interval: int = 1000) -> None:
 ```
@@ -123,7 +123,8 @@ kingbot.sort_danger_farms(farmlists=[0], to_list=1, red=True, yellow=False, inte
 array of farmlist indexes _(start farmlist is 0)_
 
 **to_list:**  
-index of the farmlist the 'danger' farms will be put into
+index of the farmlist the 'danger' farms will be put into  
+`-1` if you want the farm to be removed instead of moved to another list
 
 **red:**  
 `True` if you want red farms to be sorted out
