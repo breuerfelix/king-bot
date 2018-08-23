@@ -16,6 +16,9 @@ def robber_hideout_thread(browser: client, interval: int):
                 send_troops(browser, robber)
                 open_city(browser)
                 log("Troops sent.")
+        else:
+            open_city(browser)
+            log("There is no Robber Hideout right now, will check again later.")
 
         time.sleep(interval)
         log("Refreshing the page.")
