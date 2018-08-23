@@ -8,7 +8,6 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
 
 __youtube video:__ how to setup the bot. [click here !](https://youtu.be/JGqBnTLFDFc)
 
-__06.08.18 - 22.08.18:__ on vacation -> _no_ support, _no_ new features  
 __23.08.18 - 20.09.18:__ exams -> _only_ support, _no_ new features 
 
 [![Build Status](https://travis-ci.org/scriptworld-git/king-bot.svg?branch=master)](https://travis-ci.org/scriptworld-git/king-bot)
