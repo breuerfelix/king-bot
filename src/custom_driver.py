@@ -200,5 +200,5 @@ class client:
         file.close()
     # endregion
 
-    def Refresh(self) -> None:
+    def refresh(self) -> None:
         self.driver.refresh()

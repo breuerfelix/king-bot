@@ -19,11 +19,13 @@ def robber_hideout_thread(browser: client, interval: int):
 
         time.sleep(interval)
         log("Refreshing the page.")
-        browser.Refresh()
+        browser.refresh()
+        time.sleep(25)
 
 @use_browser
 def send_troops(browser: client, robber) -> None:
     if robber is None:
+        log("Parsing webelement failed")
         return
     browser.click(robber, 2)
 
@@ -58,7 +60,9 @@ def check_troops(browser: client) -> bool:
 
     for li in lis:
         classes = li.get_attribute("class")
-        if "outgoing_attacks" or "return" in classes:
+        if "outgoing_attacks" in classes:
+            return True
+        elif "return" in classes:
             return True
 
     return False
@@ -75,7 +79,6 @@ def check_robber(browser: client):
             span = listed.find_element_by_xpath(".//span")
             span_attribute = span.get_attribute("class")
             if "jsVillageType5" in span_attribute:
-                robber_name = span.get_attribute("innerHTML")
                 browser.hover(span)
                 browser.hover(span)
                 return span
