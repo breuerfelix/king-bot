@@ -11,7 +11,7 @@ settings.browser_speed = 1.0  # increase the number if your internet connecion i
 kingbot = king_bot(email=email, password=password, gameworld=gameworld,
                    proxy=proxy, start_args=sys.argv, debug=False)
 
-kingbot.start_adventures(interval=500)
+kingbot.start_adventures(interval=500, health=35)
 
 kingbot.start_farming(village=0, farmlists=[0], interval=120)
 
