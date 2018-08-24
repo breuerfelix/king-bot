@@ -111,33 +111,39 @@ def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool,
                     if movefarm == True:
                         # move the farm
                         browser.hover(tds[1])
-                        add = tds[9].find_element_by_xpath(
-                            ".//div[contains(@clickable, 'farmListAdd')]")
-                        browser.click(add, 1)
 
-                        inner = browser.find(
-                            "//div[@class='farmListInner']")
-                        movelists = inner.find_element_by_xpath(
-                            ".//div[contains(@class, 'list')]")
+                        if to_list == -1:
+                            add = tds[9].find_element_by_xpath(
+                                ".//div[contains(@clickable, 'deleteEntry')]")
+                            browser.click(add, 1)
+                        else:
+                            add = tds[9].find_element_by_xpath(
+                                ".//div[contains(@clickable, 'farmListAdd')]")
+                            browser.click(add, 1)
 
-                        # todo test this !!
-                        # move to new list
-                        browser.hover(movelists[to_list])
-                        browser.click(movelists[to_list])
-                        browser.sleep(1)
+                            inner = browser.find(
+                                "//div[@class='farmListInner']")
+                            movelists = inner.find_element_by_xpath(
+                                ".//div[contains(@class, 'list')]")
 
-                        # remove from current list
-                        browser.hover(movelists[i])
-                        browser.click(movelists[i])
-                        browser.sleep(1)
+                            # todo test this !!
+                            # move to new list
+                            browser.hover(movelists[to_list])
+                            browser.click(movelists[to_list])
+                            browser.sleep(1)
 
-                        modal = browser.find(
-                            "//div[contains(@class, 'farmListAdd')]")
-                        closemodal = modal.find_element_by_xpath(
-                            ".//a[contains(@class, 'closeWindow')]")
-                        browser.click(closemodal, 2)
+                            # remove from current list
+                            browser.hover(movelists[i])
+                            browser.click(movelists[i])
+                            browser.sleep(1)
 
-                        log("moved farm to save list")
+                            modal = browser.find(
+                                "//div[contains(@class, 'farmListAdd')]")
+                            closemodal = modal.find_element_by_xpath(
+                                ".//a[contains(@class, 'closeWindow')]")
+                            browser.click(closemodal, 2)
+
+                        log("moved or deleted farm")
             except:
                 # farm never got sent
                 pass

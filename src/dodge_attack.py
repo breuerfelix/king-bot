@@ -31,7 +31,8 @@ def check_for_attack_thread(browser: client, village: int, interval: int, units:
                           units=unit_dict, x=int(target[0]), y=int(target[1]))
 
                 log("units sent to rescue")
-                save_resources(browser, [1000, 1000, 1000, 2000])
+                # save_resources feature still alpha test, there is a lot of bug so i turnied it off by default.
+                #save_resources(browser, [1000, 1000, 1000, 2000])
 
                 sleep_time = save_send_time  # sleep at least until attack is over
             elif countdown > sleep_time + save_send_time:

@@ -17,6 +17,7 @@ def adventures_thread(browser: client, interval: int, health: int) -> None:
 
         time.sleep(interval)
 
+
 @use_browser
 def start_adventure(browser: client, interval: int) -> int:
     #log("adventure thread waking up")
@@ -52,11 +53,11 @@ def start_adventure(browser: client, interval: int) -> int:
 @use_browser
 def check_health(browser: client, health: int) -> bool:
 
-    heroStats = browser.find("//div[@class='heroStats']")
-    heroStats = heroStats.find_element_by_xpath(".//div[contains(@class, 'health')]")
-    heroHealth = int(heroStats.get_attribute("perc"))
+    hero_stats = browser.find("//div[@class='heroStats']")
+    hero_stats = hero_stats.find_element_by_xpath(".//div[contains(@class, 'health')]")
+    hero_health = int(hero_stats.get_attribute("perc"))
 
-    return heroHealth > health
+    return hero_health > health
 
 @use_browser
 def check_adventure_time(browser: client) -> int:
