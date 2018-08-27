@@ -44,16 +44,3 @@ def open_shortcut(browser: client, sc: shortcut):
     link = shortcut_link.find_elements_by_xpath(
         ".//div[contains(@class, 'slotContainer')]")
     browser.click(link[sc.value], 1)
-
-
-def village_list(browser: client) -> []:
-    villages_list = []
-    ul = browser.find("//div[contains(@class, 'villageListDropDown')]")
-    ul = ul.find_element_by_xpath(".//ul")
-    lis = ul.find_elements_by_xpath(".//li")
-    for village in lis:
-        village_name = village.find_element_by_xpath(
-            ".//div[contains(@class, 'villageEntry')]")
-        village_name = village_name.get_attribute("innerHTML")
-        villages_list.append(village_name)
-    return villages_list
