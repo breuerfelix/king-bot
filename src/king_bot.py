@@ -115,7 +115,8 @@ class king_bot:
         self.browser.done()
 
     def start_adventures(self, interval: int = 100, health: int = 50) -> None:
-        Thread(target=adventures_thread, args=[self.browser, interval, health]).start()
+        Thread(target=adventures_thread, args=[
+               self.browser, interval, health]).start()
 
     # todo implement
     def upgrade_slot(self, village: int, slot: int) -> None:
@@ -156,5 +157,6 @@ class king_bot:
         Thread(target=upgrade_units_smithy_thread, args=[
                self.browser, village, units, interval]).start()
 
-    def robber_hideout(self, interval: int = 600):
-        Thread(target=robber_hideout_thread, args=[self.browser, interval]).start()
+    def robber_hideout(self, interval: int = 600) -> None:
+        Thread(target=robber_hideout_thread, args=[
+               self.browser, interval]).start()
