@@ -4,7 +4,7 @@ from random import randint
 from .utils import log
 from .village import open_village, open_city, open_building
 from .farming import send_farm
-from .util_game import close_modal, shortcut, check_resources
+from .util_game import close_modal, shortcut, open_shortcut, check_resources
 
 
 def check_for_attack_thread(browser: client, village: int, interval: int, units: list, target: list) -> None:
@@ -69,26 +69,31 @@ def check_for_attack(browser: client, village: int) -> str:
 
     return ""
 
+
 @use_browser
 def save_resources(browser: client, threshold: list):
-    shortcut(browser, "barrack")
+    open_shortcut(browser, shortcut.barrack)
     el = browser.find("//div[@class='modalContent']")
-    max_button = el.find_element_by_xpath(".//div[@class='iconButton maxButton clickable']")
+    max_button = el.find_element_by_xpath(
+        ".//div[@class='iconButton maxButton clickable']")
     browser.click(max_button, 1)
     time.sleep(1)
-    train_button = browser.find("//button[contains(@class, 'animate footerButton')]")
+    train_button = browser.find(
+        "//button[contains(@class, 'animate footerButton')]")
     browser.click(train_button, 1)
     close_modal(browser)
-    #put resource left to market based on threshold
+    # put resource left to market based on threshold
     time.sleep(1)
     resource = check_resources(browser)
     foo = 0
-    shortcut(browser, "marketplace")
+    open_shortcut(browser, shortcut.marketplace)
     time.sleep(1)
     el = browser.find("//div[@class='modalContent']")
-    sell_tab = el.find_element_by_xpath(".//a[contains(@class, 'naviTabSell clickable')]")
+    sell_tab = el.find_element_by_xpath(
+        ".//a[contains(@class, 'naviTabSell clickable')]")
     browser.click(sell_tab, 1)
-    merchant = el.find_element_by_xpath(".//div[@class='marketplaceHeaderGroup']")
+    merchant = el.find_element_by_xpath(
+        ".//div[@class='marketplaceHeaderGroup']")
     merchant = merchant.find_element_by_xpath(".//div[@class='circle']/span")
     merchant = int(merchant.get_attribute("innerHTML"))
     time.sleep(1)
@@ -96,19 +101,26 @@ def save_resources(browser: client, threshold: list):
         for res_name in resource.keys():
             if resource[res_name] >= threshold[foo]:
                 offering = browser.find("//div[@class='offerBox']")
-                offering = offering.find_element_by_xpath(".//div[@class='resourceFilter filterBar']")
-                offering_type = offering.find_elements_by_xpath(".//a[contains(@class, 'filter iconButton')]")
+                offering = offering.find_element_by_xpath(
+                    ".//div[@class='resourceFilter filterBar']")
+                offering_type = offering.find_elements_by_xpath(
+                    ".//a[contains(@class, 'filter iconButton')]")
                 browser.click(offering_type[foo], 1)
-                input_offering = browser.find("//input[@id='marketNewOfferOfferedAmount']").send_keys("1000")
+                input_offering = browser.find(
+                    "//input[@id='marketNewOfferOfferedAmount']").send_keys("1000")
                 time.sleep(1)
                 searching = browser.find("//div[@class='searchBox']")
-                searching = searching.find_element_by_xpath(".//div[@class='resourceFilter filterBar']")
-                searching_type = searching.find_elements_by_xpath(".//a[contains(@class, 'filter iconButton')]")
-                browser.click(searching_type[(foo+1)%2], 1)
-                input_searching = browser.find("//input[@id='marketNewOfferSearchedAmount']").send_keys("2000")
+                searching = searching.find_element_by_xpath(
+                    ".//div[@class='resourceFilter filterBar']")
+                searching_type = searching.find_elements_by_xpath(
+                    ".//a[contains(@class, 'filter iconButton')]")
+                browser.click(searching_type[(foo+1) % 2], 1)
+                input_searching = browser.find(
+                    "//input[@id='marketNewOfferSearchedAmount']").send_keys("2000")
                 time.sleep(1)
                 while resource[res_name] >= threshold[foo] and merchant > 0:
-                    sell_btn = browser.find("//button[contains(@class, 'createOfferBtn')]")
+                    sell_btn = browser.find(
+                        "//button[contains(@class, 'createOfferBtn')]")
                     browser.click(sell_btn, 1)
                     resource[res_name] -= 1000
                     merchant -= 1
