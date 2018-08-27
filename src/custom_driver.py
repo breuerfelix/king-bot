@@ -172,6 +172,9 @@ class client:
 
     def scroll_down(self, element: webelement) -> None:
         element.send_keys(Keys.PAGE_DOWN)
+            
+    def refresh(self) -> None:
+        self.driver.refresh()
     # endregion
 
     # region session
@@ -199,6 +202,3 @@ class client:
         file.write(self.driver.page_source)
         file.close()
     # endregion
-
-    def refresh(self) -> None:
-        self.driver.refresh()
