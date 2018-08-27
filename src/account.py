@@ -9,9 +9,9 @@ def login(browser: client, gameworld: str, email: str, password: str) -> None:
     browser.get('https://kingdoms.com/com')
 
     loginButton = browser.find("//span[text()='Login']", 1)
-    browser.click(loginButton, 3)
+    browser.click(loginButton, 2)
 
-    el = browser.find("//iframe[@class='mellon-iframe']")
+    el = browser.find("//iframe[@class='mellon-iframe']", 2)
     browser.driver.switch_to.frame(el)
     el = browser.find("//iframe", 2)
     browser.driver.switch_to.frame(el)
