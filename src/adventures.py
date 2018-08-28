@@ -57,7 +57,6 @@ def check_health(browser: client, health: int) -> bool:
 
     return hero_health > health
 
-
 @use_browser
 def check_adventure_time(browser: client) -> int:
     movements = browser.find("//div[@id='troopMovements']")
