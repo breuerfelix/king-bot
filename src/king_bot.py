@@ -12,6 +12,7 @@ from .farming import start_farming_thread, start_custom_farmlist_thread, sort_da
 from .dodge_attack import check_for_attack_thread
 from .upgrade import upgrade_units_smithy_thread
 from .settings import settings
+#from .robber_hideouts import robber_hideout_thread
 
 
 class king_bot:
@@ -114,7 +115,8 @@ class king_bot:
         self.browser.done()
 
     def start_adventures(self, interval: int = 100, health: int = 50) -> None:
-        Thread(target=adventures_thread, args=[self.browser, interval, health]).start()
+        Thread(target=adventures_thread, args=[
+               self.browser, interval, health]).start()
 
     # todo implement
     def upgrade_slot(self, village: int, slot: int) -> None:
@@ -154,3 +156,7 @@ class king_bot:
     def upgrade_units_smithy(self, village: int, units: list, interval: int = 1000) -> None:
         Thread(target=upgrade_units_smithy_thread, args=[
                self.browser, village, units, interval]).start()
+
+#     def robber_hideout(self, interval: int = 600) -> None:
+#        Thread(target=robber_hideout_thread, args=[
+#               self.browser, interval]).start()

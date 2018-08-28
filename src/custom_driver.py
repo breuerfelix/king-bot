@@ -172,6 +172,9 @@ class client:
 
     def scroll_down(self, element: webelement) -> None:
         element.send_keys(Keys.PAGE_DOWN)
+            
+    def refresh(self) -> None:
+        self.driver.refresh()
     # endregion
 
     # region session

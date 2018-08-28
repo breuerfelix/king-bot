@@ -3,8 +3,6 @@ from .util_game import close_modal
 from .custom_driver import client
 from enum import Enum
 
-# todo check if already in village/city or ress
-
 
 class building(Enum):
     smithy = 13
