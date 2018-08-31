@@ -304,12 +304,12 @@ the console window will inform you about important actions the bot will do.
 ## login manually
 
 ```bash
-$ python start.py -m
+$ python start.py -m 120
 ```
 
 if you don't trust my program, even if it' open source, you can login manually and don't even type your email or password anywhere in my script.  
 the bot will open the main page of travian kingdoms.  
-it will now wait _120 seconds_ for you to log into your account.  
+it will now wait _120 seconds (given time via argument)_ for you to log into your account.  
 after you are logged in, just open the gameworld you want your bot to run in.  
 if you are finished, just wait for the timer to end, so the bot can do its work.
 

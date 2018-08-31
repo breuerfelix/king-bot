@@ -30,11 +30,12 @@ class king_bot:
 
     def init(self, email: str, password: str, proxy: str, start_args: list) -> None:
         login_req = True
+        login_sleeptime = 0
         manual_login = False
 
         try:
             opts, _ = getopt.getopt(
-                start_args[1:], "hmrte:p:w:", ["email=", "password=", "gameworld="])
+                start_args[1:], "htrm:e:p:w:", ["email=", "password=", "gameworld="])
         except:
             print("error in arguments. check github for details.")
             sys.exit()
@@ -51,6 +52,7 @@ class king_bot:
             elif opt == '-m':
                 login_req = False
                 manual_login = True
+                login_sleeptime = int(arg)
             elif opt in ("-e", "--email"):
                 email = arg
             elif opt in ("-p", "--password"):
@@ -102,7 +104,7 @@ class king_bot:
         if manual_login:
             self.browser.use()
             self.browser.get('https://kingdoms.com')
-            time.sleep(120)
+            time.sleep(login_sleeptime)
             self.browser.done()
 
         self.browser.use()
