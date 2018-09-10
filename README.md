@@ -45,6 +45,7 @@ watch the youtube video if you got problems setting up the bot. [click here !](h
 
 1.  install python3 for your system
     1.  [get python](https://www.python.org/downloads/)
+    2.  you need version 3.7 or higher
 2.  clone this repository
 3.  install packages
     1.  open console
