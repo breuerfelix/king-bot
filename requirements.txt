@@ -2,3 +2,4 @@ selenium
 schedule
 typing
 fake-useragent
+chromedriver-py

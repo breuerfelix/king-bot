@@ -7,7 +7,8 @@ requirements = [
     'selenium',
     'typing',
     'schedule',
-    'fake_useragent'
+    'fake_useragent',
+    'chromedriver-py'
 ]
 
 description = 'Travian Kingdoms automation bot.'

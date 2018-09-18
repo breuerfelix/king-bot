@@ -51,7 +51,7 @@ watch the youtube video if you got problems setting up the bot. [click here !](h
     1.  open console
     2.  goto this repository
     3.  run `pip install .` or `pip install -r requirements.txt`
-4.  download chromedriver for your system
+4.  download chromedriver for your system _(optional)_
     1.  [get chromederiver](http://chromedriver.chromium.org)
     2.  move to `assets/` folder
 5.  edit `start.py`
