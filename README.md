@@ -8,8 +8,6 @@ you want to run the bot **24/7**, but don't want to use your computer? **[contac
 
 __youtube video:__ how to setup the bot. [click here !](https://youtu.be/JGqBnTLFDFc)
 
-__23.08.18 - 20.09.18:__ exams -> _only_ support, _no_ new features 
-
 [![Build Status](https://travis-ci.org/scriptworld-git/king-bot.svg?branch=master)](https://travis-ci.org/scriptworld-git/king-bot)
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/scriptworld-git/king-bot/blob/master/LICENSE)
 [![built with Selenium](https://img.shields.io/badge/built%20with-Selenium-yellow.svg)](https://github.com/SeleniumHQ/selenium)
