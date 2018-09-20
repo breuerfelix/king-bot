@@ -21,10 +21,6 @@ class king_bot:
         self.chrome_driver_path = settings.chromedriver_path
         self.gameworld = gameworld
 
-        # add extension if on windows
-        if platform.system() == 'Windows':
-            self.chrome_driver_path += '.exe'
-
         self.init(email=email, password=password,
                   proxy=proxy, start_args=start_args)
 
