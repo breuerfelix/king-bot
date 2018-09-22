@@ -2,4 +2,4 @@ selenium
 schedule
 typing
 fake-useragent
-chromedriver-py
+chromedriver-py==2.38
