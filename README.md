@@ -6,8 +6,6 @@ feel free to join the [official discord channel](https://discord.gg/5n2btF7) or 
 
 you want to run the bot **24/7**, but don't want to use your computer? **[contact me aswell! (:](mailto:f.breuer@scriptworld.net)**
 
-[view changelog](CHANGELOG.md)
-
 __youtube video:__ how to setup the bot. [click here !](https://youtu.be/JGqBnTLFDFc)
 
 [![Build Status](https://travis-ci.org/scriptworld-git/king-bot.svg?branch=master)](https://travis-ci.org/scriptworld-git/king-bot)
@@ -37,6 +35,7 @@ __youtube video:__ how to setup the bot. [click here !](https://youtu.be/JGqBnTL
     - [code style](#code-style)
     - [workflow](#workflow)
     - [nice to know](#nice-to-know)
+    - [changelog](#changelog)
 - [contact](#contact)
 
 # getting-started
@@ -376,6 +375,10 @@ i love to teach people who are interested in learning.
 - run mypy for typechecking `mypy start.py --ignore-missing-imports`
 - set debug flag to `True` -> `kingbot = kingbot(..., debug=True)`
     - if your script executes with and error resume your session with `python start.py -r`
+
+## changelog
+
+[view changelog](CHANGELOG.md)
 
 # contact
 
