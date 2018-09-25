@@ -44,3 +44,20 @@ def open_shortcut(browser: client, sc: shortcut) -> None:
     link = shortcut_link.find_elements_by_xpath(
         ".//div[contains(@class, 'slotContainer')]")
     browser.click(link[sc.value], 1)
+
+class overview(Enum):
+    overview = 'optimizely_maintab_Overview'
+    resources = 'optimizely_maintab_Resources'
+    warehouse = 'optimizely_maintab_Store'
+    culture_points = 'optimizely_maintab_CulturePoints'
+    units = 'optimizely_maintab_Troops'
+    oases = 'optimizely_maintab_Oases'
+
+def open_village_overview(browser: client, tab: overview) -> None:
+    btn = browser.find("//a[@id='villageOverview']")
+    browser.click(btn, 1)
+
+    tab = browser.find(f"//a[@id='{tab.value}']")
+    classes = tab.get_attribute("class")
+    if 'inactive' in classes:
+        browser.click(tab, 1)
