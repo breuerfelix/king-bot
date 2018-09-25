@@ -57,7 +57,7 @@ class king_bot:
             elif opt in ("-w", "--gameworld"):
                 self.gameworld = arg
 
-        if self.browser.driver == None:
+        if self.browser.driver is None:
             self.browser.chrome(self.chrome_driver_path, proxy=proxy)
 
         if login_req:
@@ -157,7 +157,7 @@ class king_bot:
                self.browser, village, units, interval]).start()
 
     def celebrate(self, villages: [], celebration_type: int = 0, interval: int = 1000) -> None:
-        Thread(target=celebration_thread, args=[self.browser, villages, celebration_type, interval].start()
+        Thread(target=celebration_thread, args=[self.browser, villages, celebration_type, interval]).start()
 
 #     def robber_hideout(self, interval: int = 600) -> None:
 #        Thread(target=robber_hideout_thread, args=[
