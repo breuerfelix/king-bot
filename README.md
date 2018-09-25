@@ -387,4 +387,4 @@ __email:__ _felix@scriptworld.net_
 
 ---
 
-_i love lowercase_
+_we love lowercase_
