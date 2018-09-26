@@ -57,7 +57,7 @@ def open_village_overview(browser: client, tab: overview) -> None:
     btn = browser.find("//a[@id='villageOverview']")
     browser.click(btn, 1)
 
-    tab = browser.find(f"//a[@id='{tab.value}']")
-    classes = tab.get_attribute("class")
+    navi_tab = browser.find(f"//a[@id='{tab.value}']")
+    classes = navi_tab.get_attribute("class")
     if 'inactive' in classes:
         browser.click(tab, 2)
