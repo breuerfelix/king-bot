@@ -39,7 +39,6 @@ def manage_celebration(browser: client, villages: list, celebration_type: int) -
         if seconds < lowest_time:
             lowest_time = seconds
 
-    log(lowest_time)
     return lowest_time
 
 def get_available_villages(browser: client, villages: list) -> list:
