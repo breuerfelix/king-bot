@@ -1,44 +1,149 @@
-from .custom_driver import client, use_browser
-from threading import Thread
 import time
 from .utils import log
-from .util_game import close_modal
+from .custom_driver import client, use_browser
+from .util_game import close_modal, open_village_overview, overview
 
 
-def celebration_thread(browser: client, village: [], celebration_type: int, interval: int) -> None:
+def celebration_thread(browser: client, villages: [], celebration_type: int, interval: int) -> None:
     # init delay
     time.sleep(2)
 
     while True:
-        remaining_time = start_celebration(browser, village, celebration_type)
-        time.sleep(interval)
+        sleep_time = interval
+        remaining_time = manage_celebration(browser, villages, celebration_type)
+
+        if remaining_time < interval:
+            sleep_time = remaining_time + 5
+
+        time.sleep(sleep_time)
 
 
 @use_browser
-def start_celebration(browser: client, interval: int) -> bool:
-    #log("adventure thread waking up")
+def manage_celebration(browser: client, villages: [], celebration_type: int) -> int:
+    available_villages = get_available_villages(browser, villages)
+    log(available_villages)
+    
+    for village in available_villages:
+        start_celebration(browser, village, celebration_type)
 
-    heroLinks = browser.find("//div[@class='heroLinks']")
-    a = heroLinks.find_element_by_xpath(
-        ".//a[contains(@class, 'adventureLink')]")
-    browser.click(a, 2)
-    el = browser.find("//div[@class='modalContent']")
-    el = el.find_element_by_xpath(
-        ".//button")
+    # remaining_time_list = get_celebration_times(browser, villages)
 
-    classes = el.get_attribute("class").split(" ")
-    available = True
+    # TODO return lowest time from list
+    
+    return 1000
 
-    for c in classes:
-        if c == "disabled":
-            available = False
-            break
+def get_available_villages(browser: client, villages: []) -> []:
+    open_village_overview(browser, overview.culture_points)
 
-    if available:
-        browser.click(el, 2)
-        log("adventure started")
+    tab_content = browser.find("//div[contains(@class, 'tabCulturePoints')]")
+    table = tab_content.find_element_by_xpath(".//table[contains(@class, 'villagesTable')]/tbody")
 
-    close_modal(browser)
-    return available
-    #log("adventure thread sleeping")
+    trs = table.find_elements_by_xpath(".//tr")
+    
+    available_villages = []
+    for village in villages:
+        if len(trs) <= village:
+            log(f"couldn't access village: {village}")
+            continue
 
+        # village is available
+        span = trs[village].find_elements_by_xpath('.//td')[2]
+        span = span.find_element_by_xpath('.//span')
+
+        ngif = span.get_attribute('ng-if')
+
+        if "== 0" in ngif:
+            available_villages.append(village)
+
+    return available_villages
+
+def start_celebration(browser: client, village: int, celebration_type: int) -> None:
+    open_village_overview(browser, overview.culture_points)
+
+    tab_content = browser.find("//div[contains(@class, 'tabCulturePoints')]")
+    table = tab_content.find_element_by_xpath(".//table[contains(@class, 'villagesTable')]/tbody")
+
+    trs = table.find_elements_by_xpath(".//tr")
+    
+    if len(trs) <= village:
+        log(f"couldn't access village: {village}")
+        return
+
+    # village is available
+    span = trs[village].find_elements_by_xpath('.//td')[2]
+    span = span.find_element_by_xpath('.//span')
+
+    ngif = span.get_attribute('ng-if')
+
+    if "== 0" not in ngif:
+        log(f"can't start celebration in village: {village}")
+        return
+
+    # start celebrating
+    atag = span.find_element_by_xpath('.//a')
+    browser.click(atag, 1)
+    
+    if celebration_type == 1:
+        # TODO select big celebration here
+        pass
+        
+    button = browser.find("//button[contains(@clickable, 'startCelebration')]")
+    btnClasses = button.get_attribute('class')
+
+    if 'disabled' in btnClasses:
+        log(f"not enough resources to start celebration in village: {village}")
+
+        close_modal(browser)
+        return
+
+    browser.click(button, 1)
+    # test
+
+def get_celebration_times(browser: client, villages: []) -> []:
+    open_village_overview(browser, overview.culture_points)
+
+    tab_content = browser.find("//div[contains(@class, 'tabCulturePoints')]")
+    table = tab_content.find_element_by_xpath(".//table[contains(@class, 'villagesTable')]/tbody")
+
+    trs = table.find_elements_by_xpath(".//tr")
+    sleep_time_list = []    
+    available_villages = []
+    for village in villages:
+        if len(trs) <= village:
+            log(f"couldn't access village: {village}")
+            continue
+
+        # village is available
+        span = trs[village].find_elements_by_xpath('.//td')[2]
+        log(span.get_attribute("innerHTML"))
+        span = span.find_element_by_xpath('.//span')
+
+        ngif = span.get_attribute('ng-if')
+
+        if "== 0" in ngif:
+            available_villages.append(village)
+
+
+        if '< 0' in ngif:
+            log(f'no townhall in village {village}')
+        elif '> 0' in ngif:
+            # TODO parse sleep time
+            sleep_time_list.append(10)
+
+        # start celebrating
+        atag = span.find_element_by_xpath('.//a')
+        browser.click(atag, 1)
+        
+        button = browser.find("//button[contains(@clickable, 'startCelebration')]")
+        btnClasses = button.get_attribute('class')
+
+        if 'disabled' in btnClasses:
+            log(f"not enough resources to start celebration in village: {village}")
+
+            close_modal(browser)
+            # open overview again
+            open_village_overview(browser, overview.culture_points)
+            continue
+
+    browser.click(button, 1)
+    pass
