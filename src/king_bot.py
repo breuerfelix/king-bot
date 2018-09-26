@@ -156,7 +156,7 @@ class king_bot:
         Thread(target=upgrade_units_smithy_thread, args=[
                self.browser, village, units, interval]).start()
 
-    def celebrate(self, villages: [], interval: int = 1000) -> None:
+    def celebrate(self, villages: list, interval: int = 1000) -> None:
         # TODO implement type == 1 for big celebrations
         celebration_type = 0
 

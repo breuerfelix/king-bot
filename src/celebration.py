@@ -4,7 +4,7 @@ from .custom_driver import client, use_browser
 from .util_game import close_modal, open_village_overview, overview
 
 
-def celebration_thread(browser: client, villages: [], celebration_type: int, interval: int) -> None:
+def celebration_thread(browser: client, villages: list, celebration_type: int, interval: int) -> None:
     # init delay
     time.sleep(2)
 
@@ -19,7 +19,7 @@ def celebration_thread(browser: client, villages: [], celebration_type: int, int
 
 
 @use_browser
-def manage_celebration(browser: client, villages: [], celebration_type: int) -> int:
+def manage_celebration(browser: client, villages: list, celebration_type: int) -> int:
     available_villages = get_available_villages(browser, villages)
     log(available_villages)
     
@@ -42,7 +42,7 @@ def manage_celebration(browser: client, villages: [], celebration_type: int) -> 
     log(lowest_time)
     return lowest_time
 
-def get_available_villages(browser: client, villages: []) -> []:
+def get_available_villages(browser: client, villages: list) -> list:
     open_village_overview(browser, overview.culture_points)
 
     tab_content = browser.find("//div[contains(@class, 'tabCulturePoints')]")
@@ -108,7 +108,7 @@ def start_celebration(browser: client, village: int, celebration_type: int) -> N
     browser.click(button, 1)
     close_modal(browser)
 
-def get_celebration_times(browser: client, villages: []) -> []:
+def get_celebration_times(browser: client, villages: list) -> list:
     open_village_overview(browser, overview.culture_points)
 
     tab_content = browser.find("//div[contains(@class, 'tabCulturePoints')]")
