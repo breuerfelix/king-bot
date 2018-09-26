@@ -60,4 +60,4 @@ def open_village_overview(browser: client, tab: overview) -> None:
     tab = browser.find(f"//a[@id='{tab.value}']")
     classes = tab.get_attribute("class")
     if 'inactive' in classes:
-        browser.click(tab, 1)
+        browser.click(tab, 2)
