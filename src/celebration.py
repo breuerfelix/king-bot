@@ -21,7 +21,6 @@ def celebration_thread(browser: client, villages: list, celebration_type: int, i
 @use_browser
 def manage_celebration(browser: client, villages: list, celebration_type: int) -> int:
     available_villages = get_available_villages(browser, villages)
-    log(available_villages)
     
     for village in available_villages:
         start_celebration(browser, village, celebration_type)
