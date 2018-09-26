@@ -1,5 +1,5 @@
 import time
-from .utils import log
+from .utils import log, parse_time_to_seconds
 from .custom_driver import client, use_browser
 from .util_game import close_modal, open_village_overview, overview
 
@@ -26,11 +26,21 @@ def manage_celebration(browser: client, villages: [], celebration_type: int) -> 
     for village in available_villages:
         start_celebration(browser, village, celebration_type)
 
-    # remaining_time_list = get_celebration_times(browser, villages)
+    lowest_time = -1
+    remaining_time_list = get_celebration_times(browser, villages)
 
-    # TODO return lowest time from list
-    
-    return 1000
+    for time in remaining_time_list:
+        seconds = parse_time_to_seconds(time)
+
+        if lowest_time == -1:
+            lowest_time = seconds
+            continue
+
+        if seconds < lowest_time:
+            lowest_time = seconds
+
+    log(lowest_time)
+    return lowest_time
 
 def get_available_villages(browser: client, villages: []) -> []:
     open_village_overview(browser, overview.culture_points)
