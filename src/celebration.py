@@ -92,12 +92,11 @@ def start_celebration(browser: client, village: int, celebration_type: int) -> N
 
     if 'disabled' in btnClasses:
         log(f"not enough resources to start celebration in village: {village}")
-
         close_modal(browser)
         return
 
     browser.click(button, 1)
-    # test
+    close_modal(browser)
 
 def get_celebration_times(browser: client, villages: []) -> []:
     open_village_overview(browser, overview.culture_points)
@@ -106,8 +105,8 @@ def get_celebration_times(browser: client, villages: []) -> []:
     table = tab_content.find_element_by_xpath(".//table[contains(@class, 'villagesTable')]/tbody")
 
     trs = table.find_elements_by_xpath(".//tr")
+
     sleep_time_list = []    
-    available_villages = []
     for village in villages:
         if len(trs) <= village:
             log(f"couldn't access village: {village}")
@@ -115,35 +114,13 @@ def get_celebration_times(browser: client, villages: []) -> []:
 
         # village is available
         span = trs[village].find_elements_by_xpath('.//td')[2]
-        log(span.get_attribute("innerHTML"))
         span = span.find_element_by_xpath('.//span')
 
         ngif = span.get_attribute('ng-if')
 
-        if "== 0" in ngif:
-            available_villages.append(village)
+        if '> 0' in ngif:
+            span = span.find_element_by_xpath('.//span')
+            time = span.get_attribute('innerHTML')
+            sleep_time_list.append(time)
 
-
-        if '< 0' in ngif:
-            log(f'no townhall in village {village}')
-        elif '> 0' in ngif:
-            # TODO parse sleep time
-            sleep_time_list.append(10)
-
-        # start celebrating
-        atag = span.find_element_by_xpath('.//a')
-        browser.click(atag, 1)
-        
-        button = browser.find("//button[contains(@clickable, 'startCelebration')]")
-        btnClasses = button.get_attribute('class')
-
-        if 'disabled' in btnClasses:
-            log(f"not enough resources to start celebration in village: {village}")
-
-            close_modal(browser)
-            # open overview again
-            open_village_overview(browser, overview.culture_points)
-            continue
-
-    browser.click(button, 1)
-    pass
+    return sleep_time_list
