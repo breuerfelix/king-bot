@@ -11,6 +11,12 @@ and this project adheres to [semantic versioning](https://semver.org/spec/v2.0.0
 
 -   auto celebration feature
 
+## 2018-09-22
+
+### fixed
+
+-	webdriver opened a white page -> specified the correct chromedriver package version
+
 ## 2018-09-20
 
 ### fixed
