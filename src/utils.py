@@ -20,3 +20,11 @@ def check_for_lines(path: str, current_lines: list) -> dict:
             lines_to_remove.append(job)
 
     return {'add': lines_to_add, 'remove': lines_to_remove}
+
+
+def parse_time_to_seconds(time: str) -> int:
+    """needs hour:minutes:seconds as paramter, returns time in seconds"""
+    timelist = time.split(":")
+    seconds = int(timelist[0]) * 60 * 60 + int(timelist[1]) * 60 + int(timelist[0])
+
+    return seconds

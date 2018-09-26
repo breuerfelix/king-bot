@@ -12,6 +12,7 @@ from .farming import start_farming_thread, start_custom_farmlist_thread, sort_da
 from .dodge_attack import check_for_attack_thread
 from .upgrade import upgrade_units_smithy_thread
 from .settings import settings
+from .celebration import celebration_thread
 #from .robber_hideouts import robber_hideout_thread
 
 
@@ -56,7 +57,7 @@ class king_bot:
             elif opt in ("-w", "--gameworld"):
                 self.gameworld = arg
 
-        if self.browser.driver == None:
+        if self.browser.driver is None:
             self.browser.chrome(self.chrome_driver_path, proxy=proxy)
 
         if login_req:
@@ -154,6 +155,12 @@ class king_bot:
     def upgrade_units_smithy(self, village: int, units: list, interval: int = 1000) -> None:
         Thread(target=upgrade_units_smithy_thread, args=[
                self.browser, village, units, interval]).start()
+
+    def celebrate(self, villages: list, interval: int = 1000) -> None:
+        # TODO implement type == 1 for big celebrations
+        celebration_type = 0
+
+        Thread(target=celebration_thread, args=[self.browser, villages, celebration_type, interval]).start()
 
 #     def robber_hideout(self, interval: int = 600) -> None:
 #        Thread(target=robber_hideout_thread, args=[

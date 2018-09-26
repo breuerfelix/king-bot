@@ -20,6 +20,7 @@ __youtube video:__ how to setup the bot. [click here !](https://youtu.be/JGqBnTL
     - [farming (travian plus)](#farming-travian-plus)
     - [sorting out yellow / red farms](#sorting-out-yellow--red-farms)
     - [farmlists as .txt file (no travian plus needed)](#farmlists-as-txt-file-no-travian-plus-needed)
+    - [celebrations](#celebrations)
     - [adventures](#adventures)
     - [dodge incoming attacks](#dodge-incoming-attacks)
     - [upgrade units in smithy](#upgrade-units-in-smithy)
@@ -73,6 +74,7 @@ just an overview with method signatures. for details check each chapter.
 def start_adventures(interval: int = 100, health: int = 50) -> None:
 def start_farming(village: int, farmlists: list, interval: int) -> None:
 def start_custom_farmlist(reload: bool = False) -> None:
+def celebrate(villages: [], interval: int = 1000) -> None:
 def sort_danger_farms(farmlists: list, to_list: int, red: bool, yellow: bool, interval: int = 300) -> None:
 def dodge_attack(village: int, interval: int = 600, units: list = [], target: list = []) -> None:
 def upgrade_units_smithy(village: int, units: list, interval: int = 1000) -> None:
@@ -175,6 +177,22 @@ kingbot.start_custom_farmlist(reload=False)
 __reload:__  
 if you set this value to `True` the bot will rescan your farmlist file every minute for changing lines  
 you can add or remove farms without restarting the script
+
+## celebrations
+
+the bot will start a small celebration in given villages everytime the queue is empty and you got enough resources.  
+it will automatically wake up 5 seconds after one celebration in any village is finished.
+
+```python
+kingbot.celebrate(villages=[0, 2, 4], interval=1000)
+```
+
+__villages:__  
+array of villages _(starting at zero)_ in which the bot should start celebrations
+
+__interval:__ _(optional -> default = 1000)_  
+just a save interval for the bot to wake up and check wether it can start a celebration  
+it will automatically adjust this interval to wake up right after a celebration is finished
 
 ## adventures
 

@@ -17,6 +17,8 @@ kingbot.start_farming(village=0, farmlists=[0], interval=120)
 
 kingbot.start_custom_farmlist()
 
+kingbot.celebrate(villages=[0, 2, 3])
+
 kingbot.sort_danger_farms(
     farmlists=[0], to_list=1, red=True, yellow=False, interval=240)
 
