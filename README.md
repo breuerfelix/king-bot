@@ -20,6 +20,7 @@ __youtube video:__ how to setup the bot. [click here !](https://youtu.be/JGqBnTL
     - [farming (travian plus)](#farming-travian-plus)
     - [sorting out yellow / red farms](#sorting-out-yellow--red-farms)
     - [farmlists as .txt file (no travian plus needed)](#farmlists-as-txt-file-no-travian-plus-needed)
+    - [celebrations](#celebrations)
     - [adventures](#adventures)
     - [dodge incoming attacks](#dodge-incoming-attacks)
     - [upgrade units in smithy](#upgrade-units-in-smithy)
