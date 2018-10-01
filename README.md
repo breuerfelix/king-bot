@@ -2,6 +2,9 @@
 
 check out the insights of this project: [scriptworld.net](https://scriptworld.net/projects/king-bot/)
 
+also check out the new advanced version of this bot !  
+it's under heavy development right now: [click here !](https://github.com/scriptworld-git/king-bot-api)
+
 feel free to join the [official discord channel](https://discord.gg/5n2btF7) or **[contact me! (:](mailto:f.breuer@scriptworld.net)**
 
 you want to run the bot **24/7**, but don't want to use your computer? **[contact me aswell! (:](mailto:f.breuer@scriptworld.net)**
@@ -60,10 +63,10 @@ watch the youtube video if you got problems setting up the bot. [click here !](h
     2.  place the actions your bot should do at the end
         1.  read documentation for this
         2.  read `sample_start.py` to get an impression
-7.  execute script
+6.  execute script
     1.  `python start.py`
     2.  read documentation for options like remote browser or headless browsing
-8.  on mac or linux
+7.  on mac or linux
     1.  use `python3` and `pip3` instead
 
 # features
