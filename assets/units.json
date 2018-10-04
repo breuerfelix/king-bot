@@ -1,9 +1,9 @@
 {
     "name" : "Travian Kingdom Unit",
-    "version" : "0.0.1",
+    "version" : "0.0.2",
     "tribe" : [
         {
-            "tribeId" : 1,
+            "tribeId" : "Tribe_1",
             "tribeName" : "Romans",
             "units" : [
                 {
@@ -161,7 +161,7 @@
             ]
         },
         {
-            "tribeId" : 2,
+            "tribeId" : "Tribe_2",
             "tribeName" : "Teutons",
             "units" : [
                 {
@@ -319,7 +319,7 @@
             ]
         },
         {
-            "tribeId" : 3,
+            "tribeId" : "Tribe_3",
             "tribeName" : "Gauls",
             "units" : [
                 {
