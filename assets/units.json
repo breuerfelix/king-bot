@@ -1,0 +1,480 @@
+{
+    "name" : "Travian Kingdom Unit",
+    "version" : "0.0.1",
+    "tribe" : [
+        {
+            "tribeId" : 1,
+            "tribeName" : "Romans",
+            "units" : [
+                {
+                    "unitId" : 1,
+                    "unitName" : "Legionnaire",
+                    "unitTrain" : "Barrack",
+                    "unitType" : "Infantry",
+                    "unitStatus" : {
+                        "attack" : 40,
+                        "infantryDefend" : 35,
+                        "cavalryDefend" : 50,
+                        "carryingCapacity" : 50,
+                        "moveSpeed" : 6,
+                        "cropConsumption" : 1
+                    },
+                    "trainingCost" : {
+                        "wood" : 75,
+                        "clay" : 50,
+                        "iron" : 100
+                    }
+                },
+                {
+                    "unitId" : 2,
+                    "unitName" : "Praetorian",
+                    "unitTrain" : "Barrack",
+                    "unitType" : "Infantry",
+                    "unitStatus" : {
+                        "attack" : 30,
+                        "infantryDefend" : 65,
+                        "cavalryDefend" : 35,
+                        "carryingCapacity" : 20,
+                        "moveSpeed" : 5,
+                        "cropConsumption" : 1
+                    },
+                    "trainingCost" : {
+                        "wood" : 80,
+                        "clay" : 100,
+                        "iron" : 160
+                    }
+                },
+                {
+                    "unitId" : 3,
+                    "unitName" : "Imperian",
+                    "unitTrain" : "Barrack",
+                    "unitType" : "Infantry",
+                    "unitStatus" : {
+                        "attack" : 70,
+                        "infantryDefend" : 40,
+                        "cavalryDefend" : 25,
+                        "carryingCapacity" : 50,
+                        "moveSpeed" : 7,
+                        "cropConsumption" : 1
+                    },
+                    "trainingCost" : {
+                        "wood" : 100,
+                        "clay" : 110,
+                        "iron" : 140
+                    }
+                },
+                {
+                    "unitId" : 4,
+                    "unitName" : "Equites Legati",
+                    "unitTrain" : "Stable",
+                    "unitType" : "Cavalry",
+                    "unitStatus" : {
+                        "attack" : 0,
+                        "infantryDefend" : 20,
+                        "cavalryDefend" : 10,
+                        "carryingCapacity" : 0,
+                        "moveSpeed" : 16,
+                        "cropConsumption" : 2
+                    },
+                    "trainingCost" : {
+                        "wood" : 100,
+                        "clay" : 140,
+                        "iron" : 10
+                    }
+                },
+                {
+                    "unitId" : 5,
+                    "unitName" : "Equites Imperatoris",
+                    "unitTrain" : "Stable",
+                    "unitType" : "Cavalry",
+                    "unitStatus" : {
+                        "attack" : 120,
+                        "infantryDefend" : 65,
+                        "cavalryDefend" : 50,
+                        "carryingCapacity" : 100,
+                        "moveSpeed" : 14,
+                        "cropConsumption" : 3
+                    },
+                    "trainingCost" : {
+                        "wood" : 350,
+                        "clay" : 260,
+                        "iron" : 180
+                    }
+                },
+                {
+                    "unitId" : 6,
+                    "unitName" : "Equites Caesaris",
+                    "unitTrain" : "Stable",
+                    "unitType" : "Cavalry",
+                    "unitStatus" : {
+                        "attack" : 180,
+                        "infantryDefend" : 80,
+                        "cavalryDefend" : 105,
+                        "carryingCapacity" : 70,
+                        "moveSpeed" : 10,
+                        "cropConsumption" : 4
+                    },
+                    "trainingCost" : {
+                        "wood" : 280,
+                        "clay" : 340,
+                        "iron" : 600
+                    }
+                },
+                {
+                    "unitId" : 7,
+                    "unitName" : "Battering Ram",
+                    "unitTrain" : "Workshop",
+                    "unitType" : "Infantry",
+                    "unitStatus" : {
+                        "attack" : 60,
+                        "infantryDefend" : 30,
+                        "cavalryDefend" : 75,
+                        "carryingCapacity" : 0,
+                        "moveSpeed" : 4,
+                        "cropConsumption" : 3
+                    },
+                    "trainingCost" : {
+                        "wood" : 700,
+                        "clay" : 180,
+                        "iron" : 400
+                    }
+                },
+                {
+                    "unitId" : 8,
+                    "unitName" : "Fire Catapult",
+                    "unitTrain" : "Workshop",
+                    "unitType" : "Infantry",
+                    "unitStatus" : {
+                        "attack" : 75,
+                        "infantryDefend" : 60,
+                        "cavalryDefend" : 10,
+                        "carryingCapacity" : 0,
+                        "moveSpeed" : 3,
+                        "cropConsumption" : 6
+                    },
+                    "trainingCost" : {
+                        "wood" : 690,
+                        "clay" : 1000,
+                        "iron" : 400
+                    }
+                }
+            ]
+        },
+        {
+            "tribeId" : 2,
+            "tribeName" : "Teutons",
+            "units" : [
+                {
+                    "unitId" : 1,
+                    "unitName" : "Clubswinger",
+                    "unitTrain" : "Barrack",
+                    "unitType" : "Infantry",
+                    "unitStatus" : {
+                        "attack" : 40,
+                        "infantryDefend" : 20,
+                        "cavalryDefend" : 5,
+                        "carryingCapacity" : 60,
+                        "moveSpeed" : 7,
+                        "cropConsumption" : 1
+                    },
+                    "trainingCost" : {
+                        "wood" : 85,
+                        "clay" : 65,
+                        "iron" : 30
+                    }
+                },
+                {
+                    "unitId" : 2,
+                    "unitName" : "Spearfighter",
+                    "unitTrain" : "Barrack",
+                    "unitType" : "Infantry",
+                    "unitStatus" : {
+                        "attack" : 10,
+                        "infantryDefend" : 35,
+                        "cavalryDefend" : 60,
+                        "carryingCapacity" : 40,
+                        "moveSpeed" : 7,
+                        "cropConsumption" : 1
+                    },
+                    "trainingCost" : {
+                        "wood" : 125,
+                        "clay" : 50,
+                        "iron" : 65
+                    }
+                },
+                {
+                    "unitId" : 3,
+                    "unitName" : "Axefighter",
+                    "unitTrain" : "Barrack",
+                    "unitType" : "Infantry",
+                    "unitStatus" : {
+                        "attack" : 60,
+                        "infantryDefend" : 30,
+                        "cavalryDefend" : 30,
+                        "carryingCapacity" : 50,
+                        "moveSpeed" : 6,
+                        "cropConsumption" : 1
+                    },
+                    "trainingCost" : {
+                        "wood" : 80,
+                        "clay" : 65,
+                        "iron" : 130
+                    }
+                },
+                {
+                    "unitId" : 4,
+                    "unitName" : "Scout",
+                    "unitTrain" : "Barrack",
+                    "unitType" : "Infantry",
+                    "unitStatus" : {
+                        "attack" : 0,
+                        "infantryDefend" : 10,
+                        "cavalryDefend" : 5,
+                        "carryingCapacity" : 0,
+                        "moveSpeed" : 9,
+                        "cropConsumption" : 1
+                    },
+                    "trainingCost" : {
+                        "wood" : 100,
+                        "clay" : 140,
+                        "iron" : 10
+                    }
+                },
+                {
+                    "unitId" : 5,
+                    "unitName" : "Paladin",
+                    "unitTrain" : "Stable",
+                    "unitType" : "Cavalry",
+                    "unitStatus" : {
+                        "attack" : 55,
+                        "infantryDefend" : 100,
+                        "cavalryDefend" : 40,
+                        "carryingCapacity" : 110,
+                        "moveSpeed" : 10,
+                        "cropConsumption" : 2
+                    },
+                    "trainingCost" : {
+                        "wood" : 330,
+                        "clay" : 170,
+                        "iron" : 200
+                    }
+                },
+                {
+                    "unitId" : 6,
+                    "unitName" : "Teutonic Knight",
+                    "unitTrain" : "Stable",
+                    "unitType" : "Cavalry",
+                    "unitStatus" : {
+                        "attack" : 150,
+                        "infantryDefend" : 50,
+                        "cavalryDefend" : 75,
+                        "carryingCapacity" : 80,
+                        "moveSpeed" : 9,
+                        "cropConsumption" : 3
+                    },
+                    "trainingCost" : {
+                        "wood" : 280,
+                        "clay" : 320,
+                        "iron" : 260
+                    }
+                },
+                {
+                    "unitId" : 7,
+                    "unitName" : "Ram",
+                    "unitTrain" : "Workshop",
+                    "unitType" : "Infantry",
+                    "unitStatus" : {
+                        "attack" : 65,
+                        "infantryDefend" : 30,
+                        "cavalryDefend" : 80,
+                        "carryingCapacity" : 0,
+                        "moveSpeed" : 4,
+                        "cropConsumption" : 3
+                    },
+                    "trainingCost" : {
+                        "wood" : 800,
+                        "clay" : 150,
+                        "iron" : 250
+                    }
+                },
+                {
+                    "unitId" : 8,
+                    "unitName" : "Catapult",
+                    "unitTrain" : "Workshop",
+                    "unitType" : "Infantry",
+                    "unitStatus" : {
+                        "attack" : 50,
+                        "infantryDefend" : 60,
+                        "cavalryDefend" : 10,
+                        "carryingCapacity" : 0,
+                        "moveSpeed" : 3,
+                        "cropConsumption" : 6
+                    },
+                    "trainingCost" : {
+                        "wood" : 660,
+                        "clay" : 900,
+                        "iron" : 370
+                    }
+                }
+            ]
+        },
+        {
+            "tribeId" : 3,
+            "tribeName" : "Gauls",
+            "units" : [
+                {
+                    "unitId" : 1,
+                    "unitName" : "Phalanx",
+                    "unitTrain" : "Barrack",
+                    "unitType" : "Infantry",
+                    "unitStatus" : {
+                        "attack" : 15,
+                        "infantryDefend" : 40,
+                        "cavalryDefend" : 50,
+                        "carryingCapacity" : 35,
+                        "moveSpeed" : 7,
+                        "cropConsumption" : 1
+                    },
+                    "trainingCost" : {
+                        "wood" : 85,
+                        "clay" : 100,
+                        "iron" : 50
+                    }
+                },
+                {
+                    "unitId" : 2,
+                    "unitName" : "Swordsman",
+                    "unitTrain" : "Barrack",
+                    "unitType" : "Infantry",
+                    "unitStatus" : {
+                        "attack" : 65,
+                        "infantryDefend" : 35,
+                        "cavalryDefend" : 20,
+                        "carryingCapacity" : 45,
+                        "moveSpeed" : 6,
+                        "cropConsumption" : 1
+                    },
+                    "trainingCost" : {
+                        "wood" : 95,
+                        "clay" : 60,
+                        "iron" : 140
+                    }
+                },
+                {
+                    "unitId" : 3,
+                    "unitName" : "Pathfinder",
+                    "unitTrain" : "Stable",
+                    "unitType" : "Cavalry",
+                    "unitStatus" : {
+                        "attack" : 0,
+                        "infantryDefend" : 20,
+                        "cavalryDefend" : 10,
+                        "carryingCapacity" : 0,
+                        "moveSpeed" : 17,
+                        "cropConsumption" : 2
+                    },
+                    "trainingCost" : {
+                        "wood" : 140,
+                        "clay" : 110,
+                        "iron" : 20
+                    }
+                },
+                {
+                    "unitId" : 4,
+                    "unitName" : "Theutates Thunder",
+                    "unitTrain" : "Stable",
+                    "unitType" : "Cavalry",
+                    "unitStatus" : {
+                        "attack" : 90,
+                        "infantryDefend" : 25,
+                        "cavalryDefend" : 40,
+                        "carryingCapacity" : 75,
+                        "moveSpeed" : 19,
+                        "cropConsumption" : 2
+                    },
+                    "trainingCost" : {
+                        "wood" : 200,
+                        "clay" : 280,
+                        "iron" : 130
+                    }
+                },
+                {
+                    "unitId" : 5,
+                    "unitName" : "Druidrider",
+                    "unitTrain" : "Stable",
+                    "unitType" : "Cavalry",
+                    "unitStatus" : {
+                        "attack" : 45,
+                        "infantryDefend" : 115,
+                        "cavalryDefend" : 55,
+                        "carryingCapacity" : 35,
+                        "moveSpeed" : 16,
+                        "cropConsumption" : 2
+                    },
+                    "trainingCost" : {
+                        "wood" : 300,
+                        "clay" : 270,
+                        "iron" : 190
+                    }
+                },
+                {
+                    "unitId" : 6,
+                    "unitName" : "Haeduan",
+                    "unitTrain" : "Stable",
+                    "unitType" : "Cavalry",
+                    "unitStatus" : {
+                        "attack" : 140,
+                        "infantryDefend" : 60,
+                        "cavalryDefend" : 165,
+                        "carryingCapacity" : 65,
+                        "moveSpeed" : 13,
+                        "cropConsumption" : 3
+                    },
+                    "trainingCost" : {
+                        "wood" : 300,
+                        "clay" : 380,
+                        "iron" : 440
+                    }
+                },
+                {
+                    "unitId" : 7,
+                    "unitName" : "Ram",
+                    "unitTrain" : "Workshop",
+                    "unitType" : "Infantry",
+                    "unitStatus" : {
+                        "attack" : 50,
+                        "infantryDefend" : 30,
+                        "cavalryDefend" : 105,
+                        "carryingCapacity" : 0,
+                        "moveSpeed" : 4,
+                        "cropConsumption" : 3
+                    },
+                    "trainingCost" : {
+                        "wood" : 750,
+                        "clay" : 370,
+                        "iron" : 220
+                    }
+                },
+                {
+                    "unitId" : 8,
+                    "unitName" : "Trebuchet",
+                    "unitTrain" : "Workshop",
+                    "unitType" : "Infantry",
+                    "unitStatus" : {
+                        "attack" : 70,
+                        "infantryDefend" : 45,
+                        "cavalryDefend" : 10,
+                        "carryingCapacity" : 0,
+                        "moveSpeed" : 3,
+                        "cropConsumption" : 6
+                    },
+                    "trainingCost" : {
+                        "wood" : 590,
+                        "clay" : 1200,
+                        "iron" : 400
+                    }
+                }
+            ]
+        }
+    ]
+}
