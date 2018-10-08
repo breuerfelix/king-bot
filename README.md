@@ -79,7 +79,7 @@ def start_farming(village: int, farmlists: list, interval: int) -> None:
 def start_custom_farmlist(reload: bool = False) -> None:
 def celebrate(villages: [], interval: int = 1000) -> None:
 def sort_danger_farms(farmlists: list, to_list: int, red: bool, yellow: bool, interval: int = 300) -> None:
-def dodge_attack(village: int, interval: int = 600, units: list = [], target: list = []) -> None:
+def dodge_attack(village: int, interval: int = 600, units: list = [], target: list = [], save_resources: bool = False, units_train: list = []) -> None:
 def upgrade_units_smithy(village: int, units: list, interval: int = 1000) -> None:
 ```
 
@@ -221,7 +221,7 @@ the bot will wake up 10 minutes before the attack lands, so take a target which 
 use this method for every village you want to save.
 
 ```python
-kingbot.dodge_attack(village=0, units=[1, 0, 3], target=[1, 1])
+kingbot.dodge_attack(village=0, units=[1, 0, 3], target=[1, 1], save_resources=True, units_train=[2, 4])
 ```
 
 **village:**  
@@ -233,6 +233,13 @@ insert `-1` _(units=[-1])_ to save **all** available units in this village
 
 **target:**  
 first index is the x-coordinate and second for the y-coordinate of the village the bot will send the units for a robbery
+
+
+**save_resources:**  
+`True` if you want to save the resources and NPC it for training troops. **attention! this feature will consume your gold, please consider it.**
+
+**units_train:**  
+array of unit indexes which are going to be trained **_(starting at 1)_**
 
 ## upgrade units in smithy
 
