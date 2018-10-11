@@ -37,8 +37,9 @@ def check_for_attack_thread(browser: client, village: int, interval: int, units:
                           units=unit_dict, x=int(target[0]), y=int(target[1]))
 
                 log("units sent to rescue")
+
                 if save_resources:
-                    save_resources_v2(browser, units_train, content)
+                    save_resources_gold(browser, units_train, content)
 
                 sleep_time = save_send_time  # sleep at least until attack is over
             elif countdown > sleep_time + save_send_time:
@@ -77,23 +78,23 @@ def check_for_attack(browser: client, village: int) -> str:
 
 
 @use_browser
-def save_resources(browser: client, threshold: list):
+def save_resources(browser: client, threshold: list) -> None:
     open_shortcut(browser, shortcut.barrack)
     el = browser.find("//div[@class='modalContent']")
     max_button = el.find_element_by_xpath(
         ".//div[@class='iconButton maxButton clickable']")
     browser.click(max_button, 1)
-    time.sleep(1)
+    browser.sleep(1)
     train_button = browser.find(
         "//button[contains(@class, 'animate footerButton')]")
     browser.click(train_button, 1)
     close_modal(browser)
     # put resource left to market based on threshold
-    time.sleep(1)
+    browser.sleep(1)
     resource = check_resources(browser)
     foo = 0
     open_shortcut(browser, shortcut.marketplace)
-    time.sleep(1)
+    browser.sleep(1)
     el = browser.find("//div[@class='modalContent']")
     sell_tab = el.find_element_by_xpath(
         ".//a[contains(@class, 'naviTabSell clickable')]")
@@ -102,7 +103,7 @@ def save_resources(browser: client, threshold: list):
         ".//div[@class='marketplaceHeaderGroup']")
     merchant = merchant.find_element_by_xpath(".//div[@class='circle']/span")
     merchant = int(merchant.get_attribute("innerHTML"))
-    time.sleep(1)
+    browser.sleep(1)
     if merchant > 0:
         for res_name in resource.keys():
             if resource[res_name] >= threshold[foo]:
@@ -114,7 +115,7 @@ def save_resources(browser: client, threshold: list):
                 browser.click(offering_type[foo], 1)
                 input_offering = browser.find(
                     "//input[@id='marketNewOfferOfferedAmount']").send_keys("1000")
-                time.sleep(1)
+                browser.sleep(1)
                 searching = browser.find("//div[@class='searchBox']")
                 searching = searching.find_element_by_xpath(
                     ".//div[@class='resourceFilter filterBar']")
@@ -123,27 +124,28 @@ def save_resources(browser: client, threshold: list):
                 browser.click(searching_type[(foo+1) % 2], 1)
                 input_searching = browser.find(
                     "//input[@id='marketNewOfferSearchedAmount']").send_keys("2000")
-                time.sleep(1)
+                browser.sleep(1)
                 while resource[res_name] >= threshold[foo] and merchant > 0:
                     sell_btn = browser.find(
                         "//button[contains(@class, 'createOfferBtn')]")
                     browser.click(sell_btn, 1)
                     resource[res_name] -= 1000
                     merchant -= 1
-            time.sleep(1)
+            browser.sleep(1)
             foo += 1
-    time.sleep(1)
+    browser.sleep(1)
     close_modal(browser)
 
 @use_browser
-def save_resources_v2(browser: client, units_train: list, content: dict) -> None:
+def save_resources_gold(browser: client, units_train: list, content: dict) -> None:
     # finding tribe, sorry for ugly xpath
+    # TODO nicer xpath
     tribe_id = browser.find(
         '/html/body/div[2]/div[5]/div/div[1]/div/div/div[2]/ul/ul[1]/li').get_attribute('tooltip-translate')
 
     units_cost = [] #resources cost for every unit in units_train
     total_units_cost = [] #total resources cost for every unit in units_train
-    training_queue = {shortcut.barrack:{}, shortcut.stable:{}, shortcut.workshop:{}} #dict for training queue
+    training_queue: dict = {shortcut.barrack:{}, shortcut.stable:{}, shortcut.workshop:{}} #dict for training queue
     for tribe in content['tribe']:
         if tribe_id in tribe['tribeId']:
             for unit in tribe['units']:
@@ -196,24 +198,25 @@ def save_resources_v2(browser: client, units_train: list, content: dict) -> None
     npc_tab = browser.find(
         '//*[@id="optimizely_maintab_NpcTrade"]')
     browser.click(npc_tab, 1)
+    # TODO nicer xpath
     market_content = browser.find(
         '/html/body/div[2]/window/div/div/div[4]/div/div/div[1]/div/div/div/div/div/div/div/div[2]/div')
     trs = market_content.find_elements_by_xpath(
         './/tbody[@class="sliderTable"]/tr')
-    time.sleep(1)
+    browser.sleep(1)
     for tr in trs[:-2]:
         input = tr.find_element_by_xpath(
             './/input')
-        time.sleep(0.5)
+        browser.sleep(0.5)
         input.clear()
-        time.sleep(1.5)
+        browser.sleep(1.5)
         input.send_keys(next(_resource))
-        time.sleep(1.5)
+        browser.sleep(1.5)
         lock = tr.find_element_by_xpath(
             './/div[@class="lockButtonBackground"]')
-        time.sleep(1.5)
+        browser.sleep(1.5)
         browser.click(lock, 1)
-        time.sleep(1.5)
+        browser.sleep(1.5)
     convert_button = market_content.find_element_by_xpath(
         './div[3]/div[1]/button')
     browser.click(convert_button, 1)
@@ -233,17 +236,18 @@ def save_resources_v2(browser: client, units_train: list, content: dict) -> None
                 "//div[@class='modalContent']//img[contains(@class, '{}')]".format(unit_type))
             browser.click(image_troop, 1)
             #input amount based training_queue[unit_train][unit_id]
+            # TODO nicer xpath
             input_troop = browser.find(
                 '/html/body/div[2]/window/div/div/div[4]/div/div/div[1]/div/div/div/div/div/div/div/div/div/div/div/div[2]/slider/div')
             input_troop = input_troop.find_element_by_xpath(
                 './/input').send_keys(training_queue[unit_train][unit_id])
-            time.sleep(1.5)
+            browser.sleep(1.5)
             #click train button
             train_button = browser.find(
                 "//button[contains(@class, 'animate footerButton')]")
             browser.click(train_button, 1)
-            time.sleep(1.5)
-        time.sleep(1)
+            browser.sleep(1.5)
+        browser.sleep(1)
         try:
             close_modal(browser)
         except:
