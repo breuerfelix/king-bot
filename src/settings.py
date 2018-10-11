@@ -11,4 +11,5 @@ class settings:
         BASE_DIR, 'assets', 'current_session.txt')
     credentials_path: str = os.path.join(BASE_DIR, "assets", "credentials.txt")
     farmlist_path: str = os.path.join(BASE_DIR, "assets", "farmlist.txt")
+    units_path: str = os.path.join(BASE_DIR, "assets", "units.json")
     browser_speed: float = 1.0

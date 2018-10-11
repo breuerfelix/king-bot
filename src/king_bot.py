@@ -137,7 +137,7 @@ class king_bot:
         Thread(target=sort_danger_farms_thread, args=[
                self.browser, farmlists, to_list, red, yellow, interval]).start()
 
-    def dodge_attack(self, village: int, interval: int = 600, resources: bool = False, units: list = [], target: list = []) -> None:
+    def dodge_attack(self, village: int, interval: int = 600, save_resources: bool = False, units: list = [], target: list = [], units_train: list = []) -> None:
         # check dependencies for units
         if units:
             if target == None:
@@ -145,12 +145,13 @@ class king_bot:
                 return
 
         # check dependencies for resources
-        if resources:
-            log("saving resources is not yet implemented. check for new releases")
-            pass
+        if save_resources:
+            if units_train == None:
+                log("please provide the units that want to train for saving the resources")
+                return
 
         Thread(target=check_for_attack_thread, args=[
-               self.browser, village, interval, units, target]).start()
+               self.browser, village, interval, units, target, save_resources, units_train]).start()
 
     def upgrade_units_smithy(self, village: int, units: list, interval: int = 1000) -> None:
         Thread(target=upgrade_units_smithy_thread, args=[
