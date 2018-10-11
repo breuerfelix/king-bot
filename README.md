@@ -236,7 +236,8 @@ first index is the x-coordinate and second for the y-coordinate of the village t
 
 
 **save_resources:**  
-`True` if you want to save the resources and NPC it for training troops. **attention! this feature will consume your gold, please consider it.**
+`True` if you want to save the resources and NPC it for training troops.  
+**attention! this feature will consume your gold, please consider it.**
 
 **units_train:**  
 array of unit indexes which are going to be trained **_(starting at 1)_**
