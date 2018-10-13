@@ -4,7 +4,7 @@ from random import randint
 from .utils import log
 from .village import open_village, open_city, open_building
 from .farming import send_farm
-from .util_game import close_modal, shortcut, open_shortcut, check_resources
+from .util_game import close_modal, shortcut, open_shortcut, check_resources, old_shortcut
 from .settings import settings
 import json
 
