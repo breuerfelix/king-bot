@@ -144,7 +144,7 @@ def save_resources_gold(browser: client, units_train: list, content: dict) -> No
 
     units_cost = [] #resources cost for every unit in units_train
     total_units_cost = [] #total resources cost for every unit in units_train
-    training_queue: dict = {shortcut.barrack:{}, shortcut.stable:{}, shortcut.workshop:{}} #dict for training queue
+    training_queue: dict = {} #dict for training queue
     for tribe in content['tribe']:
         if tribe_id in tribe['tribeId']:
             for unit in tribe['units']:
@@ -153,12 +153,8 @@ def save_resources_gold(browser: client, units_train: list, content: dict) -> No
                     training_cost = sum(unit['trainingCost'].values())
                     total_units_cost.append(training_cost)
                     #initializing training_queue
-                    if 'Barrack' in unit['unitTrain']:
-                        training_queue[shortcut.barrack][unit['unitId']] = 0
-                    elif 'Stable' in unit['unitTrain']:
-                        training_queue[shortcut.stable][unit['unitId']] = 0
-                    elif 'Workshop' in unit['unitTrain']:
-                        training_queue[shortcut.workshop][unit['unitId']] = 0
+                    training_queue[unit['unitTrain']] = {}
+                    training_queue[unit['unitTrain']][unit['unitId']] = 0
 
     resources = check_resources(browser)
     total_resources = sum(resources.values())
@@ -202,6 +198,7 @@ def save_resources_gold(browser: client, units_train: list, content: dict) -> No
     trs = market_content.find_elements_by_xpath(
         './/tbody[@class="sliderTable"]/tr')
     browser.sleep(1)
+
     for tr in trs[:-2]:
         input = tr.find_element_by_xpath(
             './/input')
@@ -224,10 +221,8 @@ def save_resources_gold(browser: client, units_train: list, content: dict) -> No
 
     # Start training troops
     for unit_train in training_queue:
-        open_shortcut(browser, unit_train)
+        old_shortcut(browser, unit_train)
         for unit_id in training_queue[unit_train]:
-            if not unit_id:
-                continue
             #click picture based unit_id
             unit_type = 'unitType{}'.format(unit_id)
             image_troop = browser.find(
@@ -245,7 +240,4 @@ def save_resources_gold(browser: client, units_train: list, content: dict) -> No
             browser.click(train_button, 1)
             browser.sleep(1.5)
         browser.sleep(1)
-        try:
-            close_modal(browser)
-        except:
-            pass
+        close_modal(browser)
