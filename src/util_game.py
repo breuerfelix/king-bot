@@ -61,3 +61,12 @@ def open_village_overview(browser: client, tab: overview) -> None:
     classes = navi_tab.get_attribute("class")
     if 'inactive' in classes:
         browser.click(tab, 2)
+
+def old_shortcut(browser:client, shortcut: str) -> None:
+    shortcut_dict = {'marketplace':0, 'barrack':1, 'stable':2, 'workshop':3}
+    shortcut_link = browser.find("//div[@id='quickLinks']")
+    shortcut_link = shortcut_link.find_element_by_xpath(
+        ".//div[contains(@class, 'slotWrapper')]")
+    link = shortcut_link.find_elements_by_xpath(
+        ".//div[contains(@class, 'slotContainer')]")
+    browser.click(link[shortcut_dict[shortcut.lower()]], 1)

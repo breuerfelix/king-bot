@@ -4,7 +4,7 @@ from random import randint
 from .utils import log
 from .village import open_village, open_city, open_building
 from .farming import send_farm
-from .util_game import close_modal, shortcut, open_shortcut, check_resources
+from .util_game import close_modal, shortcut, open_shortcut, check_resources, old_shortcut
 from .settings import settings
 import json
 
@@ -138,14 +138,13 @@ def save_resources(browser: client, threshold: list) -> None:
 
 @use_browser
 def save_resources_gold(browser: client, units_train: list, content: dict) -> None:
-    # finding tribe, sorry for ugly xpath
-    # TODO nicer xpath
     tribe_id = browser.find(
-        '/html/body/div[2]/div[5]/div/div[1]/div/div/div[2]/ul/ul[1]/li').get_attribute('tooltip-translate')
+        '//*[@id="troopsStationed"]//li[contains(@class, "tribe")]')
+    tribe_id = tribe_id.get_attribute('tooltip-translate')
 
     units_cost = [] #resources cost for every unit in units_train
     total_units_cost = [] #total resources cost for every unit in units_train
-    training_queue: dict = {shortcut.barrack:{}, shortcut.stable:{}, shortcut.workshop:{}} #dict for training queue
+    training_queue: dict = {} #dict for training queue
     for tribe in content['tribe']:
         if tribe_id in tribe['tribeId']:
             for unit in tribe['units']:
@@ -154,12 +153,8 @@ def save_resources_gold(browser: client, units_train: list, content: dict) -> No
                     training_cost = sum(unit['trainingCost'].values())
                     total_units_cost.append(training_cost)
                     #initializing training_queue
-                    if 'Barrack' in unit['unitTrain']:
-                        training_queue[shortcut.barrack][unit['unitId']] = 0
-                    elif 'Stable' in unit['unitTrain']:
-                        training_queue[shortcut.stable][unit['unitId']] = 0
-                    elif 'Workshop' in unit['unitTrain']:
-                        training_queue[shortcut.workshop][unit['unitId']] = 0
+                    training_queue[unit['unitTrain']] = {}
+                    training_queue[unit['unitTrain']][unit['unitId']] = 0
 
     resources = check_resources(browser)
     total_resources = sum(resources.values())
@@ -175,7 +170,6 @@ def save_resources_gold(browser: client, units_train: list, content: dict) -> No
     for unit_train in training_queue:
         for unit_id in training_queue[unit_train]:
             training_queue[unit_train][unit_id] = next(_iter)
-
 
     total_training_cost = [] #amount of troop * units_cost
     _iter = (x for x in training_amount) #generator of training_amount
@@ -198,12 +192,13 @@ def save_resources_gold(browser: client, units_train: list, content: dict) -> No
     npc_tab = browser.find(
         '//*[@id="optimizely_maintab_NpcTrade"]')
     browser.click(npc_tab, 1)
-    # TODO nicer xpath
+
     market_content = browser.find(
-        '/html/body/div[2]/window/div/div/div[4]/div/div/div[1]/div/div/div/div/div/div/div/div[2]/div')
+        '//div[contains(@class, "marketContent npcTrader")]')
     trs = market_content.find_elements_by_xpath(
         './/tbody[@class="sliderTable"]/tr')
     browser.sleep(1)
+
     for tr in trs[:-2]:
         input = tr.find_element_by_xpath(
             './/input')
@@ -218,7 +213,7 @@ def save_resources_gold(browser: client, units_train: list, content: dict) -> No
         browser.click(lock, 1)
         browser.sleep(1.5)
     convert_button = market_content.find_element_by_xpath(
-        './div[3]/div[1]/button')
+        './/div[@class="merchantBtn"]/button')
     browser.click(convert_button, 1)
 
     # close marketplace
@@ -226,21 +221,18 @@ def save_resources_gold(browser: client, units_train: list, content: dict) -> No
 
     # Start training troops
     for unit_train in training_queue:
-        open_shortcut(browser, unit_train)
+        old_shortcut(browser, unit_train)
         for unit_id in training_queue[unit_train]:
-            if not unit_id:
-                continue
             #click picture based unit_id
             unit_type = 'unitType{}'.format(unit_id)
             image_troop = browser.find(
                 "//div[@class='modalContent']//img[contains(@class, '{}')]".format(unit_type))
             browser.click(image_troop, 1)
             #input amount based training_queue[unit_train][unit_id]
-            # TODO nicer xpath
             input_troop = browser.find(
-                '/html/body/div[2]/window/div/div/div[4]/div/div/div[1]/div/div/div/div/div/div/div/div/div/div/div/div[2]/slider/div')
+                '//div[@class="inputContainer"]')
             input_troop = input_troop.find_element_by_xpath(
-                './/input').send_keys(training_queue[unit_train][unit_id])
+                './input').send_keys(training_queue[unit_train][unit_id])
             browser.sleep(1.5)
             #click train button
             train_button = browser.find(
@@ -248,7 +240,4 @@ def save_resources_gold(browser: client, units_train: list, content: dict) -> No
             browser.click(train_button, 1)
             browser.sleep(1.5)
         browser.sleep(1)
-        try:
-            close_modal(browser)
-        except:
-            pass
+        close_modal(browser)
