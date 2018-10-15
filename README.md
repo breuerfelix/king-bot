@@ -2,8 +2,8 @@
 
 check out the insights of this project: [scriptworld.net](https://scriptworld.net/projects/king-bot/)
 
-also check out the new advanced version of this bot !  
-it's under heavy development right now: [click here !](https://github.com/scriptworld-git/king-bot-api)
+__also check out the new advanced version of this bot !__  
+__it's under heavy development right now: [click here !](https://github.com/scriptworld-git/king-bot-api)__
 
 feel free to join the [official discord channel](https://discord.gg/5n2btF7) or **[contact me! (:](mailto:f.breuer@scriptworld.net)**
 
