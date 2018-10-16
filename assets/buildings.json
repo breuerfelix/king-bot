@@ -1,0 +1,197 @@
+{
+  "name" : "Travian Kingdom Building",
+  "version" : "0.0.1",
+  "buildings" : [
+    {
+      "buildingName" : "Sawmill",
+      "buildingId" : "buildingId5",
+      "buildingType" : "buildingType5"
+    },
+    {
+      "buildingName" : "Brickyard",
+      "buildingId" : "buildingId6",
+      "buildingType" : "buildingType6"
+    },
+    {
+      "buildingName" : "Iron Foundry",
+      "buildingId" : "buildingId7",
+      "buildingType" : "buildingType7"
+    },
+    {
+      "buildingName" : "Grain Mill",
+      "buildingId" : "buildingId8",
+      "buildingType" : "buildingType8"
+    },
+    {
+      "buildingName" : "Bakery",
+      "buildingId" : "buildingId9",
+      "buildingType" : "buildingType9"
+    },
+    {
+      "buildingName" : "Warehouse",
+      "buildingId" : "buildingId10",
+      "buildingType" : "buildingType10"
+    },
+    {
+      "buildingName" : "Granary",
+      "buildingId" : "buildingId11",
+      "buildingType" : "buildingType11"
+    },
+    {
+      "buildingName" : "Smithy",
+      "buildingId" : "buildingId13",
+      "buildingType" : "buildingType13"
+    },
+    {
+      "buildingName" : "Tournament Square",
+      "buildingId" : "buildingId14",
+      "buildingType" : "buildingType14"
+    },
+    {
+      "buildingName" : "Main Building",
+      "buildingId" : "buildingId15",
+      "buildingType" : "buildingType15"
+    },
+    {
+      "buildingName" : "Rally Point",
+      "buildingId" : "buildingId16",
+      "buildingType" : "buildingType16"
+    },
+    {
+      "buildingName" : "Marketplace",
+      "buildingId" : "buildingId17",
+      "buildingType" : "buildingType17"
+    },
+    {
+      "buildingName" : "Embassy",
+      "buildingId" : "buildingId18",
+      "buildingType" : "buildingType18"
+    },
+    {
+      "buildingName" : "Barrack",
+      "buildingId" : "buildingId19",
+      "buildingType" : "buildingType19"
+    },
+    {
+      "buildingName" : "Stable",
+      "buildingId" : "buildingId20",
+      "buildingType" : "buildingType20"
+    },
+    {
+      "buildingName" : "Workshop",
+      "buildingId" : "buildingId21",
+      "buildingType" : "buildingType21"
+    },
+    {
+      "buildingName" : "Academy",
+      "buildingId" : "buildingId22",
+      "buildingType" : "buildingType22"
+    },
+    {
+      "buildingName" : "Cranny",
+      "buildingId" : "buildingId23",
+      "buildingType" : "buildingType23"
+    },
+    {
+      "buildingName" : "Town Hall",
+      "buildingId" : "buildingId24",
+      "buildingType" : "buildingType24"
+    },
+    {
+      "buildingName" : "Residence",
+      "buildingId" : "buildingId25",
+      "buildingType" : "buildingType25"
+    },
+    {
+      "buildingName" : "Palace",
+      "buildingId" : "buildingId26",
+      "buildingType" : "buildingType26"
+    },
+    {
+      "buildingName" : "Treasury",
+      "buildingId" : "buildingId27",
+      "buildingType" : "buildingType27"
+    },
+    {
+      "buildingName" : "Trade Office",
+      "buildingId" : "buildingId28",
+      "buildingType" : "buildingType28"
+    },
+    {
+      "buildingName" : "Great Barrack",
+      "buildingId" : "buildingId29",
+      "buildingType" : "buildingType29"
+    },
+    {
+      "buildingName" : "Great Stable",
+      "buildingId" : "buildingId30",
+      "buildingType" : "buildingType30"
+    },
+    {
+      "buildingName" : "City Wall",
+      "buildingId" : "buildingId31",
+      "buildingType" : "buildingType31"
+    },
+    {
+      "buildingName" : "Earth Wall",
+      "buildingId" : "buildingId32",
+      "buildingType" : "buildingType32"
+    },
+    {
+      "buildingName" : "Palisade",
+      "buildingId" : "buildingId33",
+      "buildingType" : "buildingType33"
+    },
+    {
+      "buildingName" : "Stonemason's Lodge",
+      "buildingId" : "buildingId34",
+      "buildingType" : "buildingType34"
+    },
+    {
+      "buildingName" : "Brewery",
+      "buildingId" : "buildingId35",
+      "buildingType" : "buildingType35"
+    },
+    {
+      "buildingName" : "Trapper",
+      "buildingId" : "buildingId36",
+      "buildingType" : "buildingType36"
+    },
+    {
+      "buildingName" : "Great Warehouse",
+      "buildingId" : "buildingId38",
+      "buildingType" : "buildingType38"
+    },
+    {
+      "buildingName" : "Great Granary",
+      "buildingId" : "buildingId39",
+      "buildingType" : "buildingType39"
+    },
+    {
+      "buildingName" : "World of Wonder",
+      "buildingId" : "buildingId40",
+      "buildingType" : "buildingType40"
+    },
+    {
+      "buildingName" : "Horse Drinking Trough",
+      "buildingId" : "buildingId41",
+      "buildingType" : "buildingType41"
+    },
+    {
+      "buildingName" : "Water Ditch",
+      "buildingId" : "buildingId42",
+      "buildingType" : "buildingType42"
+    },
+    {
+      "buildingName" : "Natarian Wall",
+      "buildingId" : "buildingId43",
+      "buildingType": "buildingType43"
+    },
+    {
+      "buildingName" : "Hidden Treasury",
+      "buildingId" : "buildingId45",
+      "buildingType" : "buildingType45"
+    }
+  ]
+
+}

@@ -1,0 +1,17 @@
+{"queues":[
+  {
+    "queueLocation": "Village",
+    "queueType": "Upgrade",
+    "queueBuilding": "Barrack"
+  },
+  {
+    "queueLocation": "Resources",
+    "queueType": "Upgrade",
+    "queueBuilding": 1
+  },
+  {
+    "queueLocation": "Village",
+    "queueType": "Construct",
+    "queueBuilding": "Smithy"
+  }
+]}

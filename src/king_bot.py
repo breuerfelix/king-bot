@@ -13,6 +13,7 @@ from .dodge_attack import check_for_attack_thread
 from .upgrade import upgrade_units_smithy_thread
 from .settings import settings
 from .celebration import celebration_thread
+from .master_builders import master_builder_thread
 #from .robber_hideouts import robber_hideout_thread
 
 
@@ -163,6 +164,10 @@ class king_bot:
 
         Thread(target=celebration_thread, args=[self.browser, villages, celebration_type, interval]).start()
 
+    def start_building(self, village: int, file_name: str, interval: int = 1800) -> None:
+        Thread(target=master_builder_thread, args=[
+            self.browser, village, file_name, interval]).start()
+            
 #     def robber_hideout(self, interval: int = 600) -> None:
 #        Thread(target=robber_hideout_thread, args=[
 #               self.browser, interval]).start()
