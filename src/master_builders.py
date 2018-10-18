@@ -43,16 +43,29 @@ def master_builder_thread(browser: client, village: int, file_name: str, interva
 @use_browser
 def master_builder(browser: client, village: int, queues: list, buildings: list) -> list:
     open_village(browser, village)
-    for building in buildings:
-        if queues[0]['queueBuilding'] in building['buildingName']:
-            building_id = building['buildingId']
-            break
-    building_img = browser.find(
-        '//img[contains(@class, "{}")]/following::span'.format(building_id))
-    building_status = building_img.find_element_by_xpath(
-        './div')
-    color = building_status.find_element_by_xpath(
-        './div/div').get_attribute('class')
+    if 'Village' in queues[0]['queueLocation'] and 'Upgrade' in queues[0]['queueType']:
+        open_city(browser)
+        time.sleep(1)
+        for building in buildings:
+            if queues[0]['queueBuilding'] in building['buildingName']:
+                building_id = building['buildingId']
+                break
+        building_img = browser.find(
+            '//img[contains(@class, "{}")]/following::span'.format(building_id))
+        building_status = building_img.find_element_by_xpath(
+            './div')
+        color = building_status.find_element_by_xpath(
+            './div/div').get_attribute('class')
+    if 'Resources' in queues[0]['queueLocation']:
+        open_resources(browser)
+        time.sleep(1)
+        location_id = queues[0]['queueBuilding']
+        building_location = browser.find(
+            '//building-location[@class="buildingLocation {}"]'.format(location_id))
+        building_status = building_location.find_element_by_xpath(
+            './/div[contains(@class, "buildingStatus")]')
+        color = building_status.find_element_by_xpath(
+            './/div[contains(@class, "colorLayer")]').get_attribute('class')
     if 'possible' in color: #green
         browser.click_v2(building_status, 1) #use browser.click didn't click
         queues = queues[1:]
