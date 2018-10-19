@@ -1,10 +1,12 @@
 from .custom_driver import client, use_browser
 from .village import open_village, open_city, open_resources
 from .utils import log, parse_time_to_seconds
+from .util_game import close_modal
 from .settings import *
 import time
 import json
 import os
+import re
 
 def master_builder_thread(browser: client, village: int, file_name: str, interval:int) -> None:
     default_interval = interval
@@ -43,7 +45,10 @@ def master_builder_thread(browser: client, village: int, file_name: str, interva
 @use_browser
 def master_builder(browser: client, village: int, queues: list, buildings: list) -> list:
     open_village(browser, village)
-    if 'Village' in queues[0]['queueLocation'] and 'Upgrade' in queues[0]['queueType']:
+    if 'Village' in queues[0]['queueLocation'] and 'Construct' in queues[0]['queueType']:
+        new_queues = master_constructor(browser, queues, buildings)
+        return new_queues
+    elif 'Village' in queues[0]['queueLocation'] and 'Upgrade' in queues[0]['queueType']:
         open_city(browser)
         time.sleep(1)
         for building in buildings:
@@ -53,10 +58,12 @@ def master_builder(browser: client, village: int, queues: list, buildings: list)
         building_img = browser.find(
             '//img[contains(@class, "{}")]/following::span'.format(building_id))
         building_status = building_img.find_element_by_xpath(
-            './div')
+            './/div[contains(@class, "buildingStatus")]')
         color = building_status.find_element_by_xpath(
-            './div/div').get_attribute('class')
-    if 'Resources' in queues[0]['queueLocation']:
+            './/div[contains(@class, "colorLayer")]').get_attribute('class')
+        new_queues = check_color(browser, village, color, building_status, queues)
+        return new_queues
+    elif 'Resources' in queues[0]['queueLocation']:
         open_resources(browser)
         time.sleep(1)
         location_id = queues[0]['queueBuilding']
@@ -66,28 +73,15 @@ def master_builder(browser: client, village: int, queues: list, buildings: list)
             './/div[contains(@class, "buildingStatus")]')
         color = building_status.find_element_by_xpath(
             './/div[contains(@class, "colorLayer")]').get_attribute('class')
-    if 'possible' in color: #green
-        browser.click_v2(building_status, 1) #use browser.click didn't click
-        queues = queues[1:]
-        return queues
-    if 'notNow' in color: #green / yellow
-        construct_slot, queue_slot = check_building_queue(browser, village)
-        if queue_slot:
-            browser.click_v2(building_status, 1) #use browser.click didn't click
-            queues = queues[1:]
-            return queues
-        else:
-            return queues
-    if 'notAtAll' in color: #grey
-        queues = queues[1:]
-        return queues
-    if 'maxLevel' in color: #blue
-        queues = queues[1:]
+        new_queues = check_color(browser, village, color, building_status, queues)
+        return new_queues
+    else:
         return queues
 
 @use_browser
 def check_queue_times(browser: client, village: int, default_interval: int) -> int:
     open_village(browser, village)
+    notepad = browser.find('//a[@id="notepadButton"]')
     construct_slot, queue_slot = check_building_queue(browser, village)
     if construct_slot:
         return default_interval
@@ -120,12 +114,14 @@ def check_queue_times(browser: client, village: int, default_interval: int) -> i
             else:
                 continue
     # parse time to seconds
+    browser.hover(notepad)
     times_in_seconds = []
     for time in times:
         time_in_seconds = parse_time_to_seconds(time)
         times_in_seconds.append(time_in_seconds)
     # return lowest time
-    return min(times_in_seconds) + 3
+    lowest_time = min(times_in_seconds) + 3
+    return lowest_time
 
 @use_browser
 def check_building_queue(browser: client, village: int) -> tuple:
@@ -153,3 +149,90 @@ def check_building_queue(browser: client, village: int) -> tuple:
             continue
         empty_queue += 1
     return empty_construct_slot, empty_queue
+
+@use_browser
+def master_constructor(browser: client, queues: list, buildings: list) -> list:
+    open_city(browser)
+    time.sleep(1)
+    base_url = browser.current_url()
+    location_slots = browser.finds(
+        '//building-location[contains(@class, "free")]')
+    if len(location_slots) < 1:
+        log('no free slot for construc the building.')
+        new_queues = queues[1:]
+        return new_queues
+    the_class = location_slots[0].get_attribute('class')
+    base_url += '/location:'
+    base_url += re.findall('\d+', the_class)[0]
+    base_url += '/window:building'
+    browser.get(base_url)
+    time.sleep(10)
+    for building in buildings:
+        if queues[0]['queueBuilding'] in building['buildingName']:
+            building_type = building['buildingType']
+            break
+    modal_content = browser.find(
+        '//div[@class="modalContent"]')
+    pages = modal_content.find_elements_by_xpath(
+        './/div[@class="pages"]/div')
+    found = False
+    for page in pages[2:-1]:
+        building_img = modal_content.find_elements_by_xpath(
+            './/img')
+        for img in building_img:
+            the_class = img.get_attribute('class')
+            if building_type in the_class:
+                browser.click(img, 1)
+                found = True
+                break
+        if found:
+            break
+        browser.click(pages[-1], 1.3)
+    if not found:
+        log('building image not found.')
+        close_modal(browser)
+        new_queues = queues[1:]
+        return new_queues
+    buttons = modal_content.find_elements_by_xpath(
+        './/button[contains(@class, "startConstruction")]')
+    for button in buttons:
+        the_class = button.get_attribute('class')
+        if 'ng-hide' not in the_class:
+            if 'disable' in the_class:
+                log('requirements not fulfilled.')
+                close_modal(browser)
+                new_queues = queues[1:]
+                return new_queues
+            else:
+                browser.click(button, 1.3)
+                log('constructing..')
+                new_queues = queues[1:]
+                return new_queues
+
+@use_browser
+def check_color(browser: client, village: int, color: str, building_status, queues: list) -> list:
+    notepad = browser.find('//a[@id="notepadButton"]')
+    if 'possible' in color: #green
+        browser.click_v2(building_status, 1)
+        browser.hover(notepad, 1)
+        log('upgrading..')
+        new_queues = queues[1:]
+        return new_queues
+    if 'notNow' in color: #green / yellow
+        construct_slot, queue_slot = check_building_queue(browser, village)
+        if queue_slot:
+            browser.click_v2(building_status, 1)
+            browser.hover(notepad, 1)
+            log('queue building..')
+            new_queues = queues[1:]
+            return new_queues
+        else:
+            return queues
+    if 'notAtAll' in color: #grey
+        log('grey, removing from queue.')
+        new_queues = queues[1:]
+        return new_queues
+    if 'maxLevel' in color: #blue
+        log('blue, removing from queue.')
+        new_queues = queues[1:]
+        return new_queues

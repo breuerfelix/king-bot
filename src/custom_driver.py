@@ -145,6 +145,12 @@ class client:
         self.sleep(wait)
         return self.driver.find_element_by_xpath(xpath)
 
+    def finds(self, xpath: str, wait: float = 0) -> webelement:
+        # todo wait x seconds until presencd of element
+        wait = wait * settings.browser_speed
+        self.sleep(wait)
+        return self.driver.find_elements_by_xpath(xpath)
+
     def sleep(self, seconds: float) -> None:
         seconds = seconds * settings.browser_speed
 
@@ -164,6 +170,12 @@ class client:
         wait = wait * settings.browser_speed
         self.sleep(wait)
 
+    def click_v2(self, element: webelement, wait: float = 0.5) -> None:
+        ActionChains(self.driver).move_to_element(element).click(element).perform()
+
+        wait = wait * settings.browser_speed
+        self.sleep(wait)
+
     def hover(self, element: webelement, wait: float = 0.5) -> None:
         ActionChains(self.driver).move_to_element(element).perform()
 
@@ -172,9 +184,12 @@ class client:
 
     def scroll_down(self, element: webelement) -> None:
         element.send_keys(Keys.PAGE_DOWN)
-            
+
     def refresh(self) -> None:
         self.driver.refresh()
+
+    def current_url(self) -> str:
+        return self.driver.current_url
     # endregion
 
     # region session
