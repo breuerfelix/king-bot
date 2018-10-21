@@ -26,3 +26,5 @@ kingbot.dodge_attack(village=0, units=[1, 2, 11], target=[-10, 53])
 kingbot.dodge_attack(village=1, units=[-1], target=[34, 9], save_resources=True, units_train=[1, 5])
 
 kingbot.upgrade_units_smithy(village=0, units=[21, 25, 23])
+
+kingbot.start_building(village=2, file_name='village_2.json')

@@ -1,17 +1,25 @@
 {"queues":[
-  {
-    "queueLocation": "Village",
-    "queueType": "Upgrade",
-    "queueBuilding": "Barrack"
-  },
-  {
-    "queueLocation": "Resources",
-    "queueType": "Upgrade",
-    "queueBuilding": 1
-  },
-  {
-    "queueLocation": "Village",
-    "queueType": "Construct",
-    "queueBuilding": "Smithy"
-  }
+    {
+      "queueLocation": "Village",
+      "queueType": "Construct",
+      "queueBuilding": "Barrack"
+    },
+    {
+      "queueLocation": "Village",
+      "queueType": "Upgrade",
+      "queueBuilding": "Barrack"
+    },
+    {
+      "queueLocation": "Village",
+      "queueType": "Upgrade",
+      "queueBuilding": "Barrack"
+    },
+    {
+      "queueLocation" : "Resources",
+      "queueBuilding" : "buildingLocation2"
+    },
+    {
+      "queueLocation" : "Resources",
+      "queueBuilding" : "buildingLocation8"
+    }
 ]}

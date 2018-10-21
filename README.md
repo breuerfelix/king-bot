@@ -81,6 +81,7 @@ def celebrate(villages: [], interval: int = 1000) -> None:
 def sort_danger_farms(farmlists: list, to_list: int, red: bool, yellow: bool, interval: int = 300) -> None:
 def dodge_attack(village: int, interval: int = 600, units: list = [], target: list = [], save_resources: bool = False, units_train: list = []) -> None:
 def upgrade_units_smithy(village: int, units: list, interval: int = 1000) -> None:
+def start_building(village: int, file_name: str, interval: int = 1800) -> None:
 ```
 
 ## farming (travian plus)
@@ -277,22 +278,59 @@ sleeping time will be the time the academy needs to finish the current research,
 
 ## upgrade resource fields / buildings
 
-**note:** _this feature is disabled right now, it needs improvement!_
+this function will construct and upgrade building as well as upgrade resources. finish 5 mins earlier is enable by default.
+this function will upgrade/construct based on json file that contains queue for upgrade/construct building.
+the json file can be edit while this function running, so didn't need to restart the function if you want add new queue to json file.
 
-this function will upgrade a resource field or building in any village.
+the json file have **strict structure that need to be fulfilled** if you want to use this function.
+this is an example of queue on json file:
 
-on the picture below you can see all field slot id's.  
+```json
+{"queues":[
+    {
+        "queueLocation": "Village",
+        "queueType": "Construct",
+        "queueBuilding": "Bakery"
+    }
+    {
+        "queueLocation": "Resources",
+        "queueBuilding": "buildingLocation9"
+    }
+]}
+```
+
+**queueLocation:**
+there is 2 values for this keyword, `Village` and `Resources`._(case sensitive)_
+choose `Village` if you want to `Upgrade` or `Construct` building.
+choose `Resources` when you want to upgrade resources.
+
+**queueType:**
+there is 2 values for this keyword, `Construct` and `Upgrade`._(case sensitive)_
+choose `Construct` for constructing building.
+choose `Upgrade` for upgrading building.
+
+**queueBuilding:**
+this keyword filled with building name. if you want to upgrade resources, it point to slot id of resources that you want to upgrade._(case sensitive)_
+on the picture below you can see all field slot id's for your reference when upgrading resources.
 these stay the same no matter what kind of village you have (even in 15er crop villages).
 
+there is an example json file in assets folder that contain queue for your reference.
+there is also building.json file that contains building name for your reference.
+
 ```python
-kingbot.upgrade_slot(village=0, slot=5)
+kingbot.start_building(village=2, file_name='village_2.json', interval=1800)
 ```
 
 **village:**  
 index of the village the slot should be upgraded in _(starting at 0)_
 
-**slot:**  
-see the picture below to get the right slot for your field
+**file_name:**  
+json file that contain queue
+
+**interval:** _(optional -> default = 1800)_
+interval for checking queue
+
+**attention! this feature can only be used in international gameworld**
 
 ![resource-fields](https://scriptworld.net/assets/king-bot/resourceFields.png)
 
