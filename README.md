@@ -301,13 +301,13 @@ this is an example of queue on json file:
 
 **queueLocation:**
 there is 2 values for this keyword, `Village` and `Resources`._(case sensitive)_
-choose `Village` if you want to `Upgrade` or `Construct` building.
-choose `Resources` when you want to upgrade resources.
+- choose `Village` if you want to `Upgrade` or `Construct` building.
+- choose `Resources` when you want to upgrade resources.
 
 **queueType:**
 there is 2 values for this keyword, `Construct` and `Upgrade`._(case sensitive)_
-choose `Construct` for constructing building.
-choose `Upgrade` for upgrading building.
+- choose `Construct` for constructing building.
+- choose `Upgrade` for upgrading building.
 
 **queueBuilding:**
 this keyword filled with building name. if you want to upgrade resources, it point to slot id of resources that you want to upgrade._(case sensitive)_
