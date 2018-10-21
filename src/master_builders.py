@@ -65,10 +65,16 @@ def master_builder(browser: client, village: int, queues: list, buildings: list)
     elif 'Village' in queues[0]['queueLocation'] and 'Upgrade' in queues[0]['queueType']:
         open_city(browser)
         time.sleep(1)
+        found = False
         for building in buildings:
             if queues[0]['queueBuilding'] in building['buildingName']:
                 building_id = building['buildingId']
+                found = True
                 break
+        if not found:
+            log('buildingId not found, remove it from queues.')
+            new_queues = queues[1:]
+            return new_queues
         building_img = browser.find(
             '//img[contains(@class, "{}")]/following::span'.format(building_id))
         building_status = building_img.find_element_by_xpath(
@@ -214,16 +220,23 @@ def master_constructor(browser: client, queues: list, buildings: list) -> list:
     base_url += '/window:building'
     browser.get(base_url)
     time.sleep(3.5)
+    found = False
     for building in buildings:
         if queues[0]['queueBuilding'] in building['buildingName']:
             building_type = building['buildingType']
+            found = True
             break
+    if not found:
+        log('buildingType not found, remove it from queues.')
+        new_queues = queues[1:]
+        return new_queues
     modal_content = browser.find(
         '//div[@class="modalContent"]')
-    pages = modal_content.find_elements_by_xpath(
-        './/div[@class="pages"]/div')
+    pages = modal_content.find_element_by_xpath(
+        './/div[contains(@class, "pages")]')
+    pages_class = pages.get_attribute('class')
     found = False
-    for page in pages[2:-1]:
+    if 'ng-hide' in pages_class:
         building_img = modal_content.find_elements_by_xpath(
             './/img')
         for img in building_img:
@@ -232,9 +245,21 @@ def master_constructor(browser: client, queues: list, buildings: list) -> list:
                 browser.click(img, 1)
                 found = True
                 break
-        if found:
-            break
-        browser.click(pages[-1], 1.3)
+    else:
+        pages = pages.find_elements_by_xpath(
+        './div')
+        for page in pages[2:-1]:
+            building_img = modal_content.find_elements_by_xpath(
+                './/img')
+            for img in building_img:
+                the_class = img.get_attribute('class')
+                if building_type in the_class:
+                    browser.click(img, 1)
+                    found = True
+                    break
+            if found:
+                break
+            browser.click(pages[-1], 1.3)
     if not found:
         log('building image not found.')
         close_modal(browser)
