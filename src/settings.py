@@ -12,4 +12,5 @@ class settings:
     credentials_path: str = os.path.join(BASE_DIR, "assets", "credentials.txt")
     farmlist_path: str = os.path.join(BASE_DIR, "assets", "farmlist.txt")
     units_path: str = os.path.join(BASE_DIR, "assets", "units.json")
+    buildings_path: str = os.path.join(BASE_DIR, "assets", "buildings.json")
     browser_speed: float = 1.0
