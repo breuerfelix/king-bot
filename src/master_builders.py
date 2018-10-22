@@ -100,7 +100,7 @@ def master_builder(browser: client, village: int, queues: list, buildings: list)
         return queues
 
 @use_browser
-def check_queue_times(browser: client, village: int, default_interval: int) -> tuple:
+def check_queue_times(browser: client, village: int, default_interval: int) -> dict:
     open_village(browser, village)
     notepad = browser.find('//a[@id="notepadButton"]')
     construct_slot, queue_slot = check_building_queue(browser, village)
