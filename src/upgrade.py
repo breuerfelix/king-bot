@@ -5,7 +5,8 @@ from .util_game import close_modal
 import time
 from random import randint
 from .village import open_building, open_village, open_city, open_building_type, building
-
+from .worker import worker
+from datetime import timedelta
 
 def upgrade_slot(browser: client, id: int) -> None:
     el = find_slot(browser, id)
@@ -16,20 +17,26 @@ def upgrade_slot(browser: client, id: int) -> None:
     log("added slot: {} to queue".format(id))
 
 
-def upgrade_units_smithy_thread(browser: client, village: int, units: list, interval: int) -> None:
+def upgrade_units_smithy_thread(thread: worker, browser: client, village: int, units: list, interval: int) -> None:
     time.sleep(randint(0, 10))
 
     while True:
+        thread.wait()
+        thread.pause()
         sleep_time: int = interval
 
         rv = upgrade_units_smithy(browser, village, units)
         #log("upgrade units in smithy thread going to sleep ...")
 
-        if rv is not -1:
-            sleep_time = rv + 5
-            log("smithy is busy. going to sleep for " +
-                str(sleep_time / 60) + " minutes")
+        if rv != -1:
+            if rv is None:
+                log("smithy is busy.")
+            else:
+                sleep_time = rv
+                log("smithy is busy. going to sleep for " + 
+                    "{:0>8}".format(str(timedelta(seconds=sleep_time))) + ".")
 
+        thread.resume()
         time.sleep(sleep_time)
 
 
@@ -96,16 +103,28 @@ def upgrade_units_smithy(browser: client, village: int, units: list) -> int:
         cd_list = countdown.split(":")
         cd = int(cd_list[0]) * 60 * 60 + int(cd_list[1]) * 60 + int(cd_list[2])
         close_modal(browser)
+        log("upgrade postponed for " + cd_list[0] + " hours " + cd_list[1] + " minutes " + cd_list[2] + " seconds.")
         return cd
     else:
         for un in units:
             if un in available_units:
                 browser.click(available_units[un], 1)
-                log("upgrade unit: " + str(un) + " in village: " + str(village))
+                log("will try to upgrade unit: " + str(un) + " in village: " + str(village) + ".")
                 break
 
         # click upgrade button
         improve = browser.find("//button[contains(@clickable, 'research')]")
-        browser.click(improve, 1)
+        classes = improve.get_attribute("class").split(" ")
+        available = True
+
+        for c in classes:
+            if c == "disabled":
+                available = False
+                break
+
+        if available:
+            browser.click(improve, 1)
+            log("upgrade started.")
+
         close_modal(browser)
         return -1

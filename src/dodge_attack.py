@@ -6,10 +6,11 @@ from .village import open_village, open_city, open_building
 from .farming import send_farm
 from .util_game import close_modal, shortcut, open_shortcut, check_resources, old_shortcut
 from .settings import settings
+from .worker import worker
 import json
 
 
-def check_for_attack_thread(browser: client, village: int, interval: int, units: list, target: list, save_resources: bool, units_train: list) -> None:
+def check_for_attack_thread(thread: worker, browser: client, village: int, interval: int, units: list, target: list, save_resources: bool, units_train: list) -> None:
     time.sleep(randint(0, 10))
 
     if save_resources:
@@ -17,6 +18,8 @@ def check_for_attack_thread(browser: client, village: int, interval: int, units:
             content = json.load(f)
 
     while True:
+        thread.wait()
+        thread.pause()
         sleep_time = interval
         attack_time = check_for_attack(browser, village)
 
@@ -51,6 +54,7 @@ def check_for_attack_thread(browser: client, village: int, interval: int, units:
             pass
 
         #log("checking for attacks going to sleep")
+        thread.resume()
         time.sleep(sleep_time)
 
 
@@ -113,8 +117,9 @@ def save_resources(browser: client, threshold: list) -> None:
                 offering_type = offering.find_elements_by_xpath(
                     ".//a[contains(@class, 'filter iconButton')]")
                 browser.click(offering_type[foo], 1)
-                input_offering = browser.find(
-                    "//input[@id='marketNewOfferOfferedAmount']").send_keys("1000")
+                input_offering = browser.find("//input[@id='marketNewOfferOfferedAmount']")
+                input_offering.click()
+                input_offering.send_keys("1000")
                 browser.sleep(1)
                 searching = browser.find("//div[@class='searchBox']")
                 searching = searching.find_element_by_xpath(
@@ -122,8 +127,9 @@ def save_resources(browser: client, threshold: list) -> None:
                 searching_type = searching.find_elements_by_xpath(
                     ".//a[contains(@class, 'filter iconButton')]")
                 browser.click(searching_type[(foo+1) % 2], 1)
-                input_searching = browser.find(
-                    "//input[@id='marketNewOfferSearchedAmount']").send_keys("2000")
+                input_searching = browser.find("//input[@id='marketNewOfferSearchedAmount']")
+                input_searching.click()
+                input_searching.send_keys("2000")
                 browser.sleep(1)
                 while resource[res_name] >= threshold[foo] and merchant > 0:
                     sell_btn = browser.find(
