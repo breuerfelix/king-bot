@@ -5,9 +5,8 @@ from .utils import log
 from .util_game import close_modal, check_resources, old_shortcut
 from .village import open_village, open_city
 from .settings import settings
-from .worker import worker
 
-def train_troops_thread(thread: worker, browser: client, village: int, units: list, interval: int) -> None:
+def train_troops_thread(browser: client, village: int, units: list, interval: int) -> None:
     # init delay
     time.sleep(2)
 
@@ -15,29 +14,23 @@ def train_troops_thread(thread: worker, browser: client, village: int, units: li
         content = json.load(f)
 
     while True:
-        thread.wait()
-        thread.pause()
-        log("start training troops.")
-        open_village(browser, village)
-        open_city(browser)
-        if not start_training(browser, units, content):
-            log("not enough resources to train all types.")
-            log("will try to use the remaining resources to train only with the first type.")
-            units = [units[0]]
-            if not start_training(browser, units, content):
-                log("village is too low of resources.")
-        
-        log("finished training troops.")
-        thread.resume()
+        #log("start training troops.")
+        if not start_training(browser, village, units, content):
+            log("village is too low of resources.")        
+        #log("finished training troops.")
         time.sleep(interval)
 
 
 @use_browser
-def start_training(browser: client, units_train: list, content: dict) -> bool:
+def start_training(browser: client, village: int, units_train: list, content: dict) -> bool:
+    open_village(browser, village)
+    open_city(browser)
+
     tribe_id = browser.find(
         '//*[@id="troopsStationed"]//li[contains(@class, "tribe")]')
     tribe_id = tribe_id.get_attribute('tooltip-translate')
 
+    units_cost = [] #resources cost for every unit in units_train
     total_units_cost_wood = [] #total wood cost for every unit in units_train
     total_units_cost_clay = [] #total clay cost for every unit in units_train
     total_units_cost_iron = [] #total iron cost for every unit in units_train
@@ -46,6 +39,7 @@ def start_training(browser: client, units_train: list, content: dict) -> bool:
         if tribe_id in tribe['tribeId']:
             for unit in tribe['units']:
                 if unit['unitId'] in units_train:
+                    units_cost.append(unit['trainingCost'])
                     training_cost_wood = unit['trainingCost']['wood']
                     training_cost_clay = unit['trainingCost']['clay']
                     training_cost_iron = unit['trainingCost']['iron']                    
@@ -89,7 +83,17 @@ def start_training(browser: client, units_train: list, content: dict) -> bool:
         for unit_id in training_queue[unit_train]:
             training_queue[unit_train][unit_id]['amount'] = next(_iter)
 
+    total_training_cost = [] #amount of troop * units_cost
+    _iter = (x for x in training_amount) #generator of training_amount
+    for unit_cost in units_cost:
+        amount = next(_iter)
+        temp = {} #temporary dict
+        for _keys, _values in unit_cost.items():
+            temp[_keys] = _values*amount
+        total_training_cost.append(temp)
+
     # Start training troops
+    index = 0
     for unit_train in training_queue:
         old_shortcut(browser, unit_train)
         for unit_id in training_queue[unit_train]:
@@ -98,7 +102,11 @@ def start_training(browser: client, units_train: list, content: dict) -> bool:
             input_name = training_queue[unit_train][unit_id]['name']
             if input_amount == 0:
                 continue # Skip empty amount
-            log("training {} units of type {}".format(input_amount, input_name) + ".")
+            log("training {} units of type {}".format(input_amount, input_name)
+            + " with a cost of wood:{}, clay:{}, iron:{}".format(
+                total_training_cost[index]['wood'],
+                total_training_cost[index]['clay'],
+                total_training_cost[index]['iron']))
             #click picture based unit_id
             unit_type = 'unitType{}'.format(unit_id)
             image_troop = browser.find(
@@ -116,6 +124,7 @@ def start_training(browser: client, units_train: list, content: dict) -> bool:
                 "//button[contains(@class, 'animate footerButton')]")
             browser.click(train_button, 1)
             browser.sleep(1.5)
+            index += 1
         browser.sleep(1)
         close_modal(browser)
     return True

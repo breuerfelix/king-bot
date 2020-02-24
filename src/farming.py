@@ -7,18 +7,13 @@ from .util_game import close_modal
 import schedule
 from threading import Thread
 from random import randint
-from .worker import worker
 
-
-def start_farming_thread(thread: worker, browser: client, village: int, farmlists: list, interval: int) -> None:
+def start_farming_thread(browser: client, village: int, farmlists: list, interval: int) -> None:
     # todo exit when in beginners protection
     time.sleep(randint(0, 10))  # starting sleep timer
 
     while True:
-        thread.wait()
-        thread.pause()
         start_farming(browser, village, farmlists)
-        thread.resume()
         time.sleep(interval + randint(0, 10))  # randomize intervals
 
 
@@ -59,14 +54,11 @@ def start_farming(browser: client, village: int, farmlists: list) -> None:
     #log("farming thread in village {} sleeping".format(village))
 
 
-def sort_danger_farms_thread(thread: worker, browser: client, farmlists: list, to_list: int, red: bool, yellow: bool, interval: int) -> None:
+def sort_danger_farms_thread(browser: client, farmlists: list, to_list: int, red: bool, yellow: bool, interval: int) -> None:
     time.sleep(randint(0, 10))  # random sleeping at start
 
     while True:
-        thread.wait()
-        thread.pause()
         sort_danger_farms(browser, farmlists, to_list, red, yellow)
-        thread.resume()
         time.sleep(interval + randint(0, 10))  # randomized intervals
 
 

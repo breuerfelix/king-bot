@@ -82,3 +82,7 @@ def open_building_type(browser: client, b_type: building) -> None:
                 if c == "buildingId{}".format(b_type.value):
                     browser.click(img)
                     return
+
+def open_map(browser: client) -> None:
+    map_button = browser.find("//a[contains(@class, 'navi_map bubbleButton')]")
+    browser.click(map_button, 1)

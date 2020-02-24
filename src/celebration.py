@@ -2,23 +2,19 @@ import time
 from .utils import log, parse_time_to_seconds
 from .custom_driver import client, use_browser
 from .util_game import close_modal, open_village_overview, overview
-from .worker import worker
 
 
-def celebration_thread(thread: worker, browser: client, villages: list, celebration_type: int, interval: int) -> None:
+def celebration_thread(browser: client, villages: list, celebration_type: int, interval: int) -> None:
     # init delay
     time.sleep(2)
 
     while True:
-        thread.wait()
-        thread.pause()
         sleep_time = interval
         remaining_time = manage_celebration(browser, villages, celebration_type)
 
         if remaining_time < interval:
             sleep_time = remaining_time + 5
 
-        thread.resume()
         time.sleep(sleep_time)
 
 

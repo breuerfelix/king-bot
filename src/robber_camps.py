@@ -4,22 +4,18 @@ from .util_game import close_modal
 import time
 from .village import open_village, open_city, open_map
 
-def robber_hideout_thread(browser: client, village: int, interval: int, units: dict) -> None:
-    while True:
-        robber = check_robber(browser, village)
-        if robber:            
-            outgoing_troops = check_troops(browser)
-            if outgoing_troops:
-                log("troops are busy right now.")
-            else:
+def robber_camp_thread(browser: client, village: int, interval: int, units: dict) -> None:
+    while True:        
+        robbers = check_robbers(browser, village)
+        if robbers is None:
+            robbers = []
+        if len(robbers):
+            for robber in robbers:
                 send_troops(browser, village, robber, units)
         else:
-            log("there is no Robber Hideout right now, will check again later.")
+            log("there is no Robber Camps right now, will check again later.")
         
         time.sleep(interval)
-        #log("Refreshing the page.")
-        #browser.refresh()
-        #time.sleep(25)
 
 @use_browser
 def send_troops(browser: client, village: int, robber, units: dict) -> None:
@@ -36,6 +32,15 @@ def send_troops(browser: client, village: int, robber, units: dict) -> None:
 
     item_pos1 = browser.find("//div[contains(@class, 'item pos1')]")
     browser.click(item_pos1, 2)
+
+    try:
+        error = browser.find("//div[contains(@ng-if, 'error')]")
+        log(robber_name + ": " + error.get_attribute('innerText'))
+        close_modal(browser)
+        open_city(browser)
+        return
+    except:
+        pass
 
     raid_button = browser.find("//div[contains(@class, 'clickableContainer missionType4')]")
     browser.click(raid_button, 2)
@@ -99,37 +104,21 @@ def send_troops(browser: client, village: int, robber, units: dict) -> None:
     open_city(browser)
 
 @use_browser
-def check_troops(browser: client) -> bool:
-    movements = browser.find("//div[@id='troopMovements']")
-    ul = movements.find_element_by_xpath(".//ul")
-    lis = ul.find_elements_by_xpath(".//li")
-
-    for li in lis:
-        classes = li.get_attribute("class")
-        if "outgoing_attacks" in classes:
-            return True
-        elif "return" in classes:
-            return True
-    
-    open_city(browser)
-    return False
-
-@use_browser
-def check_robber(browser: client, village: int):
+def check_robbers(browser: client, village: int):
     open_village(browser, village)
     map_button = browser.find("//a[contains(@class, 'navi_map bubbleButton')]")
     browser.click(map_button, 1)
     overlay_markers = browser.find("//div[@id='overlayMarkers']")
     divs = overlay_markers.find_elements_by_xpath(".//div")
+    robbers = []
     for listed in divs:
         attribute = listed.get_attribute("class")
         if "robber" in attribute:
             span = listed.find_element_by_xpath(".//span")
             span_attribute = span.get_attribute("class")
-            if "jsVillageType5" in span_attribute:
+            if "jsVillageType8" in span_attribute:
                 browser.hover(span)
                 browser.hover(span)
-                return span
-
+                robbers.append(span)
     open_city(browser)
-    return None
+    return robbers

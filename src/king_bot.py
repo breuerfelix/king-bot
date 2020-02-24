@@ -4,7 +4,6 @@ from threading import Thread
 import platform
 import sys
 import getopt
-from .worker import worker
 from .account import login
 import time
 from .util_game import close_welcome_screen
@@ -17,6 +16,7 @@ from .celebration import celebration_thread
 from .master_builders import master_builder_thread
 from .robber_hideouts import robber_hideout_thread
 from .train_troops import train_troops_thread
+from .robber_camps import robber_camp_thread
 
 
 class king_bot:
@@ -117,7 +117,7 @@ class king_bot:
         self.browser.done()
 
     def start_adventures(self, interval: int = 100, health: int = 50) -> None:
-        worker(target=adventures_thread, name="adventures", args=[
+        Thread(target=adventures_thread, name="adventures", args=[
                self.browser, interval, health]).start()
 
     # todo implement
@@ -129,7 +129,7 @@ class king_bot:
             return
 
     def start_farming(self, village: int, farmlists: list, interval: int) -> None:
-        worker(target=start_farming_thread, name="farming", args=[
+        Thread(target=start_farming_thread, name="farming", args=[
                self.browser, village, farmlists, interval]).start()
 
     def start_custom_farmlist(self, reload: bool = False) -> None:
@@ -137,7 +137,7 @@ class king_bot:
                args=[self.browser, reload]).start()
 
     def sort_danger_farms(self, farmlists: list, to_list: int, red: bool, yellow: bool, interval: int = 300) -> None:
-        worker(target=sort_danger_farms_thread, name="sort_danger_farms", args=[
+        Thread(target=sort_danger_farms_thread, name="sort_danger_farms", args=[
                self.browser, farmlists, to_list, red, yellow, interval]).start()
 
     def dodge_attack(self, village: int, interval: int = 600, save_resources: bool = False, units: list = [], target: list = [], units_train: list = []) -> None:
@@ -153,18 +153,18 @@ class king_bot:
                 warning("dodge_attack: please provide the units that want to train for saving the resources")
                 return
 
-        worker(target=check_for_attack_thread, name="dodge_attack", args=[
+        Thread(target=check_for_attack_thread, name="dodge_attack", args=[
                self.browser, village, interval, units, target, save_resources, units_train]).start()
 
     def upgrade_units_smithy(self, village: int, units: list, interval: int = 1000) -> None:
-        worker(target=upgrade_units_smithy_thread, name="upgrade_units_smithy", args=[
+        Thread(target=upgrade_units_smithy_thread, name="upgrade_units_smithy", args=[
                self.browser, village, units, interval]).start()
 
     def celebrate(self, villages: list, interval: int = 1000) -> None:
         # TODO implement type == 1 for big celebrations
         celebration_type = 0
 
-        worker(target=celebration_thread, name="celebrate", args=[
+        Thread(target=celebration_thread, name="celebrate", args=[
             self.browser, villages, celebration_type, interval]).start()
 
     def start_building(self, village: int, file_name: str, interval: int = 1800) -> None:
@@ -172,9 +172,13 @@ class king_bot:
             self.browser, village, file_name, interval]).start()
 
     def robber_hideout(self, village: int, interval: int = 600, units: list = []) -> None:
-        worker(target=robber_hideout_thread, name="robber_hideout", args=[
+        Thread(target=robber_hideout_thread, name="robber_hideout", args=[
                self.browser, village, interval, units]).start()
 
     def train_troops(self, village: int, units: list = [], interval: int = 600) -> None:
-        worker(target=train_troops_thread, name="train_troops", args=[
+        Thread(target=train_troops_thread, name="train_troops", args=[
                self.browser, village, units, interval]).start()
+
+    def robber_camp(self, village: int, interval: int = 600, units: list = []) -> None:
+        Thread(target=robber_camp_thread, name="robber_camp", args=[
+               self.browser, village, interval, units]).start()

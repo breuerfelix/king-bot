@@ -3,22 +3,18 @@ from threading import Thread
 import time
 from .utils import log
 from .util_game import close_modal
-from .worker import worker
 
-def adventures_thread(thread: worker, browser: client, interval: int, health: int) -> None:
+def adventures_thread(browser: client, interval: int, health: int) -> None:
     # init delay
     time.sleep(2)
 
     while True:
-        thread.wait()
-        thread.pause()
         if check_health(browser, health):
             if start_adventure(browser, interval):
                 interval = check_adventure_time(browser)
         else:
             log("hero is too low for adventures.")
 
-        thread.resume()
         time.sleep(interval)
 
 

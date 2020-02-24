@@ -6,11 +6,10 @@ from .village import open_village, open_city, open_building
 from .farming import send_farm
 from .util_game import close_modal, shortcut, open_shortcut, check_resources, old_shortcut
 from .settings import settings
-from .worker import worker
 import json
 
 
-def check_for_attack_thread(thread: worker, browser: client, village: int, interval: int, units: list, target: list, save_resources: bool, units_train: list) -> None:
+def check_for_attack_thread(browser: client, village: int, interval: int, units: list, target: list, save_resources: bool, units_train: list) -> None:
     time.sleep(randint(0, 10))
 
     if save_resources:
@@ -18,8 +17,6 @@ def check_for_attack_thread(thread: worker, browser: client, village: int, inter
             content = json.load(f)
 
     while True:
-        thread.wait()
-        thread.pause()
         sleep_time = interval
         attack_time = check_for_attack(browser, village)
 
@@ -54,7 +51,6 @@ def check_for_attack_thread(thread: worker, browser: client, village: int, inter
             pass
 
         #log("checking for attacks going to sleep")
-        thread.resume()
         time.sleep(sleep_time)
 
 

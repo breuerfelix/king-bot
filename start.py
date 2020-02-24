@@ -9,14 +9,13 @@ proxy = ""  # optional
 # increase the number if your internet connecion is slow
 settings.browser_speed = 1.0
 
-#sys.argv.append("-r")
-
 kingbot = king_bot(email=email, password=password,
                    gameworld=gameworld, proxy=proxy, start_args=sys.argv, debug=True)
 
 # place your actions below
 #kingbot.start_adventures(1000)
 kingbot.upgrade_units_smithy(village=0, units=[2,5])
-kingbot.dodge_attack(village=0, interval=100, save_resources=False, units=[3,4], target=[4,27], units_train=[1])
-kingbot.robber_hideout(village=0, interval=600, units=[4,10])
+kingbot.dodge_attack(village=0, interval=300, save_resources=False, units=[3,4], target=[4,27], units_train=[1])
+kingbot.robber_hideout(village=0, interval=600, units={4:100,10:-1})
 kingbot.train_troops(village=0, units=[2,5])
+kingbot.robber_camp(village=0, interval=600, units={4:100,10:-1})
