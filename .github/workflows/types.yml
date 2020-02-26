@@ -1,0 +1,22 @@
+name: test
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [3.x]
+
+    steps:
+    - uses: actions/checkout@master
+    - name: use python version ${{ matrix.python-version }}
+      uses: actions/setup-python@master
+      with:
+        python-version: ${{ matrix.python-version }}
+    - run: |
+        pip install mypy
+        mypy start.py --ignore-missing-imports

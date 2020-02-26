@@ -243,7 +243,7 @@ class king_bot:
         ).start()
 
     def robber_hideout(
-        self, village: int, units: list = [], interval: int = 600
+        self, village: int, units: dict = {}, interval: int = 600
     ) -> None:
         Thread(
             target=robber_hideout_thread,
@@ -251,7 +251,7 @@ class king_bot:
             args=[self.browser, village, units, interval],
         ).start()
 
-    def train_troops(self, village: int, units: list = [], interval: int = 600) -> None:
+    def train_troops(self, village: int, units: list = None, interval: int = 600) -> None:
         if units == None:
             warning("train_troops: please provide the units you want to train")
             return
@@ -261,7 +261,7 @@ class king_bot:
             args=[self.browser, village, units, interval],
         ).start()
 
-    def robber_camp(self, village: int, units: list = [], interval: int = 600) -> None:
+    def robber_camp(self, village: int, units: dict = {}, interval: int = 600) -> None:
         Thread(
             target=robber_camp_thread,
             name="robber_camp",

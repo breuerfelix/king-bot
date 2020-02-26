@@ -121,7 +121,7 @@ def master_builder(
 
 
 @use_browser
-def check_queue_times(browser: client, village: int, default_interval: int) -> dict:
+def check_queue_times(browser: client, village: int, default_interval: int) -> tuple:
     open_village(browser, village)
     notepad = browser.find('//a[@id="notepadButton"]')
     construct_slot, queue_slot = check_building_queue(browser, village)
@@ -199,6 +199,8 @@ def check_queue_times(browser: client, village: int, default_interval: int) -> d
         elif not finish_earlier[0]:
             return times_in_seconds[0] + 1, False
 
+    return 1, True
+
 
 @use_browser
 def check_building_queue(browser: client, village: int) -> tuple:
@@ -230,10 +232,12 @@ def master_constructor(browser: client, queues: list, buildings: list) -> list:
     time.sleep(1)
     base_url = browser.current_url()
     location_slots = browser.finds('//building-location[contains(@class, "free")]')
+
     if len(location_slots) < 1:
         log("no free slot for construc the building.")
         new_queues = queues[1:]
         return new_queues
+
     the_class = location_slots[0].get_attribute("class")
     base_url += "/location:"
     base_url += re.findall("\d+", the_class)[0]
@@ -241,15 +245,18 @@ def master_constructor(browser: client, queues: list, buildings: list) -> list:
     browser.get(base_url)
     time.sleep(3.5)
     found = False
+
     for building in buildings:
         if queues[0]["queueBuilding"] in building["buildingName"]:
             building_type = building["buildingType"]
             found = True
             break
+
     if not found:
         log("buildingType not found, remove it from queues.")
         new_queues = queues[1:]
         return new_queues
+
     modal_content = browser.find('//div[@class="modalContent"]')
     pages = modal_content.find_element_by_xpath('.//div[contains(@class, "pages")]')
     pages_class = pages.get_attribute("class")
@@ -280,9 +287,11 @@ def master_constructor(browser: client, queues: list, buildings: list) -> list:
         close_modal(browser)
         new_queues = queues[1:]
         return new_queues
+
     buttons = modal_content.find_elements_by_xpath(
         './/button[contains(@class, "startConstruction")]'
     )
+
     for button in buttons:
         the_class = button.get_attribute("class")
         if "ng-hide" not in the_class:
@@ -303,6 +312,7 @@ def master_constructor(browser: client, queues: list, buildings: list) -> list:
                 new_queues = queues[1:]
                 return new_queues
 
+    return new_queues
 
 @use_browser
 def check_color(
@@ -315,6 +325,7 @@ def check_color(
         log("upgrading..")
         new_queues = queues[1:]
         return new_queues
+
     if "notNow" in color:  # green / yellow
         construct_slot, queue_slot = check_building_queue(browser, village)
         if queue_slot:
@@ -325,14 +336,18 @@ def check_color(
             return new_queues
         else:
             return queues
+
     if "notAtAll" in color:  # grey
         log("grey, removing from queue.")
         new_queues = queues[1:]
         return new_queues
+
     if "maxLevel" in color:  # blue
         log("blue, removing from queue.")
         new_queues = queues[1:]
         return new_queues
+
+    return new_queues
 
 
 def roman_constructor(
