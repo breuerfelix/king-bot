@@ -10,13 +10,6 @@ from typing import Any
 from .settings import settings
 from fake_useragent import UserAgent
 
-"""
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-"""
-
-
 def use_browser(org_func: Any):
     def wrapper(*args, **kwargs):
         browser = None
@@ -30,32 +23,32 @@ def use_browser(org_func: Any):
                 browser = value
                 break
 
-        if browser != None:
-            rv = None
-            browser.use()
-
-            try:
-                rv = org_func(*args, **kwargs)
-            except Exception as e:
-                rv = None
-                error("exception in function: {} exception: {}".format(
-                    org_func.__name__, str(e)))
-
-                log("reloading world.")
-                url = browser.driver.current_url
-                world = url.split('//')
-                world = world[1]
-                world = world.split('.')
-                world = world[0]
-
-                browser.get('https://{}.kingdoms.com'.format(world))
-            finally:
-                browser.done()
-
-                return rv
-
-        else:
+        # no custom browser given
+        if browser is None:
             return org_func(*args, **kwargs)
+
+        rv = None
+        browser.use()
+
+        try:
+            rv = org_func(*args, **kwargs)
+        except Exception as e:
+            rv = None
+            error("exception in function: {} exception: {}".format(
+                org_func.__name__, str(e)))
+
+            log("reloading world.")
+            url = browser.driver.current_url
+            world = url.split('//')
+            world = world[1]
+            world = world.split('.')
+            world = world[0]
+
+            browser.get('https://{}.kingdoms.com'.format(world))
+        finally:
+            browser.done()
+
+            return rv
 
     return wrapper
 
