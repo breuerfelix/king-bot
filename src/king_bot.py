@@ -55,6 +55,7 @@ class king_bot:
             if opt == "-t":
                 # todo run units tests
                 # checks dependencies for travis
+                print("all imports resolved")
                 sys.exit()
             elif opt == "-h":
                 self.browser.headless(self.chrome_driver_path, proxy=proxy)
