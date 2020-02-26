@@ -4,7 +4,7 @@ from .util_game import close_modal
 import time
 from .village import open_village, open_city, open_map
 
-def robber_hideout_thread(browser: client, village: int, interval: int, units: dict) -> None:
+def robber_hideout_thread(browser: client, village: int, units: dict, interval: int) -> None:
     while True:
         robber = check_robber(browser, village)
         if robber:            

@@ -28,6 +28,9 @@ __youtube video:__ how to setup the bot. [click here !](https://youtu.be/JGqBnTL
     - [dodge incoming attacks](#dodge-incoming-attacks)
     - [upgrade units in smithy](#upgrade-units-in-smithy)
     - [upgrade resource fields / buildings](#upgrade-resource-fields--buildings)
+    - [robber hideouts](#robber-hideouts)
+    - [robber camps](#robber-camps)
+    - [train troops](#train-troops)
 - [start options](#start-options)
     - [provide credentials](#provide-credentials)
     - [headless browsing](#headless-browsing)
@@ -82,6 +85,10 @@ def sort_danger_farms(farmlists: list, to_list: int, red: bool, yellow: bool, in
 def dodge_attack(village: int, interval: int = 600, units: list = [], target: list = [], save_resources: bool = False, units_train: list = []) -> None:
 def upgrade_units_smithy(village: int, units: list, interval: int = 1000) -> None:
 def start_building(village: int, file_name: str, interval: int = 1800) -> None:
+def robber_hideout(village: int, units: dict, interval: int) -> None:
+def robber_camp(village: int, units: dict, interval: int) -> None:
+def train_troops(village: int, units: list, interval: int) -> None:
+
 ```
 
 ## farming (travian plus)
@@ -333,6 +340,96 @@ interval for checking queue
 **attention! this feature can only be used in international gameworld**
 
 ![resource-fields](https://scriptworld.net/assets/king-bot/resourceFields.png)
+
+## robber hideouts
+
+the bot will check for robber hideouts and it will send your units to attack them, it will retry with the same hideout until its destroyed, and then it will move on to the next and so on.
+
+the bot will not perform the attack if the troops are moving, either returning or leaving the village, and thus avoid repeating unnecessary attacks.
+
+```python
+kingbot.robber_hideout(village=0, units={10:1, 4:100, 2:-1}, interval=600,)
+```
+
+**village:**  
+index of village from where the bot will attack the robbers **_(starting at 0)_**
+
+**units:**  
+dictionary of units you want to send to the robber hideouts **_(starting at 0)_**
+the format of the units are expressed as a pair: **{<unit index>: <quantity>}**
+insert `-1` **_(units={-1})_** to send **all** available units in this village
+hero is "10:1"
+
+| roman                  | teuton              | gaul                  |
+| ---------------------- | ------------------- | --------------------- |
+| 0: legionnaire         | 0: clubswinger     | 0: phalanx           |
+| 1: praetorian          | 1: spearfighter    | 1: swordsman         |
+| 2: imperian            | 2: axefighter      | 2: pathfinder        |
+| 3: equites legati      | 3: scout           | 3: theutates thunder |
+| 4: equites imperatoris | 4: paladin         | 4: druidrider        |
+| 5: equites caesaris    | 5: teutonic knight | 5: headuan           |
+| 6: battering ram       | 6: ram             | 6: ram               |
+| 7: fire catapult       | 7: catapult        | 7: trebuchet         |
+| 8: senator             | 8: chief           | 8: chieftain         |
+| 9: settler             | 9: settler         | 9: settler           |
+
+ex: as roman send hero, 100 equites imperatoris and all imperian
+**_(units={10:1, 4:100, 2:-1})_**
+
+**interval:** _(optional -> default = 600)_
+interval for checking robber hideouts
+
+## robber camps
+
+the bot will check for robber camps and will send the specified units to attack all the camps at once while there are units available, as well as avoid attacking those already attacked before.
+
+```python
+kingbot.robber_camp(village=0, units={10:1, 0:300}, interval=600,)
+```
+
+**village:**  
+index of village from where the bot will attack the robber camps **_(starting at 0)_**
+
+**units:**  
+dictionary of units you want to send to the robber camps **_(starting at 0)_**
+the format of the units are expressed as a pair: **{<unit index>: <quantity>}**
+insert `-1` **_(units={-1})_** to send **all** available units in this village
+hero is "10:1"
+ex: as teuton send hero and 300 clubswinger
+**_(units={10:1, 0:300})_**
+
+**interval:** _(optional -> default = 600)_
+interval for checking robber camps
+
+## train troops
+
+the bot will train new troops every time interval, if more than one type of unit is specified, the bot will divide the resources by each type of units and try to train as much as possible of each.
+
+```python
+kingbot.train_troops(village=0, units=[1, 2], interval=600)
+```
+
+**village:**  
+index of village which the bot is going to train troops **_(starting at 0)_**
+
+__units:__  
+list of units you want to train   
+
+| roman                  | teuton              | gaul                  |
+| ---------------------- | ------------------- | --------------------- |
+| 1: legionnaire         | 11: clubswinger     | 21: phalanx           |
+| 2: praetorian          | 12: spearfighter    | 22: swordsman         |
+| 3: imperian            | 13: axefighter      | 23: pathfinder        |
+| 4: equites legati      | 14: scout           | 24: theutates thunder |
+| 5: equites imperatoris | 15: paladin         | 25: druidrider        |
+| 6: equites caesaris    | 16: teutonic knight | 26: headuan           |
+| 7: battering ram       | 17: ram             | 27: ram               |
+| 8: fire catapult       | 18: catapult        | 28: trebuchet         |
+| 9: senator             | 19: chief           | 29: chieftain         |
+| 10: settler            | 20: settler         | 30: settler           | 
+
+**interval:** _(optional -> default = 600)_
+interval to train troops
 
 # start options
 

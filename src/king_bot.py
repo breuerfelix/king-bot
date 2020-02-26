@@ -171,14 +171,17 @@ class king_bot:
         Thread(target=master_builder_thread, name="building", args=[
             self.browser, village, file_name, interval]).start()
 
-    def robber_hideout(self, village: int, interval: int = 600, units: list = []) -> None:
+    def robber_hideout(self, village: int, units: list = [], interval: int = 600) -> None:
         Thread(target=robber_hideout_thread, name="robber_hideout", args=[
-               self.browser, village, interval, units]).start()
+               self.browser, village, units, interval]).start()
 
     def train_troops(self, village: int, units: list = [], interval: int = 600) -> None:
+        if units == None:
+            warning("train_troops: please provide the units you want to train")
+            return
         Thread(target=train_troops_thread, name="train_troops", args=[
                self.browser, village, units, interval]).start()
 
-    def robber_camp(self, village: int, interval: int = 600, units: list = []) -> None:
+    def robber_camp(self, village: int, units: list = [], interval: int = 600) -> None:
         Thread(target=robber_camp_thread, name="robber_camp", args=[
-               self.browser, village, interval, units]).start()
+               self.browser, village, units, interval]).start()
