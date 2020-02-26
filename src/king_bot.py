@@ -251,7 +251,9 @@ class king_bot:
             args=[self.browser, village, units, interval],
         ).start()
 
-    def train_troops(self, village: int, units: list = None, interval: int = 600) -> None:
+    def train_troops(
+        self, village: int, units: list = None, interval: int = 600
+    ) -> None:
         if units == None:
             warning("train_troops: please provide the units you want to train")
             return

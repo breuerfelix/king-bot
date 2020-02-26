@@ -314,6 +314,7 @@ def master_constructor(browser: client, queues: list, buildings: list) -> list:
 
     return new_queues
 
+
 @use_browser
 def check_color(
     browser: client, village: int, color: str, building_status, queues: list
