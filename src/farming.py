@@ -8,7 +8,6 @@ import schedule
 from threading import Thread
 from random import randint
 
-
 def start_farming_thread(browser: client, village: int, farmlists: list, interval: int) -> None:
     # todo exit when in beginners protection
     time.sleep(randint(0, 10))  # starting sleep timer
@@ -247,6 +246,7 @@ def send_farm(browser: client, village: int, x: int, y: int, units: dict) -> Non
             inp = inp.find_element_by_xpath(".//input")
             dis = inp.get_attribute("disabled")
             if not dis:
+                inp.click()
                 number = inp.get_attribute("number")
                 inp.send_keys(number)
                 units_sent = True
@@ -270,7 +270,8 @@ def send_farm(browser: client, village: int, x: int, y: int, units: dict) -> Non
                     if int(number) < units_to_send:
                         # send max value if there arent enough units to send
                         units_to_send = number
-
+                        
+                inp.click()
                 inp.send_keys(units_to_send)
                 units_sent = True
 

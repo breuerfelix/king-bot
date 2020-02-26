@@ -4,7 +4,6 @@ import time
 from .utils import log
 from .util_game import close_modal
 
-
 def adventures_thread(browser: client, interval: int, health: int) -> None:
     # init delay
     time.sleep(2)
@@ -14,7 +13,7 @@ def adventures_thread(browser: client, interval: int, health: int) -> None:
             if start_adventure(browser, interval):
                 interval = check_adventure_time(browser)
         else:
-            log("hero is too low for adventures")
+            log("hero is too low for adventures.")
 
         time.sleep(interval)
 
@@ -41,7 +40,7 @@ def start_adventure(browser: client, interval: int) -> bool:
 
     if available:
         browser.click(el, 2)
-        log("adventure started")
+        log("adventure started.")
 
     close_modal(browser)
     return available

@@ -113,8 +113,9 @@ def save_resources(browser: client, threshold: list) -> None:
                 offering_type = offering.find_elements_by_xpath(
                     ".//a[contains(@class, 'filter iconButton')]")
                 browser.click(offering_type[foo], 1)
-                input_offering = browser.find(
-                    "//input[@id='marketNewOfferOfferedAmount']").send_keys("1000")
+                input_offering = browser.find("//input[@id='marketNewOfferOfferedAmount']")
+                input_offering.click()
+                input_offering.send_keys("1000")
                 browser.sleep(1)
                 searching = browser.find("//div[@class='searchBox']")
                 searching = searching.find_element_by_xpath(
@@ -122,8 +123,9 @@ def save_resources(browser: client, threshold: list) -> None:
                 searching_type = searching.find_elements_by_xpath(
                     ".//a[contains(@class, 'filter iconButton')]")
                 browser.click(searching_type[(foo+1) % 2], 1)
-                input_searching = browser.find(
-                    "//input[@id='marketNewOfferSearchedAmount']").send_keys("2000")
+                input_searching = browser.find("//input[@id='marketNewOfferSearchedAmount']")
+                input_searching.click()
+                input_searching.send_keys("2000")
                 browser.sleep(1)
                 while resource[res_name] >= threshold[foo] and merchant > 0:
                     sell_btn = browser.find(

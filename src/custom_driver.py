@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import time
-from .utils import log
+from .utils import log, error
 from threading import RLock
 from typing import Any
 from .settings import settings
@@ -38,10 +38,10 @@ def use_browser(org_func: Any):
                 rv = org_func(*args, **kwargs)
             except Exception as e:
                 rv = None
-                log("exception in function: {} exception: {}".format(
+                error("exception in function: {} exception: {}".format(
                     org_func.__name__, str(e)))
 
-                log("reloading world")
+                log("reloading world.")
                 url = browser.driver.current_url
                 world = url.split('//')
                 world = world[1]
@@ -73,7 +73,7 @@ class client:
 
     def chrome(self, path: str, proxy: str = '') -> None:
         options = webdriver.ChromeOptions()
-        if proxy is not "":
+        if proxy != "":
             self.proxy = True
             options.add_argument('proxy-server={}'.format(proxy))
 
@@ -113,7 +113,7 @@ class client:
         options.add_argument('log-level=3')
         options.add_argument(f'user-agent={userAgent}')
 
-        if proxy is not "":
+        if proxy != "":
             self.proxy = True
             options.add_argument('proxy-server={}'.format(proxy))
 
