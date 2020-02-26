@@ -4,8 +4,11 @@ from .util_game import close_modal
 import time
 from .village import open_village, open_city, open_map
 
-def robber_camp_thread(browser: client, village: int, units: dict, interval: int) -> None:
-    while True:        
+
+def robber_camp_thread(
+    browser: client, village: int, units: dict, interval: int
+) -> None:
+    while True:
         robbers = check_robbers(browser, village)
         if robbers is None:
             robbers = []
@@ -14,8 +17,9 @@ def robber_camp_thread(browser: client, village: int, units: dict, interval: int
                 send_troops(browser, village, robber, units)
         else:
             log("there is no Robber Camps right now, will check again later.")
-        
+
         time.sleep(interval)
+
 
 @use_browser
 def send_troops(browser: client, village: int, robber, units: dict) -> None:
@@ -35,14 +39,16 @@ def send_troops(browser: client, village: int, robber, units: dict) -> None:
 
     try:
         error = browser.find("//div[contains(@ng-if, 'error')]")
-        log(robber_name + ": " + error.get_attribute('innerText'))
+        log(robber_name + ": " + error.get_attribute("innerText"))
         close_modal(browser)
         open_city(browser)
         return
     except:
         pass
 
-    raid_button = browser.find("//div[contains(@class, 'clickableContainer missionType4')]")
+    raid_button = browser.find(
+        "//div[contains(@class, 'clickableContainer missionType4')]"
+    )
     browser.click(raid_button, 2)
 
     input = browser.find("//tbody[contains(@class, 'inputTroops')]/tr")
@@ -81,7 +87,7 @@ def send_troops(browser: client, village: int, robber, units: dict) -> None:
                     if int(number) < units_to_send:
                         # send max value if there arent enough units to send
                         units_to_send = number
-                        
+
                 inp.click()
                 inp.send_keys(units_to_send)
                 units_sent = True
@@ -102,6 +108,7 @@ def send_troops(browser: client, village: int, robber, units: dict) -> None:
 
     log("sent " + str(units_total) + " units to " + robber_name + ".")
     open_city(browser)
+
 
 @use_browser
 def check_robbers(browser: client, village: int):

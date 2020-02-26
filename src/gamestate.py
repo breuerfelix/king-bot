@@ -9,33 +9,32 @@ def load_slot_data(browser: client, id: int) -> dict:
     templvl = el.find_element_by_class_name("buildingLevel")
     lvl = templvl.get_attribute("innerHTML")
     temp_upgrade = el.find_element_by_xpath(
-        ".//div[contains(@class, 'colorLayer')]").get_attribute("class")
+        ".//div[contains(@class, 'colorLayer')]"
+    ).get_attribute("class")
 
     if "possible" in temp_upgrade:
         upgradable = True
 
-    return {'lvl': lvl, 'upgradeable': upgradable}
+    return {"lvl": lvl, "upgradeable": upgradable}
 
 
 def init_villages(browser: client) -> list:
-    villages:list  = []
+    villages: list = []
 
     btn = browser.find("//a[@id='villageOverview']")
     browser.click(btn, 1)
 
-    table = browser.find(
-        "//table[contains(@class, 'villagesTable')]/tbody")
+    table = browser.find("//table[contains(@class, 'villagesTable')]/tbody")
     villages = table.find_elements_by_xpath(".//tr")
 
     for vil in villages:
         tds = vil.find_elements_by_xpath(".//td")
 
-        name = tds[0].find_element_by_xpath(
-            ".//a").get_attribute("innerHTML")
+        name = tds[0].find_element_by_xpath(".//a").get_attribute("innerHTML")
 
         # villages.append(
         #   village(browser, name, villages.index(vil)))
-        #log("village {} added".format(name))
+        # log("village {} added".format(name))
 
     close_modal(browser)
     return villages
@@ -43,7 +42,8 @@ def init_villages(browser: client) -> list:
 
 def checkBuildingSlot(browser: client):
     slots = browser.driver.find_elements_by_xpath(
-        "//div[@class='masterBuilderContainer']/div[contains(@class, 'buildingQueueSlot')]")
+        "//div[@class='masterBuilderContainer']/div[contains(@class, 'buildingQueueSlot')]"
+    )
 
     freeSlots = 0
     locked = False
@@ -78,6 +78,8 @@ class village:
 
         self.name = name
         self.index = index
+
+
 # 1-18 = ress
 # 19-40 = city
 

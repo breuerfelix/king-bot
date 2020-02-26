@@ -10,6 +10,7 @@ from typing import Any
 from .settings import settings
 from fake_useragent import UserAgent
 
+
 def use_browser(org_func: Any):
     def wrapper(*args, **kwargs):
         browser = None
@@ -34,17 +35,20 @@ def use_browser(org_func: Any):
             rv = org_func(*args, **kwargs)
         except Exception as e:
             rv = None
-            error("exception in function: {} exception: {}".format(
-                org_func.__name__, str(e)))
+            error(
+                "exception in function: {} exception: {}".format(
+                    org_func.__name__, str(e)
+                )
+            )
 
             log("reloading world.")
             url = browser.driver.current_url
-            world = url.split('//')
+            world = url.split("//")
             world = world[1]
-            world = world.split('.')
+            world = world.split(".")
             world = world[0]
 
-            browser.get('https://{}.kingdoms.com'.format(world))
+            browser.get("https://{}.kingdoms.com".format(world))
         finally:
             browser.done()
 
@@ -64,14 +68,14 @@ class client:
         self.current_session_path: str = settings.current_session_path
         pass
 
-    def chrome(self, path: str, proxy: str = '') -> None:
+    def chrome(self, path: str, proxy: str = "") -> None:
         options = webdriver.ChromeOptions()
         if proxy != "":
             self.proxy = True
-            options.add_argument('proxy-server={}'.format(proxy))
+            options.add_argument("proxy-server={}".format(proxy))
 
-        options.add_argument('window-size=1500,1200')
-        options.add_argument('log-level=3')
+        options.add_argument("window-size=1500,1200")
+        options.add_argument("log-level=3")
 
         self.driver = webdriver.Chrome(path, chrome_options=options)
         self.set_config()
@@ -89,26 +93,27 @@ class client:
         session = lines[1]
 
         self.driver = webdriver.Remote(
-            command_executor=url, desired_capabilities=DesiredCapabilities.CHROME)
+            command_executor=url, desired_capabilities=DesiredCapabilities.CHROME
+        )
         self.driver.session_id = session
 
         self.set_config()
 
-    def headless(self, path: str, proxy: str = '') -> None:
+    def headless(self, path: str, proxy: str = "") -> None:
         ua = UserAgent()
         userAgent = ua.random
         options = webdriver.ChromeOptions()
-        options.add_argument('headless')
-        options.add_argument('window-size=1500,1200')
-        options.add_argument('no-sandbox')
-        options.add_argument('disable-dev-shm-usage')
-        options.add_argument('disable-gpu')
-        options.add_argument('log-level=3')
-        options.add_argument(f'user-agent={userAgent}')
+        options.add_argument("headless")
+        options.add_argument("window-size=1500,1200")
+        options.add_argument("no-sandbox")
+        options.add_argument("disable-dev-shm-usage")
+        options.add_argument("disable-gpu")
+        options.add_argument("log-level=3")
+        options.add_argument(f"user-agent={userAgent}")
 
         if proxy != "":
             self.proxy = True
-            options.add_argument('proxy-server={}'.format(proxy))
+            options.add_argument("proxy-server={}".format(proxy))
 
         self.driver = webdriver.Chrome(path, chrome_options=options)
         self.set_config()
@@ -126,6 +131,7 @@ class client:
 
     def done(self) -> None:
         self.lock.release()
+
     # endregion
 
     # region browser function
@@ -183,6 +189,7 @@ class client:
 
     def current_url(self) -> str:
         return self.driver.current_url
+
     # endregion
 
     # region session
@@ -194,7 +201,7 @@ class client:
         session = self.driver.session_id
 
         filename = self.current_session_path
-        semi = ';'
+        semi = ";"
 
         content = url + semi + session
 
@@ -203,10 +210,11 @@ class client:
             file.write(content)
             file.close()
         except:
-            log('Error saving Session')
+            log("Error saving Session")
 
     def write_source(self) -> None:
         file = open("./source.html", "w")
         file.write(self.driver.page_source)
         file.close()
+
     # endregion

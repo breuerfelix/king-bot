@@ -8,7 +8,10 @@ import schedule
 from threading import Thread
 from random import randint
 
-def start_farming_thread(browser: client, village: int, farmlists: list, interval: int) -> None:
+
+def start_farming_thread(
+    browser: client, village: int, farmlists: list, interval: int
+) -> None:
     # todo exit when in beginners protection
     time.sleep(randint(0, 10))  # starting sleep timer
 
@@ -19,42 +22,43 @@ def start_farming_thread(browser: client, village: int, farmlists: list, interva
 
 @use_browser
 def start_farming(browser: client, village: int, farmlists: list) -> None:
-    #log("farming thread in village {} waking up".format(village))
+    # log("farming thread in village {} waking up".format(village))
 
     open_village(browser, village)
     open_city(browser)
     open_building(browser, 32)
     browser.sleep(1)
 
-    tab = browser.find(
-        "//a[contains(@class, 'tab naviTabFarmList')]")
+    tab = browser.find("//a[contains(@class, 'tab naviTabFarmList')]")
     browser.click(tab, 1)
 
-    table = browser.find(
-        "//div[@class='farmList']")
-    table = browser.find(
-        ".//table[contains(@class, 'farmListsOverviewTable')]")
-    lists = table.find_elements_by_xpath(
-        ".//tbody")
+    table = browser.find("//div[@class='farmList']")
+    table = browser.find(".//table[contains(@class, 'farmListsOverviewTable')]")
+    lists = table.find_elements_by_xpath(".//tbody")
 
     for i in farmlists:
-        cb = lists[i].find_element_by_xpath(
-            ".//input[@type='checkbox']")
+        cb = lists[i].find_element_by_xpath(".//input[@type='checkbox']")
         # cb.send_keys(Keys.SPACE)
         browser.click(cb)
 
     browser.sleep(0.5)
-    btn = browser.find(
-        "//button[contains(@class, 'startRaid')]")
+    btn = browser.find("//button[contains(@class, 'startRaid')]")
     browser.click(btn, 1)
     log("farmlists: {} sent in village: {}".format(str(farmlists), str(village)))
 
     close_modal(browser)
 
-    #log("farming thread in village {} sleeping".format(village))
+    # log("farming thread in village {} sleeping".format(village))
 
 
-def sort_danger_farms_thread(browser: client, farmlists: list, to_list: int, red: bool, yellow: bool, interval: int) -> None:
+def sort_danger_farms_thread(
+    browser: client,
+    farmlists: list,
+    to_list: int,
+    red: bool,
+    yellow: bool,
+    interval: int,
+) -> None:
     time.sleep(randint(0, 10))  # random sleeping at start
 
     while True:
@@ -63,32 +67,28 @@ def sort_danger_farms_thread(browser: client, farmlists: list, to_list: int, red
 
 
 @use_browser
-def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool, yellow: bool) -> None:
-    #log("sorting farms started...")
+def sort_danger_farms(
+    browser: client, farmlists: list, to_list: int, red: bool, yellow: bool
+) -> None:
+    # log("sorting farms started...")
 
     open_city(browser)
     open_building(browser, 32)
 
     browser.sleep(1)
-    tab = browser.find(
-        "//a[contains(@class, 'tab naviTabFarmList')]")
+    tab = browser.find("//a[contains(@class, 'tab naviTabFarmList')]")
     browser.click(tab, 1)
 
-    table = browser.find(
-        "//div[@class='farmList']")
-    table = browser.find(
-        ".//table[contains(@class, 'farmListsOverviewTable')]")
-    lists = table.find_elements_by_xpath(
-        ".//tbody")
+    table = browser.find("//div[@class='farmList']")
+    table = browser.find(".//table[contains(@class, 'farmListsOverviewTable')]")
+    lists = table.find_elements_by_xpath(".//tbody")
 
     for i in farmlists:
         # opens farmlist
-        cb = lists[i].find_element_by_xpath(
-            ".//td[contains(@class, 'clickable')]")
+        cb = lists[i].find_element_by_xpath(".//td[contains(@class, 'clickable')]")
         browser.click(cb)
 
-        tbody = browser.find(
-            "//div[@class='listDetail']")
+        tbody = browser.find("//div[@class='listDetail']")
         tbody = tbody.find_element_by_xpath(".//tbody")
         trs = tbody.find_elements_by_xpath(".//tr")
         for tr in trs:
@@ -99,11 +99,11 @@ def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool,
                 if translate != "Notification_1":
                     movefarm = False
                     if translate == "Notification_2":
-                        #farm is yellow
+                        # farm is yellow
                         if yellow == True:
                             movefarm = True
                     elif translate == "Notification_3":
-                        #farm is red
+                        # farm is red
                         if red == True:
                             movefarm = True
 
@@ -113,17 +113,19 @@ def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool,
 
                         if to_list == -1:
                             add = tds[9].find_element_by_xpath(
-                                ".//div[contains(@clickable, 'deleteEntry')]")
+                                ".//div[contains(@clickable, 'deleteEntry')]"
+                            )
                             browser.click(add, 1)
                         else:
                             add = tds[9].find_element_by_xpath(
-                                ".//div[contains(@clickable, 'farmListAdd')]")
+                                ".//div[contains(@clickable, 'farmListAdd')]"
+                            )
                             browser.click(add, 1)
 
-                            inner = browser.find(
-                                "//div[@class='farmListInner']")
+                            inner = browser.find("//div[@class='farmListInner']")
                             movelists = inner.find_element_by_xpath(
-                                ".//div[contains(@class, 'list')]")
+                                ".//div[contains(@class, 'list')]"
+                            )
 
                             # todo test this !!
                             # move to new list
@@ -137,9 +139,11 @@ def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool,
                             browser.sleep(1)
 
                             modal = browser.find(
-                                "//div[contains(@class, 'farmListAdd')]")
+                                "//div[contains(@class, 'farmListAdd')]"
+                            )
                             closemodal = modal.find_element_by_xpath(
-                                ".//a[contains(@class, 'closeWindow')]")
+                                ".//a[contains(@class, 'closeWindow')]"
+                            )
                             browser.click(closemodal, 2)
 
                         log("moved or deleted farm")
@@ -148,31 +152,31 @@ def sort_danger_farms(browser: client, farmlists: list, to_list: int, red: bool,
                 pass
 
         # press back button
-        btnback = browser.find(
-            "//div[@class='back clickable']")
+        btnback = browser.find("//div[@class='back clickable']")
         browser.click(btnback, 1)
 
     close_modal(browser)
-    #log("sorting farms going to sleep")
+    # log("sorting farms going to sleep")
 
 
-def start_custom_farmlist_thread(browser: client, reload: bool, interval: int = 60) -> None:
+def start_custom_farmlist_thread(
+    browser: client, reload: bool, interval: int = 60
+) -> None:
     # thread that executes jobs
     Thread(target=run_jobs).start()
 
     jobs: list = []  # current jobs
 
     while True:
-        job_dict = check_for_lines(
-            path=settings.farmlist_path, current_lines=jobs)
+        job_dict = check_for_lines(path=settings.farmlist_path, current_lines=jobs)
 
         # remove jobs that are not present anymore
-        for rem_job in job_dict['remove']:
+        for rem_job in job_dict["remove"]:
             schedule.clear(rem_job)
             jobs.remove(rem_job)
 
         # add new jobs
-        for add_job in job_dict['add']:
+        for add_job in job_dict["add"]:
             args = add_job.split(";")
 
             units = args[4]
@@ -184,14 +188,20 @@ def start_custom_farmlist_thread(browser: client, reload: bool, interval: int = 
 
             # shedule task
             schedule.every(int(args[2])).seconds.do(
-                send_farm, browser=browser, x=args[0], y=args[1], village=args[3], units=unit_dict).tag(add_job)
+                send_farm,
+                browser=browser,
+                x=args[0],
+                y=args[1],
+                village=args[3],
+                units=unit_dict,
+            ).tag(add_job)
 
             jobs.append(add_job)
             log("job " + add_job + " started")
 
         browser.use()
 
-        for add_job in job_dict['add']:
+        for add_job in job_dict["add"]:
             args = add_job.split(";")
 
             units = args[4]
@@ -202,8 +212,9 @@ def start_custom_farmlist_thread(browser: client, reload: bool, interval: int = 
                 unit_dict[int(unit_list[i])] = int(unit_list[i + 1])
 
             # send one time at start
-            send_farm(browser=browser, x=args[0],
-                      y=args[1], village=args[3], units=unit_dict)
+            send_farm(
+                browser=browser, x=args[0], y=args[1], village=args[3], units=unit_dict
+            )
 
         browser.done()
 
@@ -215,7 +226,7 @@ def start_custom_farmlist_thread(browser: client, reload: bool, interval: int = 
 
 @use_browser
 def send_farm(browser: client, village: int, x: int, y: int, units: dict) -> None:
-    #log("sending units to: ({}/{}) ...".format(x, y))
+    # log("sending units to: ({}/{}) ...".format(x, y))
 
     open_village(browser, int(village))
     open_city(browser)
@@ -223,15 +234,12 @@ def send_farm(browser: client, village: int, x: int, y: int, units: dict) -> Non
     btn = browser.find("//button[contains(@class, 'sendTroops')]")
     browser.click(btn, 2)
 
-    input = browser.find(
-        "//div[@class='modalContent']")
-    input = input.find_element_by_xpath(
-        ".//input[contains(@class, 'targetInput')]")
+    input = browser.find("//div[@class='modalContent']")
+    input = input.find_element_by_xpath(".//input[contains(@class, 'targetInput')]")
     input.send_keys("({}|{})".format(x, y))
     browser.sleep(1)
 
-    btn = browser.find(
-        "//div[contains(@class, 'clickableContainer missionType4')]")
+    btn = browser.find("//div[contains(@class, 'clickableContainer missionType4')]")
     browser.click(btn)
 
     input = browser.find("//tbody[contains(@class, 'inputTroops')]/tr")
@@ -270,7 +278,7 @@ def send_farm(browser: client, village: int, x: int, y: int, units: dict) -> Non
                     if int(number) < units_to_send:
                         # send max value if there arent enough units to send
                         units_to_send = number
-                        
+
                 inp.click()
                 inp.send_keys(units_to_send)
                 units_sent = True
@@ -283,8 +291,7 @@ def send_farm(browser: client, village: int, x: int, y: int, units: dict) -> Non
     browser.sleep(1)
     btn = browser.find("//button[contains(@class, 'next clickable')]")
     browser.click(btn, 1)
-    btn = browser.find(
-        "//button[contains(@class, 'sendTroops clickable')]")
+    btn = browser.find("//button[contains(@class, 'sendTroops clickable')]")
     browser.click(btn, 1)
 
     log("units sent to: ({}/{}).".format(x, y))

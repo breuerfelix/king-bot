@@ -4,10 +4,13 @@ from .util_game import close_modal
 import time
 from .village import open_village, open_city, open_map
 
-def robber_hideout_thread(browser: client, village: int, units: dict, interval: int) -> None:
+
+def robber_hideout_thread(
+    browser: client, village: int, units: dict, interval: int
+) -> None:
     while True:
         robber = check_robber(browser, village)
-        if robber:            
+        if robber:
             outgoing_troops = check_troops(browser)
             if outgoing_troops:
                 log("troops are busy right now.")
@@ -17,6 +20,7 @@ def robber_hideout_thread(browser: client, village: int, units: dict, interval: 
             log("there is no Robber Hideout right now, will check again later.")
 
         time.sleep(interval)
+
 
 @use_browser
 def send_troops(browser: client, village: int, robber, units: dict) -> None:
@@ -34,7 +38,9 @@ def send_troops(browser: client, village: int, robber, units: dict) -> None:
     item_pos1 = browser.find("//div[contains(@class, 'item pos1')]")
     browser.click(item_pos1, 2)
 
-    raid_button = browser.find("//div[contains(@class, 'clickableContainer missionType4')]")
+    raid_button = browser.find(
+        "//div[contains(@class, 'clickableContainer missionType4')]"
+    )
     browser.click(raid_button, 2)
 
     input = browser.find("//tbody[contains(@class, 'inputTroops')]/tr")
@@ -73,7 +79,7 @@ def send_troops(browser: client, village: int, robber, units: dict) -> None:
                     if int(number) < units_to_send:
                         # send max value if there arent enough units to send
                         units_to_send = number
-                        
+
                 inp.click()
                 inp.send_keys(units_to_send)
                 units_sent = True
@@ -95,6 +101,7 @@ def send_troops(browser: client, village: int, robber, units: dict) -> None:
     log("sent " + str(units_total) + " units to " + robber_name + ".")
     open_city(browser)
 
+
 @use_browser
 def check_troops(browser: client) -> bool:
     movements = browser.find("//div[@id='troopMovements']")
@@ -107,9 +114,10 @@ def check_troops(browser: client) -> bool:
             return True
         elif "return" in classes:
             return True
-    
+
     open_city(browser)
     return False
+
 
 @use_browser
 def check_robber(browser: client, village: int):

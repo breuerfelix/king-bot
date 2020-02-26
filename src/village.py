@@ -28,8 +28,7 @@ def open_village(browser: client, id: int) -> None:
 
     btn = browser.find("//a[@id='villageOverview']")
     browser.click(btn, 1)
-    table = browser.find(
-        "//table[contains(@class, 'villagesTable')]/tbody")
+    table = browser.find("//table[contains(@class, 'villagesTable')]/tbody")
     villages = table.find_elements_by_xpath(".//tr")
 
     tds = villages[index].find_elements_by_xpath(".//td")
@@ -61,8 +60,7 @@ def open_resources(browser: client) -> None:
 
 def open_building(browser: client, building: int) -> None:
     # todo open by slot id
-    img = browser.find(
-        "//img[@id='buildingImage{}']".format(building))
+    img = browser.find("//img[@id='buildingImage{}']".format(building))
     browser.click(img, 1)
 
 
@@ -82,6 +80,7 @@ def open_building_type(browser: client, b_type: building) -> None:
                 if c == "buildingId{}".format(b_type.value):
                     browser.click(img)
                     return
+
 
 def open_map(browser: client) -> None:
     map_button = browser.find("//a[contains(@class, 'navi_map bubbleButton')]")
