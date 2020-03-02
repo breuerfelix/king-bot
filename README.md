@@ -545,7 +545,7 @@ i love to teach people who are interested in learning.
 
 # contact
 
-__discord:__ felixbreuer#9641_  
+__discord:__ _felixbreuer#9641_  
 __email:__ _f.breuer94@gmail.com_
 
 ---
