@@ -2,15 +2,10 @@
 
 check out the insights of this project: [breuer.dev](https://breuer.dev/projects/king-bot)
 
-__also check out the new advanced version of this bot! [click here !](https://github.com/breuerfelix/king-bot-api)__  
+__[Twitch](https://twitch.tv/scriptworld)__ - __[YouTube](https://www.youtube.com/c/scriptworld)__ - __[Twitter](https://twitter.com/felix_breuer)__ - __[Patreon](https://patreon.com/scriptworld)__ - __[Discord](https://discord.gg/5n2btF7)__
 
-feel free to join the [official discord channel](https://discord.gg/5n2btF7) or **[contact me! (:](mailto:f.breuer94@gmail.com)**
+__disclaimer:__ please note that this is a research project. i am by no means responsible for any usage of this tool. use on your own behalf. i'm also not responsible if your accounts get banned due to extensive use of this tool.
 
-you want to run the bot **24/7**, but don't want to use your computer? **[contact me aswell! (:](mailto:f.breuer94@gmail.com)**
-
-__youtube video:__ how to setup the bot. [click here !](https://youtu.be/JGqBnTLFDFc)
-
-[![ko-fi](https://img.shields.io/badge/buy%20me%20a-coffee-yellowgreen.svg)](https://ko-fi.com/Y8Y6KZHJ)
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/breuerfelix/king-bot/blob/master/LICENSE)
 [![built with Selenium](https://img.shields.io/badge/built%20with-Selenium-yellow.svg)](https://github.com/SeleniumHQ/selenium)
 [![built with Python3](https://img.shields.io/badge/built%20with-Python3-red.svg)](https://www.python.org/)
@@ -42,7 +37,6 @@ __youtube video:__ how to setup the bot. [click here !](https://youtu.be/JGqBnTL
     - [workflow](#workflow)
     - [nice to know](#nice-to-know)
     - [changelog](#changelog)
-- [contact](#contact)
 
 # getting-started
 
@@ -542,11 +536,6 @@ i love to teach people who are interested in learning.
 ## changelog
 
 [view changelog](CHANGELOG.md)
-
-# contact
-
-__discord:__ _felixbreuer#9641_  
-__email:__ _f.breuer94@gmail.com_
 
 ---
 
