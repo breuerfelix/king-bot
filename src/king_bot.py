@@ -40,6 +40,10 @@ class king_bot:
         self.init(email=email, password=password, proxy=proxy, start_args=start_args)
 
     def init(self, email: str, password: str, proxy: str, start_args: list) -> None:
+        print("This Bot does not work anymore!")
+        print("Travian will detect the Bot and Ban your Account if you still try to run it.")
+        sys.exit(0)
+
         login_req = True
         login_sleeptime = 0
         manual_login = False

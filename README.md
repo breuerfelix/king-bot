@@ -6,6 +6,8 @@ __[Twitch](https://twitch.tv/scriptworld)__ - __[YouTube](https://www.youtube.co
 
 __disclaimer:__ please note that this is a research project. i am by no means responsible for any usage of this tool. use on your own behalf. i'm also not responsible if your accounts get banned due to extensive use of this tool.
 
+__this bot does not work anymore! if you still manage to get it running, it will lead to banned accounts.__
+
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/breuerfelix/king-bot/blob/master/LICENSE)
 [![built with Selenium](https://img.shields.io/badge/built%20with-Selenium-yellow.svg)](https://github.com/SeleniumHQ/selenium)
 [![built with Python3](https://img.shields.io/badge/built%20with-Python3-red.svg)](https://www.python.org/)
