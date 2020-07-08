@@ -2,7 +2,7 @@
 
 check out the insights of this project: [breuer.dev](https://breuer.dev/projects/king-bot)
 
-__[Twitch](https://twitch.tv/scriptworld)__ - __[YouTube](https://www.youtube.com/c/scriptworld)__ - __[Twitter](https://twitter.com/felix_breuer)__ - __[Patreon](https://patreon.com/scriptworld)__ - __[Discord](https://discord.gg/5n2btF7)__
+__[Twitch](https://twitch.tv/scriptworld)__ - __[YouTube](https://www.youtube.com/c/scriptworld)__ - __[Twitter](https://twitter.com/felix_breuer)__ - __[Patreon](https://patreon.com/scriptworld)__ - __[Discord](https://discord.gg/5n2btF7)__ - __[Bot Creation Guide](https://www.udemy.com/course/the-complete-guide-to-bot-creation/?referralCode=7418EBB47E11E34D86C9)
 
 __disclaimer:__ please note that this is a research project. i am by no means responsible for any usage of this tool. use on your own behalf. i'm also not responsible if your accounts get banned due to extensive use of this tool.
 
